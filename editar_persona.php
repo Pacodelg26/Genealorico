@@ -36,7 +36,7 @@
 // Conexión a la base de datos
 $servername = "localhost";
 $username = "pacodelg";
-$password = "Alcocer2626$";
+$password = "Genealorico2024$";
 $dbname = "Genealopaco";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
