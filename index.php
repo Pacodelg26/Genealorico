@@ -32,8 +32,8 @@
 <div class="contenedor">       
         <form action="ver_personas.php" method="GET">
             <label for="persona"></label>
-            <select name="persona" id="persona">
-                <option value="">Selecciona una persona</option>
+            <select class="desplegable" name="persona" id="persona">
+                <option value="">Seleccionar</option>
                 <?php
                 require 'conexion.php';
                 $conexion = new Conexion();

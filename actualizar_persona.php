@@ -2,7 +2,7 @@
 // Conexión a la base de datos
 $servername = "localhost";
 $username = "pacodelg";
-$password = "Alcocer2626$";
+$password = "Genealorico2024$";
 $dbname = "Genealopaco";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -11,7 +11,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
-
+$valida_fecha = "0999/01/02";
 // Obtener los datos del formulario
 $personaID = $_POST['PersonaID'];
 $nombre = $_POST['Nombre'];
@@ -72,13 +72,40 @@ $lugar_de_defuncion = $_POST['Lugar_de_Defunción'];
 // //    }
 // //}
 
-
+// if ( ($fecha_defuncion = NULL) AND ($fecha_nacimiento = NULL)){
+//     $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
+//     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
+//     }else if (($fecha_nacimiento != NULL) AND  ($fecha_defuncion = NULL)) {
+//     $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, , Fecha de Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
+//     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', $lugar_nacimiento', '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
+//     }else {
+//     $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
+//     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
+//     }
 
 // Actualizar los datos en la base de datos
-$sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Fecha_de_Nacimiento = ?, Lugar_de_Nacimiento = ?, Fecha_de_Defunción = ?, Lugar_de_Defunción = ? WHERE PersonaID = ?";
+
+if ( ($fecha_defuncion < $valida_fecha) AND ($fecha_nacimiento < $valida_fecha)){
+$sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Lugar_de_Nacimiento = ?, Lugar_de_Defunción = ? WHERE PersonaID = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sssssssi", $nombre, $apellido_paterno, $apellido_materno, $fecha_de_nacimiento, $lugar_de_nacimiento, $fecha_de_defuncion, $lugar_de_defuncion, $personaID);
+$stmt->bind_param("sssssi", $nombre, $apellido_paterno, $apellido_materno, $lugar_de_nacimiento, $lugar_de_defuncion, $personaID);
 $stmt->execute();
+}else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha )) {
+    $sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Fecha_de_Nacimiento = ?, Lugar_de_Nacimiento = ?, Lugar_de_Defunción = ? WHERE PersonaID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssssi", $nombre, $apellido_paterno, $apellido_materno, $fecha_de_nacimiento, $lugar_de_nacimiento, $lugar_de_defuncion, $personaID);
+    $stmt->execute();
+}else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)) {
+    $sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Lugar_de_Nacimiento = ?, Fecha_de_Defunción = ?, Lugar_de_Defunción = ? WHERE PersonaID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssssi", $nombre, $apellido_paterno, $apellido_materno, $lugar_de_nacimiento, $fecha_de_defuncion, $lugar_de_defuncion, $personaID);
+    $stmt->execute();
+}else {
+    $sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Fecha_de_Nacimiento = ?, Lugar_de_Nacimiento = ?, Fecha_de_Defunción = ?, Lugar_de_Defunción = ? WHERE PersonaID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssssssi", $nombre, $apellido_paterno, $apellido_materno, $fecha_de_nacimiento, $lugar_de_nacimiento, $fecha_de_defuncion, $lugar_de_defuncion, $personaID);
+    $stmt->execute(); 
+}
 
 // Redirigir a la página de lista de personas
 header("Location: ver_personas.php?persona=$personaID");
