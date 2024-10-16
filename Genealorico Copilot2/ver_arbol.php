@@ -7,7 +7,22 @@
 
 </head>
 <body>
-
+<h1>Visor de Personas </h1>
+    <hr>
+     <h2>Páginas del proyecto</h2>
+     
+     <ul>
+            <li>
+                <a href="index.php">Página de Inicio</a>
+                 --     
+                Cargar Personas
+                 --
+                Visor/editor de datos 
+                 --
+                 <a href="visor_arbol.html">Vista de arbol</a>  
+            </li>
+     </ul>
+     <hr>
     <?php
     if (isset($_GET['persona'])) {
         $personaID = $_GET['persona'];
@@ -22,24 +37,8 @@
         $row = $stmt->fetch();
       
         if ($row) {
-        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
-    ?>
-<h1>Visor de Personas </h1>
-    <hr>
-     <h2>Páginas del proyecto</h2>
-     
-     <ul>
-            <li>
-                <a href="index.php">Página de Inicio</a>
-                 --     
-                Cargar Personas
-                 --
-                 <a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a> 
-                 --
-                 <a href="visor_arbol.html">Vista de arbol</a>  
-            </li>
-     </ul>
-     <hr>    
+            $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
+            ?>
             <div class="contenedor">
                 <img id="foto" width="200px" src="<?php echo "/", $foto; ?>" >
         </div>
@@ -58,7 +57,7 @@
                 $stmtPadre = $pdo->prepare($sqlPadre);
                 $stmtPadre->execute([$row['PadreID']]);
                 $padre = $stmtPadre->fetch();
-                echo "<p>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></p>";
+                echo "<p>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></p>"
 
             }
             if ($row['MadreID']) {
