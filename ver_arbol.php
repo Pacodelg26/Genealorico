@@ -97,11 +97,11 @@
                 
             }
             if ($row['Conyuge2']) {
-                $sqlConyuge2 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                $sqlConyuge2 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno, Foto FROM Personas WHERE PersonaID = ?";
                 $stmtConyuge2 = $pdo->prepare($sqlConyuge2);
                 $stmtConyuge2->execute([$row['Conyuge2']]);
                 $conyuge2 = $stmtConyuge2->fetch();
-                echo "<img src=" . $conyuge2['Foto'] . " border='0' width='250' height='250'>";
+                echo "<div style='display: flex; justify-content: center;'><img src='" . $conyuge2['Foto'] . " border='0' width='250' height='250'></div>";
                 echo "<p>Conyuge 2: <a href='ver_arbol.php?persona=".$row['Conyuge1']."'>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a></p>";
             }
     ?>
