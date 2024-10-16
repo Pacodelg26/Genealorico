@@ -90,7 +90,7 @@
                 $stmtConyuge1 = $pdo->prepare($sqlConyuge1);
                 $stmtConyuge1->execute([$row['Conyuge1']]);
                 $conyuge1 = $stmtConyuge1->fetch(); 
-              //  echo "<img src=" . $conyuge1['Foto'] . " border='0' width='250' height='250'>";
+              
                 echo "<div style='display: flex; justify-content: center;'><img src='" . $conyuge1['Foto'] . "' border='0' width='250' height='250'></div>";
                echo "<p>Conyuge 1: <a href='ver_arbol.php?persona=".$row['Conyuge1']."'>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a></p>";
              
