@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "pacodelg";
-$password = "Alcocer2626$";
+$password = "Genealorico2024$";
 $dbname = "Genealopaco";
 
 // Crear conexión

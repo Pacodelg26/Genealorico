@@ -43,7 +43,7 @@
                 <img id="foto" width="200px" src="<?php echo "/", $foto; ?>" >
         </div>
             <?php
-            echo "<p>Foto: " . $row['Foto'] . "</p>";
+            // echo "<p>Foto: " . $row['Foto'] . "</p>";
             echo "<p>Nombre: " . $row['Nombre'] . "</p>";
             echo "<p>Apellido Paterno: " . $row['Apellido_Paterno'] . "</p>";
             echo "<p>Apellido Materno: " . $row['Apellido_Materno'] . "</p>";
