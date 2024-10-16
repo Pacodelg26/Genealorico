@@ -7,22 +7,7 @@
 
 </head>
 <body>
-<h1>Visor de Personas </h1>
-    <hr>
-     <h2>Páginas del proyecto</h2>
-     
-     <ul>
-            <li>
-                <a href="index.php">Página de Inicio</a>
-                 --     
-                Cargar Personas
-                 --
-                Visor/editor de datos 
-                 --
-                 <a href="visor_arbol.html">Vista de arbol</a>  
-            </li>
-     </ul>
-     <hr>
+
     <?php
     if (isset($_GET['persona'])) {
         $personaID = $_GET['persona'];
@@ -37,8 +22,24 @@
         $row = $stmt->fetch();
       
         if ($row) {
-            $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
-            ?>
+        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
+    ?>
+<h1>Visor de Personas </h1>
+    <hr>
+     <h2>Páginas del proyecto</h2>
+     
+     <ul>
+            <li>
+                <a href="index.php">Página de Inicio</a>
+                 --     
+                Cargar Personas
+                 --
+                 <a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a> 
+                 --
+                 <a href="editar_persona.php?persona=<?php echo $personaID; ?>">Editar Persona</a>  
+            </li>
+     </ul>
+     <hr>    
             <div class="contenedor">
                 <img id="foto" width="200px" src="<?php echo "/", $foto; ?>" >
         </div>

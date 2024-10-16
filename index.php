@@ -9,20 +9,7 @@
 
     <h1>GenealoRico Página Principal</h1>
     <hr>
-     <h2>Paginas del proyecto</h2>
-     
-     <ul>
-            <li>
-                <a href="index.php">Página de Inicio</a>
-                 --     
-                Cargar Personas
-                 --
-                Visor/editor de datos
-                 --
-                 <a href="visor_arbol.html">Vista de arbol</a>  
-            </li>
-     </ul>
-     <div class="contenedor">
+      <div class="contenedor">
         <h2>Pagina web de la familia Rico Ibañez y sus parientes</h2>;
 </div>   
 <div class="contenedor">

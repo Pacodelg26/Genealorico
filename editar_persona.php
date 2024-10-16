@@ -8,21 +8,7 @@
 </head>
 <body>
     <h1>Visor/Editor de Datos </h1>
-    <hr>
-     <h2>Paginas del proyecto</h2>
-     
-     <ul>
-            <li>
-                <a href="index.php">Página de Inicio</a>
-                 --     
-                Cargar Personas
-                 --
-                Visor/editor de datos 
-                 --
-                 <a href="visor_arbol.html">Vista de arbol</a>  
-            </li>
-     </ul>
-     <hr>
+   
 </body>
 </html>
 <?php
@@ -59,7 +45,19 @@ $persona = $result->fetch_assoc();
 
 // Mostrar los datos en un formulario para editar
 ?>
-
+ <hr>
+     <h2>Paginas del proyecto</h2>
+     
+     <ul>
+            <li>
+                <a href="index.php">Página de Inicio</a>
+                 --
+                 <a href="ver_personas.php?persona=<?php echo $personaID; ?>">Volver</a> 
+                 --
+                 <a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a> 
+            </li>
+     </ul>
+     <hr>
 <body>
     <div class="contenedor">
     <form action="actualizar_persona.php" method="post">
