@@ -36,7 +36,7 @@
                  --
                  <a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a> 
                  --
-                 <a href="visor_arbol.html">Vista de arbol</a>  
+                 <a href="editar_persona.php?persona=<?php echo $personaID; ?>">Editar Persona</a>  
             </li>
      </ul>
      <hr>    

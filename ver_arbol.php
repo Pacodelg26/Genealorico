@@ -90,7 +90,9 @@
                 $stmtConyuge1 = $pdo->prepare($sqlConyuge1);
                 $stmtConyuge1->execute([$row['Conyuge1']]);
                 $conyuge1 = $stmtConyuge1->fetch(); 
-                
+              //  echo "<img src=" . $conyuge1['Foto'] . " border='0' width='250' height='250'>";
+                echo "<div style='display: flex; justify-content: center;'><img src='" . $conyuge1['Foto'] . "' border='0' width='250' height='250'></div>";
+               echo "<p>Conyuge 1: <a href='ver_arbol.php?persona=".$row['Conyuge1']."'>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a></p>";
              
                 
             }
@@ -99,18 +101,19 @@
                 $stmtConyuge2 = $pdo->prepare($sqlConyuge2);
                 $stmtConyuge2->execute([$row['Conyuge2']]);
                 $conyuge2 = $stmtConyuge2->fetch();
+                echo "<img src=" . $conyuge2['Foto'] . " border='0' width='250' height='250'>";
                 echo "<p>Conyuge 2: <a href='ver_arbol.php?persona=".$row['Conyuge1']."'>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a></p>";
             }
     ?>
 <!-- Mostrar foto del inclito-->
-<div class="contenedor">
+<!-- <div class="contenedor">
             <img id="foto" width="200px" src="<?php echo "/", $foto; ?>" >
-            <img src="<?php echo "/", $conyuge1['Foto']; ?>" border='0' width='250' height='250'>
-    </div>
+            <img src="<?php //echo "/", $conyuge1['Foto']; ?>" border='0' width='250' height='250'>
+    </div> -->
     <?php
     // Mostrar foto del conyuge
-            //echo "<img src=" . $conyuge1['Foto'] . " border='0' width='250' height='250'>";
-            echo "<p>Conyuge 1: <a href='ver_arbol.php?persona=".$row['Conyuge1']."'>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a></p>";
+           // echo "<img src=" . $conyuge1['Foto'] . " border='0' width='250' height='250'>";
+           // echo "<p>Conyuge 1: <a href='ver_arbol.php?persona=".$row['Conyuge1']."'>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a></p>";
             
             // Mostrar Hijos
             echo "<h2>Hijos</h2>";
