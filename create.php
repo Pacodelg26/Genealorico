@@ -1,4 +1,4 @@
- <?php include 'db.php'; ?> 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="styles.css">
     <title>Crear Nueva Persona</title>
 </head>
+<?php
+
+?>
 <body>
     <h1>Crear Nueva Persona</h1>
     <!-- Cabecera de la pagina -->
@@ -39,10 +42,13 @@
         Padre: 
         <select name="PadreID">
             <?php
+            require 'conexion.php';
+            $conexion = new Conexion();
+            $pdo = $conexion->pdo;
             $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M'";
-            $result = $conn->query($sql);
+            $stmt = $pdo->query($sql);
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
-            while($row = $result->fetch_assoc()) {
+            while($row = $stmt->fetch()) {
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
             ?>
@@ -50,10 +56,11 @@
         Madre: 
         <select name="MadreID">
             <?php
+
             $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F'";
-            $result = $conn->query($sql);
+            $stmt = $pdo->query($sql);
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
-            while($row = $result->fetch_assoc()) {
+            while($row = $stmt->fetch()) {
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
             ?>
@@ -61,10 +68,11 @@
         Conyuge1: 
         <select name="Conyuge1">
             <?php
+
             $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas";
-            $result = $conn->query($sql);
+            $stmt = $pdo->query($sql);
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
-            while($row = $result->fetch_assoc()) {
+            while($row = $stmt->fetch()) {
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
             ?>
@@ -72,10 +80,11 @@
         Conyuge2: 
         <select name="Conyuge2">
             <?php
+
             $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas";
-            $result = $conn->query($sql);
+            $stmt = $pdo->query($sql);
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
-            while($row = $result->fetch_assoc()) {
+            while($row = $stmt->fetch()) {
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
             ?>
