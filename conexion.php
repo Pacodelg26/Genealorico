@@ -6,6 +6,9 @@ class Conexion {
     private $pass = 'Genealorico2024$';
     private $charset = 'utf8mb4';
     public $pdo;
+ 
+
+
 
     public function __construct() {
         $dsn = "mysql:host=$this->host;dbname=$this->db;charset=$this->charset";

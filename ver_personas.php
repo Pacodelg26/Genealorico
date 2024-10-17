@@ -32,7 +32,7 @@
             <li>
                 <a href="index.php">Página de Inicio</a>
                  --     
-                Cargar Personas
+                <a href="create.php">Crear nuevas personas</a>
                  --
                  <a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a> 
                  --
