@@ -33,7 +33,13 @@
                 ?>
             </select>
             <input class="desplegable" type="submit" value="Ver Persona">
+            
         </form>
+        <button class="desplegable" onclick="location.href='create.php'">Crear Personas</button>
+       <div> 
+            
+        </div>
+</body>
 </div>       
 </body>
 </html>

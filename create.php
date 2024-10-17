@@ -1,4 +1,4 @@
-<?php include 'db.php'; ?>
+ <?php include 'db.php'; ?> 
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,11 +16,12 @@
             <li>
                 <a href="index.php">Página de Inicio</a>
                 ---
-                <a href="ver_personas.php?persona=<?php echo $personaID; ?>">Volver</a> 
+                <a href="ver_personas.php?persona=2">Volver</a> 
             </li>
      </ul>
      <hr>   
 <div class="contenedor">
+
     <form action="upload.php" method="post" enctype="multipart/form-data">
         Nombre: <input type="text"  name="Nombre" required><br>
         Apellido Paterno: <input type="text" name="Apellido_Paterno" required><br>
