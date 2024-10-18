@@ -15,7 +15,7 @@
 <div class="contenedor">
         <img class="img" src="Genealorico/fotos/Rico.png" />
 </div>  
-        <h1>Para empezar selecciona una persona</h1>
+        <h1>Para empezar selecciona o crea una persona</h1>
 <div class="contenedor">       
         <form action="ver_personas.php" method="GET">
             <label for="persona"></label>
@@ -33,7 +33,13 @@
                 ?>
             </select>
             <input class="desplegable" type="submit" value="Ver Persona">
+            
         </form>
+        <button class="desplegable2" onclick="location.href='create.php'">Crear Personas</button>
+       <div> 
+            
+        </div>
+</body>
 </div>       
 </body>
 </html>
