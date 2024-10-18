@@ -13,7 +13,9 @@ $genero = $_POST['Genero'];
 $padre_id = $_POST['PadreID'];
 $madre_id = $_POST['MadreID'];
 $conyuge1 = $_POST['Conyuge1'];
+//$fecha_boda_1 = $_POST['Fecha_Boda_1']
 $conyuge2 = $_POST['Conyuge2'];
+//$fecha_boda_2 = $_POST['Fecha_Boda_2']
 // Carga de la foto
 
 $target_dir = "Genealorico/fotos/";
