@@ -89,8 +89,19 @@ VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento'
     $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_boda_1, Conyuge2, Fecha_Boda_2)
     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
  }
+?>
+ <h2>Páginas del proyecto</h2>
+     
+ <ul>
+        <li>
+            <a href="index.php">Página de Inicio</a>
+             --     
+            <a href="create.php">Crear nuevas personas</a>
 
-
+        </li>
+ </ul>
+ <hr>  
+ <?php
 // Validar registro creado
 if ($conn->query($sql) === TRUE) {
     echo "Nuevo registro creado exitosamente";
