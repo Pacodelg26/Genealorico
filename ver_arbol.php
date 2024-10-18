@@ -65,7 +65,7 @@
             </div>
             <div class="contenedor">
                 <p> <a href='ver_arbol.php?persona=<?php echo "".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></p>"?>
-                <p> "  " </p>
+                <p> ----- </p>
                 <p> <a href='ver_arbol.php?persona=<?php echo "".$row['MadreID']."'>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</a></p>"?>
             </div>
             <!-- Foto del inclito -->
@@ -81,7 +81,7 @@
 
     <?php       
             //mostrar nombre del inclito
-                echo "<p>Nombre: " . $row['Nombre'] . " " . $row['Apellido_Paterno'] ." " . $row['Apellido_Materno'] . " </p>";
+                echo "<p> Nombre: " . $row['Nombre'] . " " . $row['Apellido_Paterno'] ." " . $row['Apellido_Materno'] . " </p>";
             
                 // Mostrar Conyuges
             echo "<h2>Matrimonios</h2>";

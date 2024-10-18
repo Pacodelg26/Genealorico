@@ -77,6 +77,7 @@
             }
             ?>
         </select><br>
+        Fecha de 1er Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_1"><br>
         Conyuge2: 
         <select name="Conyuge2">
             <?php
@@ -89,6 +90,7 @@
             }
             ?>
         </select><br>
+        Fecha de 2do Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
         <input type="submit" value="Crear">
     </form>
 </div>
