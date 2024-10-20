@@ -1,6 +1,7 @@
 <?php
 include 'db.php';
-
+$personaID = $_POST['PersonaID'];
+echo "$personaID";
 $nombre = $_POST['Nombre'];
 echo "$nombre ";
 $apellido_paterno = $_POST['Apellido_Paterno'];
@@ -57,12 +58,16 @@ $stmt->execute();
 //$stmt->bind_param("ssssssssiiisisi", $nombre, $apellido_paterno, $apellido_materno, $fecha_nacimiento, $lugar_nacimiento, $fecha_defuncion, $lugar_defuncion, $genero, $padre_id, $madre_id, $conyuge1, $fecha_boda_1, $conyuge2, $fecha_boda_2);
 //$stmt->execute();   
   //1010    
-}else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Fecha_de_Nacimiento = ?, Lugar_de_Nacimiento = ?, Lugar_de_Defunción = ?, Genero = ?, PadreID = ?, MadreID = ?, Conyuge1 = ?, Fecha_Boda_1, Conyuge2 = ?,  WHERE PersonaID = ?";
+}else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha) AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
+    $sql = "UPDATE Personas SET Nombre = ? WHERE PersonaID = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssiiisii", $nombre, $apellido_paterno, $apellido_materno, $fecha_nacimiento, $lugar_nacimiento, $lugar_defuncion, $genero, $padre_id, $madre_id, $conyuge1, $fecha_boda_1, $conyuge2, );
-    $stmt->execute();  
-   
+    $stmt->bind_param("si", $nombre, $personaID); // "s" para string, "i" para integer
+    $stmt->execute();
+    //$sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Fecha_de_Nacimiento = ?, Lugar_de_Nacimiento = ?, Lugar_de_Defunción = ?, Genero = ?, PadreID = ?, MadreID = ?, Conyuge1 = ?, Fecha_Boda_1 = ?, Conyuge2 = ?  WHERE PersonaID = ?";
+    //$stmt = $conn->prepare($sql);
+    //$stmt->bind_param("sssssssiiisii", $nombre, $apellido_paterno, $apellido_materno, $fecha_nacimiento, $lugar_nacimiento, $lugar_defuncion, $genero, $padre_id, $madre_id, $conyuge1, $fecha_boda_1, $conyuge2, $personaID);
+    //$stmt->execute();  
+    echo "$nombre ";
    
    //  $sql = "UPDATE Personas SET Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2, Fecha_Boda_2
    // VALUES ('$nombre', '$apellido_paterno', '$apellido_materno',  '$lugar_nacimiento',  '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1',  '$conyuge2', '$fecha_boda_2')";
@@ -123,7 +128,8 @@ $stmt->execute();
     $sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Fecha_de_Nacimiento = ?, Lugar_de_Nacimiento = ?, Fecha_de_Defunción = ?, Lugar_de_Defunción = ?, Genero = ?, PadreID = ?, MadreID = ?, Conyuge1 = ?, Fecha_Boda_1, Conyuge2 = ?, Fecha_Boda_2 = ? = ? WHERE PersonaID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssssssiiisisi", $nombre, $apellido_paterno, $apellido_materno, $fecha_nacimiento, $lugar_nacimiento, $fecha_defuncion, $lugar_defuncion, $genero, $padre_id, $madre_id, $conyuge1, $fecha_boda_1, $conyuge2, $fecha_boda_2, $personaID);
-    $stmt->execute(); }
+    $stmt->execute(); 
+}
 ?>
  <h2>Páginas del proyecto</h2>
      
@@ -138,6 +144,7 @@ $stmt->execute();
  <hr>  
  <?php
 // Validar registro creado
+echo "$nombre ";
 if ($conn->query($sql) === TRUE) {
     echo "Registro Actualizado exitosamente";
 } else {

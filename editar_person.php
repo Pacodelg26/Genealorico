@@ -61,6 +61,7 @@ $persona = $result->fetch_assoc();
 <div class="contenedor">
 
     <form action="upload_update.php" method="post" enctype="multipart/form-data">
+        PersonaID: <input type="text"  name="PersonaID" value="<?php echo $persona['PersonaID']; ?>" required><br>
         Nombre: <input type="text"  name="Nombre" value="<?php echo $persona['Nombre']; ?>" required><br>
         Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $persona['Apellido_Paterno']; ?>" required><br>
         Apellido Materno: <input type="text" name="Apellido_Materno" value="<?php echo $persona['Apellido_Materno']; ?>"><br>
