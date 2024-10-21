@@ -43,10 +43,10 @@ echo "$fecha_boda_2 ";
 
 $target_dir = "Genealorico/fotos/";
 $target_file = $target_dir . basename($_FILES["Foto"]["name"]);
-move_uploaded_file($_FILES["Foto"]["name"], $target_file);
+move_uploaded_file($_FILES["Foto"]["tmp_name"], $target_file);
 
  // Verificar si el archivo es una imagen real
- $check = getimagesize($_FILES["Foto"]["name"]);
+ $check = getimagesize($target_file);
  if($check !== false) {
      $uploadOk = 1;
  } else {
@@ -61,16 +61,16 @@ move_uploaded_file($_FILES["Foto"]["name"], $target_file);
  }
 
  // Verificar el tamaño del archivo
-if ($_FILES["foto"]["size"] > 500000) {
+if ($fotonueva > 500000) {
      echo "Lo siento, tu archivo es demasiado grande.";
      $uploadOk = 0;
  }
 
  // Permitir ciertos formatos de archivo
- if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-     echo "Lo siento, solo se permiten archivos JPG, JPEG, PNG y GIF.";
-     $uploadOk = 0;
- }
+ //if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+ //    echo "Lo siento, solo se permiten archivos JPG, JPEG, PNG y GIF.";
+ //    $uploadOk = 0;
+ //}
 
  // Verificar si $uploadOk es 0 por un error
  if ($uploadOk == 0) {
@@ -78,7 +78,7 @@ if ($_FILES["foto"]["size"] > 500000) {
  }
  // Si todo está bien, intentar subir el archivo
  else {
-    if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
+    if (move_uploaded_file($_FILES["Foto"]["name"], $target_file)) {
        echo "El archivo ". htmlspecialchars( basename( $_FILES["foto"]["name"])). " ha sido subido.";
 // Actualizar la foto actual
         rename($target_file, $target_dir . "foto_actual.jpg");
