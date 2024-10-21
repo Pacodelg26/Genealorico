@@ -90,21 +90,9 @@ $persona = $result->fetch_assoc();
         Cargar otra foto: <input type="file" name="Foto"><br> 
         Género (F ó M): <input type="text" name="Genero" value="<?php echo $persona['Genero']; ?>"><br>
         <?php
-        $persona['Foto'] = $persona['Foto'] ?? '';  // Inicializa la variable si no existe
+       
 
- if (!empty($_FILES['Foto']['name'])) {
-            // Si se ha subido una nueva foto
-            $persona['Foto'] = 'Genealorico/fotos/' . $_FILES['Foto']['name']; // Aquí deberías mover el archivo subido a tu directorio deseado
-        } else {
-            // Si no hay foto y se basa en el género
-            if ($persona['Genero'] == 'M') {
-                $persona['Foto'] = 'Genealorico/fotos/hombre.jpg';
-            } elseif ($persona['Genero'] == 'F') {
-                $persona['Foto'] = 'Genealorico/fotos/mujer.jpg';
-            } else {
-                $persona['Foto'] = 'Genealorico/fotos/default.jpg'; // Opcional: un valor por defecto si el género no es M o F
-            }
-        }
+
 ?>
 
 
@@ -196,7 +184,7 @@ $persona = $result->fetch_assoc();
    <?php
        if ($persona['Conyuge2']) {
            $sqlConyuge2 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-           $stmtConyuge2 = $pdo->prepare($sqlMadre);
+           $stmtConyuge2 = $pdo->prepare($sqlConyuge2);
            $stmtConyuge2->execute([$persona['Conyuge2']]);
            $Conyuge2 = $stmtConyuge2->fetch();
            echo "" . $Conyuge2['Nombre'] . " " . $Conyuge2['Apellido_Paterno'] . " " . $Conyuge2['Apellido_Materno'] . "";
