@@ -46,38 +46,38 @@ $target_file = $target_dir . basename($_FILES["Foto"]["name"]);
 move_uploaded_file($_FILES["Foto"]["tmp_name"], $target_file);
 
  // Verificar si el archivo es una imagen real
- $check = getimagesize($target_file);
- if($check !== false) {
-     $uploadOk = 1;
- } else {
-     echo "El archivo no es una imagen.";
-     $uploadOk = 0;
- }
+//  $check = getimagesize($target_file);
+//  if($check !== false) {
+//      $uploadOk = 1;
+//  } else {
+//      echo "El archivo no es una imagen.";
+//      $uploadOk = 0;
+//  }
 
- // Verificar si el archivo ya existe
- if (file_exists($target_file)) {
-     echo "Lo siento, el archivo ya existe.";
-     $uploadOk = 0;
- }
+//  // Verificar si el archivo ya existe
+//  if (file_exists($target_file)) {
+//      echo "Lo siento, el archivo ya existe.";
+//      $uploadOk = 0;
+//  }
 
- // Verificar el tamaño del archivo
-if ($fotonueva > 500000) {
-     echo "Lo siento, tu archivo es demasiado grande.";
-     $uploadOk = 0;
- }
+//  // Verificar el tamaño del archivo
+// if ($fotonueva > 500000) {
+//      echo "Lo siento, tu archivo es demasiado grande.";
+//      $uploadOk = 0;
+//  }
 
- // Permitir ciertos formatos de archivo
- //if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
- //    echo "Lo siento, solo se permiten archivos JPG, JPEG, PNG y GIF.";
- //    $uploadOk = 0;
- //}
+//  // Permitir ciertos formatos de archivo
+//  //if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+//  //    echo "Lo siento, solo se permiten archivos JPG, JPEG, PNG y GIF.";
+//  //    $uploadOk = 0;
+//  //}
 
- // Verificar si $uploadOk es 0 por un error
- if ($uploadOk == 0) {
-     echo "Lo siento, tu archivo no fue subido.";
- }
+//  // Verificar si $uploadOk es 0 por un error
+//  if ($uploadOk == 0) {
+//      echo "Lo siento, tu archivo no fue subido.";
+//  }
  // Si todo está bien, intentar subir el archivo
- else {
+
     if (move_uploaded_file($_FILES["Foto"]["name"], $target_file)) {
        echo "El archivo ". htmlspecialchars( basename( $_FILES["foto"]["name"])). " ha sido subido.";
 // Actualizar la foto actual
@@ -85,24 +85,31 @@ if ($fotonueva > 500000) {
     } else {
       echo "Lo siento, hubo un error al subir tu archivo.";
     }
-}
+
 
 
 if (!empty($_FILES['Foto']['name'])) {
     // Si se ha subido una nueva foto
     $persona['Foto'] = 'Genealorico/fotos/' . $_FILES['Foto']['name']; // Aquí deberías mover el archivo subido a tu directorio deseado
     $foto=$persona['Foto'];
+    echo "hay foto nueva";
+    echo "$foto";
 } else if (empty($persona['Foto'])) {
     // Si no hay foto y se basa en el género
     if ($persona['Genero'] == 'M') {
         $persona['Foto'] = 'Genealorico/fotos/hombre.jpg';
         $foto=$persona['Foto'];
+        echo "No hay foto nueva ni en la base de datos y es un hombre";
+        echo "$fotonueva";
     } elseif ($persona['Genero'] == 'F') {
         $persona['Foto'] = 'Genealorico/fotos/mujer.jpg';
-        $foto=$persona['Foto'];
+        $foto=$persona['Foto']; 
+        echo "No hay foto nueva ni en la base de datos y es una Mujer";
+        echo "$fotonueva";
     } else {
         $persona['Foto'] = 'Genealorico/fotos/default.jpg'; // Opcional: un valor por defecto si el género no es M o F
         $foto=$persona['Foto'];
+        echo "$foto";
     }
 
    }
@@ -126,7 +133,7 @@ $stmt->execute();
    // $stmt = $conn->prepare($sql);
    // $stmt->bind_param("si", $nombre, $personaID); // "s" para string, "i" para integer
    // $stmt->execute();
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
+    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
     //$stmt = $conn->prepare($sql);
     //$stmt->bind_param("sssssssiiisii", $nombre, $apellido_paterno, $apellido_materno, $fecha_nacimiento, $lugar_nacimiento, $lugar_defuncion, $genero, $padre_id, $madre_id, $conyuge1, $fecha_boda_1, $conyuge2, $personaID);
     //$stmt->execute();  
@@ -155,9 +162,12 @@ $stmt->execute();
 echo "$nombre ";
 if ($conn->query($sql) === TRUE) {
     echo "Registro Actualizado exitosamente";
+   header("Location: ver_personas.php?persona=$personaID");
+exit();
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
-$conn->close();
+$conn->close(); 
+
 ?>
