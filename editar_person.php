@@ -110,8 +110,10 @@ $persona = $result->fetch_assoc();
                echo "" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "";
              }
    ?> 
+   <br>
             <label for="padre">o Selecciona Padre:</label>    
-            <select name="padre" id="padre">   
+            <select name="padre" id="padre"> 
+                <option value="<?php echo $persona['PadreID']?>">Seleccionar</option>  
    <?php
    
            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M'";
@@ -135,8 +137,10 @@ $persona = $result->fetch_assoc();
        }
 
    ?>
+   <br>
             <label for="madre">o Selecciona Madre:</label>    
-   <select name="madre" id="madre">   
+             <select name="madre" id="madre">  
+             <option value="<?php echo $persona['MadreID']?>">Seleccionar</option> 
 <?php        
        $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F'";
        $result = $conn->query($sql);
@@ -158,9 +162,10 @@ $persona = $result->fetch_assoc();
        }
 
    ?>
-
+<br>
             <label for="Conyuge1">o Selecciona de la lista:</label>    
-   <select name="Conyuge1" id="Conyuge1">   
+   <select name="Conyuge1" id="Conyuge1"> 
+   <option value="<?php echo $persona['Conyuge1']?>">Seleccionar</option>   
 <?php        
        $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ";
        $result = $conn->query($sql);
@@ -176,7 +181,7 @@ $persona = $result->fetch_assoc();
             }
         ?>  
         Fecha de 1er Matrimonio: <input type="date" value="<?php echo $persona['Fecha_Boda_1']; ?>" name="Fecha_Boda_1"><br>
-        Vive o vivió en: <input type="text" name="Habita_en" value="<?php echo $persona['Habita_en']; ?>"><br>
+        Vive o vivió en: <input type="text" name="Habita_en" value="<?php echo $persona['Habita_en']; ?>">
  <!-- Edición del conyuge2    -->
  </select><br>       
     <label for="conyuge2">Conyuge2:</label>
@@ -191,9 +196,10 @@ $persona = $result->fetch_assoc();
        }
 
    ?>
-
+<br>
             <label for="Conyuge2">o Selecciona de la lista:</label>    
-            <select name="Conyuge2" id="Conyuge2">   
+            <select name="Conyuge2" id="Conyuge2">
+            <option value="<?php echo $persona['Conyuge2']?>">Seleccionar</option>   
 <?php        
        
     $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ";
