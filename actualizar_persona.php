@@ -21,67 +21,61 @@ $fecha_de_nacimiento = $_POST['Fecha_de_Nacimiento'];
 $lugar_de_nacimiento = $_POST['Lugar_de_Nacimiento'];
 $fecha_de_defuncion = $_POST['Fecha_de_Defunción'];
 $lugar_de_defuncion = $_POST['Lugar_de_Defunción'];
-// $foto = $_POST['Foto'];
 
-// // Cargar la nueva foto al servidor
 
-// $target_dir = "Genealorico/fotos/";
-// $target_file = $target_dir . basename($_FILES["foto"]["name"]);
-// $uploadOk = 1;
-// $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+$foto = $_POST['Foto'];
 
-// // Verificar si el archivo es una imagen real
-// $check = getimagesize($_FILES["foto"]["tmp_name"]);
-// if($check !== false) {
-//     $uploadOk = 1;
-// } else {
-//     echo "El archivo no es una imagen.";
-//     $uploadOk = 0;
-// }
 
-// // Verificar si el archivo ya existe
-// if (file_exists($target_file)) {
-//     echo "Lo siento, el archivo ya existe.";
-//     $uploadOk = 0;
-// }
 
-// // Verificar el tamaño del archivo
-// if ($_FILES["foto"]["size"] > 500000) {
-//     echo "Lo siento, tu archivo es demasiado grande.";
-//     $uploadOk = 0;
-// }
+// Cargar la nueva foto al servidor
 
-// // Permitir ciertos formatos de archivo
-// if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-//     echo "Lo siento, solo se permiten archivos JPG, JPEG, PNG y GIF.";
-//     $uploadOk = 0;
-// }
+ $target_dir = "Genealorico/fotos/";
+ $target_file = $target_dir . basename($_FILES["foto"]["name"]);
+ $uploadOk = 1;
+ $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-// // Verificar si $uploadOk es 0 por un error
-// if ($uploadOk == 0) {
-//     echo "Lo siento, tu archivo no fue subido.";
-// }
-// // Si todo está bien, intentar subir el archivo
-// //} else {
-// //    if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
-// //        echo "El archivo ". htmlspecialchars( basename( $_FILES["foto"]["name"])). " ha sido subido.";
-//         // Actualizar la foto actual
-// //        rename($target_file, $target_dir . "foto_actual.jpg");
-// //    } else {
-// //        echo "Lo siento, hubo un error al subir tu archivo.";
-// //    }
-// //}
+ // Verificar si el archivo es una imagen real
+ $check = getimagesize($_FILES["foto"]["tmp_name"]);
+ if($check !== false) {
+     $uploadOk = 1;
+ } else {
+     echo "El archivo no es una imagen.";
+     $uploadOk = 0;
+ }
 
-// if ( ($fecha_defuncion = NULL) AND ($fecha_nacimiento = NULL)){
-//     $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
-//     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
-//     }else if (($fecha_nacimiento != NULL) AND  ($fecha_defuncion = NULL)) {
-//     $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, , Fecha de Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
-//     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', $lugar_nacimiento', '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
-//     }else {
-//     $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
-//     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
-//     }
+ // Verificar si el archivo ya existe
+ if (file_exists($target_file)) {
+     echo "Lo siento, el archivo ya existe.";
+     $uploadOk = 0;
+ }
+
+ // Verificar el tamaño del archivo
+if ($_FILES["foto"]["size"] > 500000) {
+     echo "Lo siento, tu archivo es demasiado grande.";
+     $uploadOk = 0;
+ }
+
+ // Permitir ciertos formatos de archivo
+ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+     echo "Lo siento, solo se permiten archivos JPG, JPEG, PNG y GIF.";
+     $uploadOk = 0;
+ }
+
+ // Verificar si $uploadOk es 0 por un error
+ if ($uploadOk == 0) {
+     echo "Lo siento, tu archivo no fue subido.";
+ }
+ // Si todo está bien, intentar subir el archivo
+ else {
+    if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
+       echo "El archivo ". htmlspecialchars( basename( $_FILES["foto"]["name"])). " ha sido subido.";
+// Actualizar la foto actual
+        rename($target_file, $target_dir . "foto_actual.jpg");
+    } else {
+      echo "Lo siento, hubo un error al subir tu archivo.";
+    }
+}
+
 
 // Actualizar los datos en la base de datos
 

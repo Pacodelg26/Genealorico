@@ -111,7 +111,7 @@
     }
     ?>
     <div class="contenedor">
-    <a class="link" href="editar_persona.php?persona=<?php echo $personaID; ?>">Editar Persona</a>
+    <a class="link" href="editar_person.php?persona=<?php echo $personaID; ?>">Editar Persona</a>
 </div>
 </body>
 
