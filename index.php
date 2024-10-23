@@ -44,6 +44,15 @@
         form {
             margin-bottom: 20px;
         }
+
+        @media screen and (max-width: 768px) {
+            .contenedor {
+                width: 90%;
+            }
+            .img {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
