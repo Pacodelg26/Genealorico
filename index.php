@@ -88,7 +88,7 @@
         <br>
         <h1>o</h1>
         <br>
-        <button class="desplegable" onclick="location.href='create.php'">Crear Personas</button>
+        <button class="desplegable" onclick="location.href='crear_persona.php'">Crear Personas</button>
        <div> 
             
         </div>

@@ -45,8 +45,28 @@
         form {
             margin-bottom: 20px;
         }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .labelp {
+            display: block;
+            margin-bottom: 10px;
+           
+          
+        }
+        select, input[type="text"] {
+            width: calc(50% - 30px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            
+            
+        }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 668px) {
             .contenedor {
                 width: 90%;
             }
@@ -99,10 +119,8 @@ $persona = $result->fetch_assoc();
  <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
-                
+                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>                
             </li>
-
             <li class="menu-item">
                 <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" alt="Icono 3"></a>
             </li>
@@ -111,13 +129,11 @@ $persona = $result->fetch_assoc();
             </li>
         </ul>
         </nav>
-     
+<hr>
 
-     <hr>
 <div class="contenedor">
-
     <form action="upload_update.php" method="post" enctype="multipart/form-data">
-        PersonaID: <input type="text"  name="PersonaID" value="<?php echo $persona['PersonaID']; ?>" required><br>
+        ID: <input type="text"  name="PersonaID" value="<?php echo $persona['PersonaID']; ?>" required><br>
         Nombre: <input type="text"  name="Nombre" value="<?php echo $persona['Nombre']; ?>" required><br>
         Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $persona['Apellido_Paterno']; ?>" required><br>
         Apellido Materno: <input type="text" name="Apellido_Materno" value="<?php echo $persona['Apellido_Materno']; ?>"><br>
@@ -155,7 +171,7 @@ $persona = $result->fetch_assoc();
 
         
     <!-- Edición del Padre    -->    
-        <label for="padre">Padre:</label>
+        <p for="padre" class="labelp">Padre:</p>
    
    <?php
              if ($persona['PadreID']) {
@@ -167,16 +183,18 @@ $persona = $result->fetch_assoc();
              }
    ?> 
    <br>
-            <label for="padre">o Selecciona Padre:</label>    
-            <select name="padre" id="padre"> 
-                <option value="<?php echo $persona['PadreID']?>">Seleccionar</option>  
+                <label for="padre" class="labelp" >o Selecciona Padre:</label>    
+                <select name="padre" id="padre"> 
+                
+             <option value="<?php echo $persona['PadreID']?>">Seleccionar</option> 
+               <option value="0" >No se conoce</option> 
    <?php
    
-           $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M'";
-           $result = $conn->query($sql);
-           while($row = $result->fetch_assoc()) {
-           echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
-           }
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M' ORDER BY Nombre";
+            $result = $conn->query($sql);
+            while($row = $result->fetch_assoc()) {
+                echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
+            }
    
    ?>
    <!-- Edición de la Madre    -->
@@ -196,9 +214,11 @@ $persona = $result->fetch_assoc();
    <br>
             <label for="madre">o Selecciona Madre:</label>    
              <select name="madre" id="madre">  
-             <option value="<?php echo $persona['MadreID']?>">Seleccionar</option> 
+                
+             <option value="<?php echo $persona['MadreID']?>">Seleccionar</option>
+            <option value="0" >No se conoce</option> 
 <?php        
-       $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F'";
+       $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
        $result = $conn->query($sql);
        while($row = $result->fetch_assoc()) {
        echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
@@ -221,9 +241,11 @@ $persona = $result->fetch_assoc();
 <br>
             <label for="Conyuge1">o Selecciona de la lista:</label>    
    <select name="Conyuge1" id="Conyuge1"> 
-   <option value="<?php echo $persona['Conyuge1']?>">Seleccionar</option>   
+    
+   <option value="<?php echo $persona['Conyuge1']?>">Seleccionar</option> 
+   <option value="0" >No se conoce</option>  
 <?php        
-       $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ";
+       $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre ";
        $result = $conn->query($sql);
        while($row = $result->fetch_assoc()) {
        echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
@@ -255,10 +277,11 @@ $persona = $result->fetch_assoc();
 <br>
             <label for="Conyuge2">o Selecciona de la lista:</label>    
             <select name="Conyuge2" id="Conyuge2">
-            <option value="<?php echo $persona['Conyuge2']?>">Seleccionar</option>   
+            <option value="<?php echo $persona['Conyuge2']?>">Seleccionar</option>
+            <option value="0" >No se conoce</option>    
 <?php        
        
-    $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ";
+    $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre ";
        $result = $conn->query($sql);
        while($row = $result->fetch_assoc()) {
        echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";

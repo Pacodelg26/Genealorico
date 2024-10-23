@@ -91,7 +91,7 @@
                 
             </li>
             <li class="menu-item">
-                <a href="create.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 2"></a>
+                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 3"></a>
             </li>
 
             <li class="menu-item">

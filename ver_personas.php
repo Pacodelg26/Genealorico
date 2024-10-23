@@ -30,6 +30,7 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             max-width: 400px;
+            font: bold;
         }
         .img {
             width: 100%;
@@ -88,7 +89,7 @@
                 
             </li>
             <li class="menu-item">
-                <a href="create.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 2"></a>
+                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 2"></a>
             </li>
             <li class="menu-item">
                 <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" alt="Icono 3"></a>
@@ -106,14 +107,14 @@
         <div class="contenedorlista">
             <?php
             // echo "<p>Foto: " . $row['Foto'] . "</p>";
-            echo "<p>Nombre: " . $row['Nombre'] . "</p>";
-            echo "<p>Apellido Paterno: " . $row['Apellido_Paterno'] . "</p>";
-            echo "<p>Apellido Materno: " . $row['Apellido_Materno'] . "</p>";
+            echo "<label>Nombre: " . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] ."</label>";
+            // echo "<p>Apellido Paterno: " . $row['Apellido_Paterno'] . "</p>";
+            // echo "<p>Apellido Materno: " . $row['Apellido_Materno'] . "</p>";
             if ($row['Fecha_de_Nacimiento']) {
-            echo "<p>Fecha de Nacimiento: " . $row['Fecha_de_Nacimiento'] . "</p>";
+            echo "<br><label>Fecha de Nacimiento: " . $row['Fecha_de_Nacimiento'] . "</label>";
             }
             if ($row['Fecha_de_Defunción']) {
-            echo "<p>Fecha de Defunción: " . $row['Fecha_de_Defunción'] . "</p>";
+            echo "<br><label>Fecha de Defunción: " . $row['Fecha_de_Defunción'] . "</label>";
             }
             ?>
         </div>
@@ -125,7 +126,7 @@
                 $stmtPadre = $pdo->prepare($sqlPadre);
                 $stmtPadre->execute([$row['PadreID']]);
                 $padre = $stmtPadre->fetch();
-                echo "<p>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></p>";
+                echo "<label>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></label>";
 
             }
             if ($row['MadreID']) {
