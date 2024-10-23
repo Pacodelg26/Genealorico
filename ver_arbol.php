@@ -4,11 +4,66 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
     <title>Detalles de la Persona</title>
-
+    <style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .contenedor {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        .contenedorlista {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        .img {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: inline;
+            margin-right: 10px;
+        }
+        @media screen and (max-width: 768px) {
+            .contenedor {
+                width: 90%;
+            }
+            .img {
+                max-width: 100%;
+            }
+        }
+   </style> 
 </head>
 <body>
 <h1>Visor de Arbol </h1>
-   
+   <hr>
     <?php
     // Recibir persona de la URL y seleccionar su foto si no la hay en funcion del genero
 
@@ -29,17 +84,23 @@
     ?>
 
     <!-- Cabecera de la pagina -->
-    <hr>
-     <h2>Páginas del proyecto</h2>
-     
-     <ul>
-            <li>
-                <a href="index.php">Página de Inicio</a>
-                ---
-                <a href="ver_personas.php?persona=<?php echo $personaID; ?>">Volver</a> 
+    <nav class="menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                
             </li>
-     </ul>
-     <hr>   
+            <li class="menu-item">
+                <a href="create.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 2"></a>
+            </li>
+
+            <li class="menu-item">
+                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" alt="Icono 3"></a>
+            </li>
+        </ul>
+        </nav>
+    <hr>
+
     <?php
             // Localizar Padres
             echo "<h2>Padres</h2>";

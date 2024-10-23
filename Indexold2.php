@@ -2,9 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>GenealoRico - Pagina Principal</title>
+    <title>GenealoRico - Página Principal</title>
     <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
-</head>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,22 +50,22 @@
                 width: 90%;
             }
             .img {
-                max-width: 
+                max-width: 100%;
             }
         }
-        </style>
+    </style>
+</head>
 <body>
-
     <h1>GenealoRico Página Principal</h1>
     <hr>
-      <div class="contenedor">
-        <h2>Pagina web de la familia Rico Ibañez y sus parientes</h2>;
-</div>   
-<div class="contenedor">
-        <img class="img" src="Genealorico/fotos/Rico.png" />
-</div>  
-        <h1>Para empezar selecciona o crea una persona</h1>
-<div class="contenedorlista">       
+    <div class="contenedor">
+        <h2>Página web de la familia Rico Ibañez y sus parientes</h2>
+    </div>
+    <div class="contenedor">
+        <img class="img" src="Genealorico/fotos/Rico.png" alt="Imagen de la Familia Rico">
+    </div>
+    <h1>Para empezar selecciona o crea una persona</h1>
+    <div class="contenedor">
         <form action="ver_personas.php" method="GET">
             <label for="persona"></label>
             <select class="desplegable" name="persona" id="persona">
@@ -75,7 +74,7 @@
                 require 'conexion.php';
                 $conexion = new Conexion();
                 $pdo = $conexion->pdo;
-                $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre" ;
+                $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
                 $stmt = $pdo->query($sql);
                 while ($row = $stmt->fetch()) {
                     echo "<option value='" . $row["PersonaID"] . "'>" . $row["Nombre"] . " " . $row["Apellido_Paterno"] . " " . $row["Apellido_Materno"] . "</option>";
@@ -83,16 +82,8 @@
                 ?>
             </select>
             <input class="desplegable" type="submit" value="Ver Persona">
-            
         </form>
-        <br>
-        <h1>o</h1>
-        <br>
-        <button class="desplegable" onclick="location.href='create.php'">Crear Personas</button>
-       <div> 
-            
-        </div>
-</body>
-</div>       
+        <button class="desplegable2" onclick="location.href='create.php'">Crear Personas</button>
+    </div>
 </body>
 </html>
