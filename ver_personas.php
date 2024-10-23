@@ -2,10 +2,65 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
     <title>Detalles de la Persona</title>
-
-</head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .contenedor {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        .contenedorlista {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        .img {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: inline;
+            margin-right: 10px;
+        }
+        @media screen and (max-width: 768px) {
+            .contenedor {
+                width: 90%;
+            }
+            .img {
+                max-width: 100%;
+            }
+        }
+   </style> 
+   </head>
 <body>
 
     <?php
@@ -26,31 +81,51 @@
     ?>
 <h1>Visor de Personas </h1>
     <hr>
-     <h2>Páginas del proyecto</h2>
-     
-     <ul>
-            <li>
-                <a href="index.php">Página de Inicio</a>
-                 --     
-                <a href="create.php">Crear nuevas personas</a>
-                 --
-                 <a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a> 
-                 --
-                 <a href="editar_persona.php?persona=<?php echo $personaID; ?>">Editar Persona</a>  
+      <nav class="menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                
             </li>
-     </ul>
+            <li class="menu-item">
+                <a href="create.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 2"></a>
+            </li>
+            <li class="menu-item">
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" alt="Icono 3"></a>
+            </li>
+            <li class="menu-item">
+                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" alt="Icono 3"></a>
+            </li>
+        </ul>
+        </nav>
+     
+     <!-- <ul>
+            
+                <li><a href="index.php">Página de Inicio</a></li>   
+                <li><a href="create.php">Crear nuevas personas</a></li>
+                <li><a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a></li>
+                <li><a href="editar_persona.php?persona=<?php echo $personaID; ?>">Editar Persona</a></li>  
+            
+     </ul> -->
      <hr>    
             <div class="contenedor">
-                <img id="foto" width="200px" src="<?php echo "/", $foto; ?>" >
+                <img id="foto" width="200px" src="<?php echo "/", $foto; ?>"alt="Foto de la persona"  >
         </div>
+        <div class="contenedorlista">
             <?php
             // echo "<p>Foto: " . $row['Foto'] . "</p>";
             echo "<p>Nombre: " . $row['Nombre'] . "</p>";
             echo "<p>Apellido Paterno: " . $row['Apellido_Paterno'] . "</p>";
             echo "<p>Apellido Materno: " . $row['Apellido_Materno'] . "</p>";
+            if ($row['Fecha_de_Nacimiento']) {
             echo "<p>Fecha de Nacimiento: " . $row['Fecha_de_Nacimiento'] . "</p>";
+            }
+            if ($row['Fecha_de_Defunción']) {
             echo "<p>Fecha de Defunción: " . $row['Fecha_de_Defunción'] . "</p>";
-
+            }
+            ?>
+        </div>
+        <?php    
             // Mostrar Padres
             echo "<h2>Padres</h2>";
             if ($row['PadreID']) {
@@ -110,8 +185,8 @@
         echo "No se ha seleccionado ninguna persona.";
     }
     ?>
-    <div class="contenedor">
-    <a class="link" href="editar_person.php?persona=<?php echo $personaID; ?>">Editar Persona</a>
+    <!-- <div class="contenedor">
+    <a class="link" href="editar_person.php?persona=<?php echo $personaID; ?>">Editar Persona</a> -->
 </div>
 </body>
 

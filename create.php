@@ -5,6 +5,62 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
     <title>Crear Nueva Persona</title>
+    <style>
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .contenedor {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        .contenedorlista {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        .img {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: inline;
+            margin-right: 10px;
+        }
+        @media screen and (max-width: 768px) {
+            .contenedor {
+                width: 90%;
+            }
+            .img {
+                max-width: 100%;
+            }
+        }
+   </style> 
 </head>
 <?php
 
@@ -13,16 +69,19 @@
     <h1>Crear Nueva Persona</h1>
     <!-- Cabecera de la pagina -->
     <hr>
-     <h2>Páginas del proyecto</h2>
-     
-     <ul>
-            <li>
-                <a href="index.php">Página de Inicio</a>
-                ---
-                <a href="ver_personas.php?persona=2">Volver</a> 
+ <nav class="menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                
             </li>
-     </ul>
-     <hr>   
+
+
+        </ul>
+        </nav>
+     
+
+     <hr>
 <div class="contenedor">
 
     <form action="upload.php" method="post" enctype="multipart/form-data">

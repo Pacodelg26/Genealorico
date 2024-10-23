@@ -5,6 +5,56 @@
     <meta charset="UTF-8">
     <title>GenealoRico - Visor-Editor</title>
     <link rel="stylesheet" href="styles.css">
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .contenedor {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 800px;
+        }
+        .img {
+            width: 100%;
+            max-width: 300px;
+        }
+        .desplegable, .desplegable2 {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .desplegable2 {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        .desplegable2:hover {
+            background-color: #0056b3;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .contenedor {
+                width: 90%;
+            }
+            .img {
+                max-width: 
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Visor/Editor de Datos </h1>
@@ -46,17 +96,23 @@ $persona = $result->fetch_assoc();
 // Mostrar los datos en un formulario para editar
 ?>
  <hr>
-     <h2>Paginas del proyecto</h2>
-     
-     <ul>
-            <li>
-                <a href="index.php">Página de Inicio</a>
-                 --
-                 <a href="ver_personas.php?persona=<?php echo $personaID; ?>">Volver</a> 
-                 --
-                 <a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a> 
+ <nav class="menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                
             </li>
-     </ul>
+
+            <li class="menu-item">
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" alt="Icono 3"></a>
+            </li>
+            <li class="menu-item">
+                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Volver.png" alt="Icono 3"></a>
+            </li>
+        </ul>
+        </nav>
+     
+
      <hr>
 <div class="contenedor">
 
@@ -218,7 +274,7 @@ $persona = $result->fetch_assoc();
         ?> 
         Fecha de 2do Matrimonio: <input type="date" value="<?php echo $persona['Fecha_Boda_2']; ?>" name="Fecha_Boda_2"><br>
      
-        <input type="submit" value="Crear">
+        <input type="submit" value="Actualizar Datos de la Persona">
     </form>
 </div>
 </body>
