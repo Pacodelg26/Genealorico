@@ -128,7 +128,7 @@
         <select name="Conyuge1">
             <?php
 
-            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas";
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
             $stmt = $pdo->query($sql);
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
             while($row = $stmt->fetch()) {
