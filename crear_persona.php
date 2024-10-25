@@ -64,6 +64,12 @@
 </head>
 <?php
 
+// Recuperar datos pasados por URL si existen
+$padreID = isset($_GET['padre']) ? $_GET['padre'] : '';
+$madreID = isset($_GET['madre']) ? $_GET['madre'] : '';
+$apellido_paterno = isset($_GET['apellido_paterno']) ? $_GET['apellido_paterno'] : '';
+$apellido_materno = isset($_GET['apellido_materno']) ? $_GET['apellido_materno'] : '';
+
 ?>
 <body>
     <h1>Crear Nueva Persona</h1>
@@ -86,8 +92,8 @@
 
     <form action="upload.php" method="post" enctype="multipart/form-data">
         Nombre: <input type="text"  name="Nombre" required><br>
-        Apellido Paterno: <input type="text" name="Apellido_Paterno" required><br>
-        Apellido Materno: <input type="text" name="Apellido_Materno"><br>
+        Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $apellido_paterno; ?>" required><br>
+        Apellido Materno: <input type="text" name="Apellido_Materno" value="<?php echo $apellido_materno; ?>" > <br>
         Fecha de Nacimiento: <input type="date" value= "0999-01-01" name="Fecha_de_Nacimiento"><br>
         Lugar de Nacimiento: <input type="text" name="Lugar_de_Nacimiento"><br>
         Fecha de Defunción: <input type="date" value= "0999-01-01" name="Fecha_de_Defunción"><br>

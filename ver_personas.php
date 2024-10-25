@@ -85,17 +85,22 @@
       <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                <a href="index.php"><img src="Genealorico/fotos/Home.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
                 
             </li>
             <li class="menu-item">
-                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 2"></a>
+                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
             </li>
             <li class="menu-item">
-                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" alt="Icono 3"></a>
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" title= "Ver en Arbol" alt="Icono 3"></a>
             </li>
             <li class="menu-item">
-                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" alt="Icono 3"></a>
+                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" title="editar esta persona" alt="Icono 3"></a>
+            </li>
+            <li class="menu-item">
+            <a href="crear_persona.php?padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">
+            <img src="Genealorico/fotos/hermanos.png" title="agregar hermano/a" alt="Agregar Hermano">
+            </a>
             </li>
         </ul>
         </nav>
