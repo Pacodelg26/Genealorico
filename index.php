@@ -5,6 +5,22 @@
     <title>GenealoRico - Pagina Principal</title>
     <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
 </head>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('Service Worker registrado con éxito:', registration);
+      }).catch(error => {
+        console.log('Registro del Service Worker fallido:', error);
+      });
+  });
+}
+
+
+</script>    
+ 
     <style>
 
  
@@ -12,7 +28,11 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             text-align: center;
-        }
+       
+        } 
+
+
+
         .contenedor {
             margin: 20px auto;
             padding: 20px;
@@ -27,6 +47,8 @@
             margin-bottom: 20px;
             border-radius: 4px;
             border: 1px solid #ddd;
+            font-size: 30px;
+            
         }
         .lista-contenedor {
             max-height: 300px; /* Aproximadamente 10 líneas */
@@ -34,6 +56,7 @@
             border: 1px solid #ddd;
             padding: 10px;
             border-radius: 4px;
+            
         }
         ul {
             list-style-type: none;
@@ -89,7 +112,7 @@
 <div class="contenedor">
         <img class="img" src="Genealorico/fotos/Rico.png" />
 </div>  
-        <h1>Para empezar selecciona o crea una persona</h1>
+        <h1>Para empezar selecciona una persona</h1>
 <div class="contenedorlista">  
   
 
@@ -110,7 +133,7 @@
     </script>
 </head>
 <body> 
-    <h1>Buscador de Personas</h1>
+   
     <div class="contenedor">
        
         <input type="text" id="buscarInput" onkeyup="buscarPersonas()" placeholder="Buscar por nombre o apellido...">
@@ -125,7 +148,8 @@
                 $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
                 $stmt = $pdo->query($sql);
                 while ($row = $stmt->fetch()) {
-                    echo "<li><span class='nombre'>" . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] . "</span> <a href='ver_personas.php?persona=" . $row['PersonaID'] . "'>Ver</a></li>";
+                    echo "<li><span class='nombre'><a href='ver_personas.php?persona=".$row['PersonaID']."'> " . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] . "</a></span> </li>";
+                    //echo "<label>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></label>";
                 }
                 ?>
             </ul>
@@ -167,4 +191,35 @@
 </body>
 </div>       
 </body>
+<script>   
+    const CACHE_NAME = 'mi-pwa-cache-v1';
+const urlsToCache = [
+  '/',
+  '/index.php',
+  '/styles.css',
+ 
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          return response;  // La respuesta está en la caché
+        }
+        return fetch(event.request);  // La respuesta no está en la caché
+      })
+  );
+});
+
+</script>    
 </html>

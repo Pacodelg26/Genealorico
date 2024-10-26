@@ -110,7 +110,7 @@ $apellido_materno = isset($_GET['apellido_materno']) ? $_GET['apellido_materno']
             require 'conexion.php';
             $conexion = new Conexion();
             $pdo = $conexion->pdo;
-            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M'";
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M' ORDER BY Nombre";
             $stmt = $pdo->query($sql);
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
             while($row = $stmt->fetch()) {
@@ -122,7 +122,7 @@ $apellido_materno = isset($_GET['apellido_materno']) ? $_GET['apellido_materno']
         <select name="MadreID">
             <?php
 
-            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F'";
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
             $stmt = $pdo->query($sql);
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
             while($row = $stmt->fetch()) {
@@ -147,7 +147,7 @@ $apellido_materno = isset($_GET['apellido_materno']) ? $_GET['apellido_materno']
         <select name="Conyuge2">
             <?php
 
-            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas";
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
             $stmt = $pdo->query($sql);
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
             while($row = $stmt->fetch()) {

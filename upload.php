@@ -115,9 +115,9 @@ VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento'
     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
  }
 
- if (!empty(Conyuge1)) {
+ if (!empty($conyuge1)) {
     $sql = "UPDATE Personas SET Conyuge1 = '$personaID'  WHERE PersonaID = '$conyuge1'";
- }else if (!empty(Conyuge2)) {
+ }else if (!empty($conyuge2)) {
     $sql = "UPDATE Personas SET Conyuge2 = '$personaID'  WHERE PersonaID = '$conyuge2'";
 }
 ?>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>GenealoRico - Visor-Editor</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
         <style>
         body {
             font-family: Arial, sans-serif;
