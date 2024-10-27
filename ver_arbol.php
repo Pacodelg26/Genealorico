@@ -80,6 +80,9 @@
             position: relative; 
             padding: 20px 5px 0 5px;
             transition: all 0.5s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .tree li::before, .tree li::after {
             content: '';
@@ -126,7 +129,7 @@
             color: #666;
             font-family: arial, verdana, tahoma;
             font-size: 11px;
-            display: inline-block;
+            display: inline-block; 
             border-radius: 5px;
             transition: all 0.5s;
         }
@@ -197,7 +200,7 @@
                         $stmtPadre = $pdo->prepare($sqlPadre);
                         $stmtPadre->execute([$row['PadreID']]);
                         $padre = $stmtPadre->fetch();
-                            echo "<a href='ver_arbol.php?persona=".$row['PadreID']."'><img src='/$padre[Foto]' alt='Padre' width='100' height='100'><br>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a>";
+                            echo "<a href='ver_arbol.php?persona=".$row['PadreID']."'><img src='/$padre[Foto]' alt='Padre' width='100' height='100'><br>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . "</a>";
                         }
 
                     if ($row['MadreID']) { 
@@ -205,7 +208,7 @@
                         $stmtMadre = $pdo->prepare($sqlMadre);
                         $stmtMadre->execute([$row['MadreID']]);
                         $madre = $stmtMadre->fetch();
-                            echo "<a href='ver_arbol.php?persona=".$row['MadreID']."'><img src='/$madre[Foto]' alt='Madre' width='100' height='100'><br>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</a>";
+                            echo "<a href='ver_arbol.php?persona=".$row['MadreID']."'><img src='/$madre[Foto]' alt='Madre' width='100' height='100'><br>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " </a>";
                         } 
                     ?>
                 </div>   

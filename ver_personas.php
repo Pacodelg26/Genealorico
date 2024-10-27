@@ -37,10 +37,7 @@
             max-width: 300px;
             margin: 20px auto;
         }
-        a {
-            text-decoration: none;
-            color: #007BFF;
-        }
+
         a:hover {
             text-decoration: underline;
         }
