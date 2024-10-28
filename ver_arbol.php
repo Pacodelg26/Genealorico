@@ -37,10 +37,10 @@
             max-width: 300px;
             margin: 20px auto;
         }
-        a {
+        /* a {
             text-decoration: none;
             color: #007BFF;
-        }
+        } */
         a:hover {
             text-decoration: underline;
         }
@@ -49,7 +49,9 @@
             padding: 0;
         }
         li {
-            display: inline;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-right: 10px;
         }
         @media screen and (max-width: 768px) {
@@ -215,7 +217,7 @@
 <!-- Presentar a la persona -->
         <ul>
             <li>
-                <a href="#"><img src="/<?php echo $foto; ?>" alt="Persona" width="100" height="100"><br><?php echo $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno']; ?></a>
+                <a class="centrar-persona" href="#"><img src="/<?php echo $foto; ?>" alt="Persona" width="100" height="100"><br><?php echo $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno']; ?></a>
       
                                           
                  <!-- Mostrar Hijos -->

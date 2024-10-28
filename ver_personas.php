@@ -94,15 +94,33 @@
             <li class="menu-item">
                 <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" title="editar esta persona" alt="Icono 3"></a>
             </li>
+    
+        </ul>
+        </nav>
+
+     <hr>    
+     <nav class="menu">
+        <ul class="menu-list">
             <li class="menu-item">
-            <a href="crear_persona.php?padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">
-            <img src="Genealorico/fotos/hermanos.png" title="agregar hermano/a" alt="Agregar Hermano">
+                <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/papelera.jpg" title="Borrar Persona" alt="Borrar"><div class="hover-text">Borrar</div></a>
+                
+            </li>
+            <li class="menu-item">
+                <a href="crear_hijos.php"><img src="Genealorico/fotos/Crear hijos.png" title="Crear Hijos" alt="Crear Hijos"><div class="hover-text">Crear Hijos</div></a>
+            </li>
+            
+            <li class="menu-item">
+               <a href="crear_padres.php"><img src="Genealorico/fotos/Crear padres.png" title="Crear Padres" alt="Crear Padres"><div class="hover-text">Crear Padre</div></a>
+            </li>
+            <li class="menu-item">
+            <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">
+            <img src="Genealorico/fotos/crear hermanos.png" title="Crear hermano/a" alt="Agregar Hermano">
             </a>
             </li>
         </ul>
         </nav>
 
-     <hr>    
+     <hr> 
             <div class="contenedor">
                 <img id="foto" width="200px" src="<?php echo "/", $foto; ?>"alt="Foto de la persona"  >
         </div>

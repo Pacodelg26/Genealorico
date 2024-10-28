@@ -115,11 +115,7 @@ VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento'
     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$target_file', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
  }
 
- if (!empty($conyuge1)) {
-    $sql = "UPDATE Personas SET Conyuge1 = '$personaID'  WHERE PersonaID = '$conyuge1'";
- }else if (!empty($conyuge2)) {
-    $sql = "UPDATE Personas SET Conyuge2 = '$personaID'  WHERE PersonaID = '$conyuge2'";
-}
+
 ?>
 <h1>Visor de Personas </h1>
     <hr>
@@ -141,7 +137,8 @@ VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento'
         </ul>
         </nav>
 
-     <hr>     
+     <hr>    
+      
  <?php
 // Validar registro creado
 if ($conn->query($sql) === TRUE) {
@@ -151,6 +148,14 @@ if ($conn->query($sql) === TRUE) {
 } else {
    echo "Error: " . $sql . "<br>" . $conn->error;
 }
+
+$sql = "SELECT PersonaID FROM Personas WHERE Conyuge1 = '$conyuge1'" ;
+if (!empty($conyuge1)) {
+    $sql = "UPDATE Personas SET Conyuge1 = '$personaID'  WHERE PersonaID = '$conyuge1'";
+ }else if (!empty($conyuge2)) {
+    $sql = "UPDATE Personas SET Conyuge2 = '$personaID'  WHERE PersonaID = '$conyuge2'";
+}
+
 
 $conn->close(); 
 ?>
