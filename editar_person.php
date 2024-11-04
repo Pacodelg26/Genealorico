@@ -119,10 +119,10 @@ $persona = $result->fetch_assoc();
  <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>                
+                <a href="index.php"><img src="Genealorico/fotos/home-02.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>                
             </li>
             <li class="menu-item">
-                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" alt="Icono 3"></a>
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/ver arbol-02.png" alt="Icono 3"></a>
             </li>
             <li class="menu-item">
                 <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Volver.png" alt="Icono 3"></a>

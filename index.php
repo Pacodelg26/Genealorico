@@ -112,7 +112,7 @@ if ('serviceWorker' in navigator) {
 <div class="contenedor">
         <img class="img" src="Genealorico/fotos/Rico.png" />
 </div>  
-        <h1>Para empezar selecciona una persona</h1>
+        <h1>Para empezar selecciona o <a href='crear_persona.php'>crea</a> una persona</h1>
 <div class="contenedorlista">  
   
 
