@@ -129,18 +129,7 @@
             </li>
             <li class="menu-item">
                 <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" title="editar esta persona" alt="Icono 3"></a>
-            </li>
                 <li class="menu-item">
-                <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/papelera.jpg" title="Borrar Persona" alt="Borrar"><div class="hover-text">Borrar</div></a>   
-            </li>
-        </ul>
-        </nav>
-
-     <hr>    
-     <nav class="menu">
-        <ul class="menu-list">
-
-            <li class="menu-item">
                  <div class="menu-icon" onclick="toggleMenu()">
                 &#9776; <!-- Este es el icono de menú en forma de tres líneas horizontales -->
                 </div>
@@ -150,14 +139,31 @@
                     <a href="#">Crear Hijo/a</a>
                 </div>
             </li>
+            
+            </li>
+                <li class="menu-item">
+                <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/papelera.jpg" title="Borrar Persona" alt="Borrar"><div class="hover-text">Borrar</div></a>   
+            </li>
+        </ul>
+        </nav>
+     
+     <!-- <ul>
+            
+                <li><a href="index.php">Página de Inicio</a></li>   
+                <li><a href="create.php">Crear nuevas personas</a></li>
+                <li><a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a></li>
+                <li><a href="editar_persona.php?persona=<?php echo $personaID; ?>">Editar Persona</a></li>  
+            
+     </ul> -->
+     <hr>    
+     <nav class="menu">
+        <ul class="menu-list">
+
+
            <li class="menu-item">
                 <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
             </li>
-            <li class="menu-item">
-            <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">
-            <img src="Genealorico/fotos/crear hermanos.png" title="Crear hermano/a" alt="Agregar Hermano">
-            </a>
-            </li>
+
 
         </ul>
     </nav>

@@ -3,7 +3,7 @@ class Conexion {
     private $host = 'localhost';
     private $db = 'Genealopaco';
     private $user = 'pacodelg';
-    private $pass = 'Alcocer2626$';
+    private $pass = 'Genealorico2024$';
     private $charset = 'utf8mb4';
     public $pdo;
 
