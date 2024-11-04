@@ -30,16 +30,14 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             max-width: 400px;
+            font: bold;
         }
         .img {
             width: 100%;
             max-width: 300px;
             margin: 20px auto;
         }
-        a {
-            text-decoration: none;
-            color: #007BFF;
-        }
+
         a:hover {
             text-decoration: underline;
         }
@@ -84,18 +82,19 @@
       <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                <a href="index.php"><img src="Genealorico/fotos/Home.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
                 
             </li>
             <li class="menu-item">
-                <a href="create.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 2"></a>
+                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
             </li>
             <li class="menu-item">
-                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" alt="Icono 3"></a>
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" title= "Ver en Arbol" alt="Icono 3"></a>
             </li>
             <li class="menu-item">
-                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" alt="Icono 3"></a>
+                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" title="editar esta persona" alt="Icono 3"></a>
             </li>
+    
         </ul>
         </nav>
      
@@ -108,20 +107,42 @@
             
      </ul> -->
      <hr>    
+     <nav class="menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/papelera.jpg" title="Borrar Persona" alt="Borrar"><div class="hover-text">Borrar</div></a>
+                
+            </li>
+            <li class="menu-item">
+                <a href="crear_hijos.php"><img src="Genealorico/fotos/Crear hijos.png" title="Crear Hijos" alt="Crear Hijos"><div class="hover-text">Crear Hijos</div></a>
+            </li>
+            
+            <li class="menu-item">
+               <a href="crear_padres.php"><img src="Genealorico/fotos/Crear padres.png" title="Crear Padres" alt="Crear Padres"><div class="hover-text">Crear Padre</div></a>
+            </li>
+            <li class="menu-item">
+            <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">
+            <img src="Genealorico/fotos/crear hermanos.png" title="Crear hermano/a" alt="Agregar Hermano">
+            </a>
+            </li>
+        </ul>
+        </nav>
+
+     <hr> 
             <div class="contenedor">
                 <img id="foto" width="200px" src="<?php echo "/", $foto; ?>"alt="Foto de la persona"  >
         </div>
         <div class="contenedorlista">
             <?php
             // echo "<p>Foto: " . $row['Foto'] . "</p>";
-            echo "<p>Nombre: " . $row['Nombre'] . "</p>";
-            echo "<p>Apellido Paterno: " . $row['Apellido_Paterno'] . "</p>";
-            echo "<p>Apellido Materno: " . $row['Apellido_Materno'] . "</p>";
+            echo "<label>Nombre: " . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] ."</label>";
+            // echo "<p>Apellido Paterno: " . $row['Apellido_Paterno'] . "</p>";
+            // echo "<p>Apellido Materno: " . $row['Apellido_Materno'] . "</p>";
             if ($row['Fecha_de_Nacimiento']) {
-            echo "<p>Fecha de Nacimiento: " . $row['Fecha_de_Nacimiento'] . "</p>";
+            echo "<br><label>Fecha de Nacimiento: " . $row['Fecha_de_Nacimiento'] . "</label>";
             }
             if ($row['Fecha_de_Defunción']) {
-            echo "<p>Fecha de Defunción: " . $row['Fecha_de_Defunción'] . "</p>";
+            echo "<br><label>Fecha de Defunción: " . $row['Fecha_de_Defunción'] . "</label>";
             }
             ?>
         </div>
@@ -133,7 +154,7 @@
                 $stmtPadre = $pdo->prepare($sqlPadre);
                 $stmtPadre->execute([$row['PadreID']]);
                 $padre = $stmtPadre->fetch();
-                echo "<p>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></p>";
+                echo "<label>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></label>";
 
             }
             if ($row['MadreID']) {

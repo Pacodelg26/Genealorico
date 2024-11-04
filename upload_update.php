@@ -85,9 +85,8 @@ echo "<br>Fecha boda2 $fecha_boda_2 <br>";
 //elige entre la foto antigua o la nueva en caso de que se haya cargado una nueva
 
 if (!empty($_FILES['Foto']['name'])) {
-    // Si se ha subido una nueva foto
-    $persona['Foto'] = 'Genealorico/fotos/' . $_FILES['Foto']['name']; 
-    $foto=$persona['Foto'];
+    // Si se ha subido una nueva foto se sustituye
+    $foto= 'Genealorico/fotos/' . $_FILES['Foto']['name']; 
     echo "hay foto nueva ";
     echo "$foto";
 } else if ((empty($foto)) AND (empty($fotonueva))) {
@@ -117,86 +116,111 @@ if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $target_file)){
 
 }else{
     if (empty($_FILES["Foto"]["name"])){
-        echo "<br>No hay fichero para actualizar";
+        echo "<br>No hay foto para actualizar";
     }else {
         echo "hubo un error al subir el archivo";
     }
 }
+//Ver datos que se van a cargar
+
+echo "personaid $personaID <br>";
+echo "Nombre $nombre ";
+echo "<br>Apellido P $apellido_paterno ";
+echo "<br>Apellido M $apellido_materno ";
+echo "<br>Fecha N $fecha_nacimiento ";
+echo "<br>Lugar N $lugar_nacimiento ";
+echo "<br>Fecha d $fecha_defuncion ";
+echo "<br>Lugar d $lugar_defuncion";
+echo "<br>Foto a cargar $foto";
+echo "<br>Foto Nueva $fotonueva";
+echo "<br>Genero $genero ";
+echo "<br>Padreid $padre_id ";
+echo "<br>Madreid $madre_id ";
+echo "<br>Conyuge1 $conyuge1 ";
+echo "<br>Fecha Boda1 $fecha_boda_1 ";
+echo "<br>Vive en $viveen ";
+echo "<br>Conyuge2 $conyuge2 ";
+echo "<br>Fecha boda2 $fecha_boda_2 <br>";
+
+
 
 // Validar fechas de nac, def, boda1 y boda 2
 //0000
-if ( ($fecha_defuncion < $valida_fecha) AND ($fecha_nacimiento < $valida_fecha) AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)  ){
-//$sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Fecha_de_Nacimiento = ?, Lugar_de_Nacimiento = ?, Fecha_de_Defunción = ?, Lugar_de_Defunción = ?, Foto = ?, Genero = ?, PadreID = ?, MadreID = ?, Habita_en = ? Conyuge1 = ?, Fecha_Boda_1, Conyuge2 = ?, Fecha_Boda_2 = ?  WHERE PersonaID = ?";
-$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno',  Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
-//$stmt = $conn->prepare($sql);
-//$stmt->bind_param("sssssssssiisisisi", $nombre, $apellido_paterno, $apellido_materno, $fecha_nacimiento, $lugar_nacimiento, $fecha_defuncion, $lugar_defuncion, $foto, $genero, $padre_id, $madre_id, $viveen, $conyuge1, $fecha_boda_1, $conyuge2, $fecha_boda_2);
-//$stmt->execute(); 
+if (($fecha_defuncion < $valida_fecha) AND ($fecha_nacimiento < $valida_fecha) AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
+echo "0000";
 //0001    
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_2 = '$fecha_boda_2', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
-    //$sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Fecha_de_Nacimiento = ?, Lugar_de_Nacimiento = ?, Fecha_de_Defunción = ?, Lugar_de_Defunción = ?, Genero = ?, PadreID = ?, MadreID = ?, Conyuge1 = ?, Fecha_Boda_1, Conyuge2 = ?, Fecha_Boda_2 = ?  WHERE PersonaID = ?";
-//$stmt = $conn->prepare($sql);
-//$stmt->bind_param("ssssssssiiisisi", $nombre, $apellido_paterno, $apellido_materno, $fecha_nacimiento, $lugar_nacimiento, $fecha_defuncion, $lugar_defuncion, $genero, $padre_id, $madre_id, $conyuge1, $fecha_boda_1, $conyuge2, $fecha_boda_2);
-//$stmt->execute();
+echo "0001";
 //0010
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno',  Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
+echo "0010";
 //0011
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno',  Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2', Fecha_Boda_2 = '$fecha_boda_2'  WHERE PersonaID = '$personaID'";
+echo "0011";
 //0100
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno',  Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
+echo "0100";
 //0101
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_2 = '$fecha_boda_2', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
+echo "0101";
 //0110
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' WHERE PersonaID = '$personaID'";
-
-    //0111
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' WHERE PersonaID = '$personaID'";
+echo "0110";
+//0111
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
-
-    //1000
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
+echo "0111";
+//1000
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1',  Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
-
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1',  Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
+echo "1000";
 //1001
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
-
-    //1010    
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
+echo "1001";
+//1010    
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha) AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
-echo "1010" ;
-//$stmt = $conn->prepare($sql);
-    //$stmt->bind_param("sssssssiiisii", $nombre, $apellido_paterno, $apellido_materno, $fecha_nacimiento, $lugar_nacimiento, $lugar_defuncion, $genero, $padre_id, $madre_id, $conyuge1, $fecha_boda_1, $conyuge2, $personaID);
-    //$stmt->execute();
+echo "1010";
 //1011  
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
-
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
+echo "1011";
 //1100   
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1',  Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
-
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1',  Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
+echo "1100";
 //1101
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1',  Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
-
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1',  Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
+echo "1101";
 //1110
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
-
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
+echo "1110";
 //1111
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
-    //$sql = "UPDATE Personas SET Nombre = ?, Apellido_Paterno = ?, Apellido_Materno = ?, Fecha_de_Nacimiento = ?, Lugar_de_Nacimiento = ?, Fecha_de_Defunción = ?, Lugar_de_Defunción = ?, Genero = ?, PadreID = ?, MadreID = ?, Conyuge1 = ?, Fecha_Boda_1, Conyuge2 = ?, Fecha_Boda_2 = ? = ? WHERE PersonaID = ?";
-    //$stmt = $conn->prepare($sql);
-    //$stmt->bind_param("ssssssssiiisisi", $nombre, $apellido_paterno, $apellido_materno, $fecha_nacimiento, $lugar_nacimiento, $fecha_defuncion, $lugar_defuncion, $genero, $padre_id, $madre_id, $conyuge1, $fecha_boda_1, $conyuge2, $fecha_boda_2, $personaID);
-    //$stmt->execute(); 
+$sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
+echo "1111";
+}else {
+    echo "Registro No Actualizado ";
 }
+
+// Cargar las personas editadas en los conyuges
+
+//if (!empty($conyuge1)) 
+//    $sql = "UPDATE Personas SET Conyuge1 = '$personaID'  WHERE PersonaID = '$conyuge1'";
+// }else if (!empty($conyuge2)) {
+//    $sql = "UPDATE Personas SET Conyuge2 = '$personaID'  WHERE PersonaID = '$conyuge2'";
+//}
+
 ?>
  <h2>Páginas del proyecto</h2>
      
@@ -211,11 +235,11 @@ echo "1010" ;
  <hr>  
  <?php
 // Validar registro creado
-//echo "($conn->query($sql) ";
+// echo "($conn->query($sql) ";
 
 if ($conn->query($sql) === TRUE) {
     echo "Registro Actualizado exitosamente";
-  header("Location: ver_personas.php?persona=$personaID");
+    header("Location: ver_personas.php?persona=$personaID");
 
 } else {
    echo "Error: " . $sql . "<br>" . $conn->error;
