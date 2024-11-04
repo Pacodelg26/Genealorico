@@ -6,6 +6,52 @@
     <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
     <title>Borrar Persona</title>
 </head>
+<style>
+
+ 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+       
+        } 
+
+
+
+        .contenedor {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 600px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 30px;
+            
+        }
+
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .contenedor {
+                width: 90%;
+            }
+            .img {
+                max-width: 
+            }
+        }
+      
+       
+  </style>
 <body>
 
 <?php
@@ -62,18 +108,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </nav>
 
      <hr>    
-
-
-
+<div class="contenedor">
 <form method="POST" action="borrar.php">
     <input type="hidden" name="persona_id" value="<?php echo $persona_id; ?>">
     <label> Vas a Borrar un registro de la base de datos </label><br>
     <label> Si no estas seguro sal de esta pantalla </label><br>
     <label> y si lo estás contesta a esta pregunta: </label><br>
-    <label for="respuesta_seguridad">¿Cual es el segundo apellido de Paco?</label>
+    <label for="respuesta_seguridad">¿Cual es el segundo apellido de Paco?</label><br>
     <input type="text" id="respuesta_seguridad" name="respuesta_seguridad" required>
-    <button type="submit">Borrar</button>
+    <button type="submit">Borrar Persona</button>
 </form>
+</div>   
+
+
+
 
 </body>
 </html>

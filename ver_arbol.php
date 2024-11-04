@@ -237,23 +237,30 @@
 
  if ($row) {
      ?>
-     <!-- Abuelos -->
-     <ul>
-         <li>
-         <div class="horizontal">
-             <?php if ($row['AbueloPaternoID']) { ?>
-            <a href='ver_arbol.php?persona=<?php echo $row['AbueloPaternoID'] ?>'><img src="<?php echo $row['AbueloPaternoFoto']; ?>" alt="Abuelo Paterno" width='100' height='100'><br><?php echo " " . $row['AbueloPaternoNombre'] . " " . $row['AbueloPaternoAP'] . ""; ?></a>
-            <?php } ?>
-             <?php if ($row['AbuelaPaternaID']) { ?>
-                 <a href='ver_arbol.php?persona=<?php echo $row['AbuelaPaternaID'] ?>'    ><img src="<?php echo $row['AbuelaPaternaFoto']; ?>" alt="Abuela Paterna" width='100' height='100'><br><?php echo $row['AbuelaPaternaNombre']; ?></a>
-             <?php } ?>
-             <?php if ($row['AbueloMaternoID']) { ?>
-                 <a href='ver_arbol.php?persona=<?php echo $row['AbueloMaternoID'] ?>'><img src="<?php echo $row['AbueloMaternoFoto']; ?>" alt="Abuelo Materno" width='100' height='100'><br><?php echo $row['AbueloMaternoNombre']; ?></a>
-             <?php } ?>
-             <?php if ($row['AbuelaMaternaID']) { ?>
-                 <a href='ver_arbol.php?persona=<?php echo $row['AbuelaMaternaID'] ?>'><img src="<?php echo $row['AbuelaMaternaFoto']; ?>" alt="Abuela Materna" width='100' height='100'><br><?php echo $row['AbuelaMaternaNombre']; ?></a>
-             <?php } ?>
-        </div>
+
+  <!-- Abuelos -->     
+<div class="tree">
+<ul>
+     <li>
+        <div class="horizontal">
+
+   
+             <ul>
+                <li>
+                    <div class="horizontal">
+                        <?php if ($row['AbueloPaternoID']) { ?>
+                        <a href='ver_arbol.php?persona=<?php echo $row['AbueloPaternoID'] ?>'><img src="<?php echo $row['AbueloPaternoFoto']; ?>" alt="Abuelo Paterno" width='100' height='100'><br><?php echo " " . $row['AbueloPaternoNombre'] . " " . $row['AbueloPaternoAP'] . " "; ?></a>
+                        <?php } ?>
+                        <?php if ($row['AbuelaPaternaID']) { ?>
+                        <a href='ver_arbol.php?persona=<?php echo $row['AbuelaPaternaID'] ?>'><img src="<?php echo $row['AbuelaPaternaFoto']; ?>" alt="Abuela Paterna" width='100' height='100'><br><?php echo " " . $row['AbuelaPaternaNombre'] . " " . $row['AbuelaPaternaAP'] . " "; ?></a>
+                        <?php } ?>
+                        <?php if ($row['AbueloMaternoID']) { ?>
+                        <a href='ver_arbol.php?persona=<?php echo $row['AbueloMaternoID'] ?>'><img src="<?php echo $row['AbueloMaternoFoto']; ?>" alt="Abuelo Materno" width='100' height='100'><br><?php echo " " . $row['AbueloMaternoNombre'] . " " . $row['AbueloMaternoAP'] . " "; ?></a>
+                        <?php } ?>
+                        <?php if ($row['AbuelaMaternaID']) { ?>
+                        <a href='ver_arbol.php?persona=<?php echo $row['AbuelaMaternaID'] ?>'><img src="<?php echo $row['AbuelaMaternaFoto']; ?>" alt="Abuela Materna" width='100' height='100'><br><?php echo " " . $row['AbuelaMaternaNombre'] . " " . $row['AbuelaMaternaAP'] . " "; ?></a>
+                        <?php } ?>
+                    </div>
          
 
                 </div>   

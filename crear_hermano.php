@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
     <title>Crear Nueva Persona</title>
     <style>
     body {
@@ -82,8 +82,8 @@ $pdo = $conexion->pdo;
 }else {
     $apellido_paterno = "";
     $apellido_materno = "";
-    $padreID ="";
-    $madreID ="";
+    $padreID = "";
+    $madreID = "";
 }
 
 
@@ -101,12 +101,11 @@ $pdo = $conexion->pdo;
             <li class="menu-item">
                 <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Buscar Persona.png" title="ver persona" alt="Ver Persona"></a>
             </li>
-
         </ul>
-        </nav>
+</nav>
      
 
-     <hr>
+<hr>
 <div class="contenedor">
 
     <form action="upload.php" method="post" enctype="multipart/form-data">
@@ -132,28 +131,17 @@ $pdo = $conexion->pdo;
                $padre = $stmtpadre->fetch();
                //echo "" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "";
              }
+             else if ($madreID) {
+                $sqlmadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                $stmtmadre = $pdo->prepare($sqlmadre);
+                $stmtmadre->execute([$madreID]);
+                $madre = $stmtmadre->fetch();
+
+             }
    ?> 
    <br>
-   <!-- <select name="PadreID">
-                <label for="padre" class="labelp" >o Selecciona Padre:</label>    
-                <select name="padre" id="padre"> 
-                
-             <option value="<?php echo $persona['PadreID']?>">Seleccionar</option> 
-               <option value="0" >No se conoce</option>  -->
 
 
-        
-         <?php
-            //  require 'conexion.php';
-            //  $conexion = new Conexion();
-            //  $pdo = $conexion->pdo;
-            //  $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M' ORDER BY Nombre";
-            //  $stmt = $pdo->query($sql);
-            //  echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
-            //  while($row = $stmt->fetch()) {
-            //      echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
-            //  }
-         ?> 
         Padre: 
         <select name="PadreID">
             <?php
@@ -186,11 +174,12 @@ $pdo = $conexion->pdo;
                 while($row = $stmt->fetch()) {
                     echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
                 }
-                }
+            } else {
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
             while($row = $stmt->fetch()) {
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
+        }
             ?>
         </select><br>
         Conyuge1: 
