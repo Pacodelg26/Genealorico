@@ -308,7 +308,7 @@
         </ul>
              
   
-            </div>
+            <!-- </div> -->
 
 
       <!-- Mostrar Conyuges -->
@@ -339,26 +339,9 @@
       </ul> 
 
   <!-- Fin Mostrar Conyuges -->
-   
-    <!--  Mostrar Hermanos --> 
-    <p>Hermanos</p> 
-    <div class="tree">
-    <ul>
-        
-          <div class="horizontal">  
-             <?php
 
-         
-            $sqlHermanos = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno, Foto FROM Personas WHERE (PadreID = ? OR MadreID = ?) AND PersonaID != ? AND (PadreID != 0 AND MadreID !=0)";
-            $stmtHermanos = $pdo->prepare($sqlHermanos);
-            $stmtHermanos->execute([$row['PadreID'], $row['MadreID'], $personaID]);
-            while ($hermano = $stmtHermanos->fetch()) {
-            echo "<li><a href='ver_arbol.php?persona=".$hermano['PersonaID']."'><img src='/$hermano[Foto]' alt='Hermano' width='100' height='100'><br>" . $hermano['Nombre'] . " " . $hermano['Apellido_Paterno'] . " " . $hermano['Apellido_Materno'] . "</a></li>";   
-            }
-?>
-</div>
-       
-        </ul>
+
+
     <?php                                                    
         } else {
             echo "No se encontraron datos.";

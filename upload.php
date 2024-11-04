@@ -143,7 +143,7 @@ VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento'
 // Validar registro creado
 if ($conn->query($sql) === TRUE) {
     echo "Registro creado exitosamente";
- // header("Location: index.php");
+  header("Location: index.php");
 
 } else {
    echo "Error: " . $sql . "<br>" . $conn->error;
