@@ -94,12 +94,9 @@ $pdo = $conexion->pdo;
         <ul class="menu-list">
             <li class="menu-item">
                 <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
-                
             </li>
-
-
-        </ul>
-        </nav>
+      </ul>
+</nav>
      
 
      <hr>
@@ -130,14 +127,6 @@ $pdo = $conexion->pdo;
              }
    ?> 
    <br>
-   <!-- <select name="PadreID">
-                <label for="padre" class="labelp" >o Selecciona Padre:</label>    
-                <select name="padre" id="padre"> 
-                
-             <option value="<?php echo $persona['PadreID']?>">Seleccionar</option> 
-               <option value="0" >No se conoce</option>  -->
-
-
         
          <?php
              require 'conexion.php';
