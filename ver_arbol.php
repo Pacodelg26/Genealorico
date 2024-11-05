@@ -184,7 +184,7 @@
                 <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/editar persona-02.png" title="editar esta persona" alt="Icono 3"></a>
             </li>
             <li class="menu-item">
-                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Buscar Persona.png" title="ver persona" alt="Ver Persona"></a>
+                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/ver persona-02.png" title="ver persona" alt="Ver Persona"></a>
             </li>
         </ul>
         </nav>

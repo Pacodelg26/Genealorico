@@ -228,7 +228,7 @@ echo "1111";
         <li>
             <a href="index.php">Página de Inicio</a>
              --     
-            <a href="ver_personas.php?persona=<$php echo "$personaID" >Crear nuevas personas</a>
+            <a href="ver_personas.php?persona=<$php echo "$personaID"" >Crear nuevas personas</a>
 
         </li>
  </ul>

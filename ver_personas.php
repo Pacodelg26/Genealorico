@@ -193,6 +193,7 @@
             }
             ?>
         </div>
+        <div class="contenedorlista">
         <?php    
             // Mostrar Padres
             echo "<h2>Padres</h2>";
@@ -201,7 +202,7 @@
                 $stmtPadre = $pdo->prepare($sqlPadre);
                 $stmtPadre->execute([$row['PadreID']]);
                 $padre = $stmtPadre->fetch();
-                echo "<label>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></label>";
+                echo "<a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a>";
 
             }
             if ($row['MadreID']) {
@@ -209,9 +210,11 @@
                 $stmtMadre = $pdo->prepare($sqlMadre);
                 $stmtMadre->execute([$row['MadreID']]);
                 $madre = $stmtMadre->fetch();
-                echo "<p>Madre: <a href='ver_personas.php?persona=".$row['MadreID']."'>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</a></p>";
+                echo "<a href='ver_personas.php?persona=".$row['MadreID']."'>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</a>";
             }
-
+            ?>
+        
+        <?php
             // Mostrar Hijos
             echo "<h2>Hijos</h2>";
             $sqlHijos = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PadreID = ? OR MadreID = ?";
@@ -237,14 +240,14 @@
                 $stmtConyuge1 = $pdo->prepare($sqlConyuge1);
                 $stmtConyuge1->execute([$row['Conyuge1']]);
                 $conyuge1 = $stmtConyuge1->fetch();
-                echo "<p>Conyuge 1: <a href='ver_personas.php?persona=".$row['Conyuge1']."'>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a></p>";
+                echo "<a href='ver_personas.php?persona=".$row['Conyuge1']."'>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a>";
             }
             if ($row['Conyuge2']) {
                 $sqlConyuge2 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
                 $stmtConyuge2 = $pdo->prepare($sqlConyuge2);
                 $stmtConyuge2->execute([$row['Conyuge2']]);
                 $conyuge2 = $stmtConyuge2->fetch();
-                echo "<p>Conyuge 2: <a href='ver_personas.php?persona=".$row['Conyuge1']."'>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a></p>";
+                echo "<a href='ver_personas.php?persona=".$row['Conyuge1']."'>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a>";
             }
         } else {
             echo "No se encontraron datos.";
@@ -253,6 +256,7 @@
         echo "No se ha seleccionado ninguna persona.";
     }
     ?>
+    </div>
     <!-- <div class="contenedor">
     <a class="link" href="editar_person.php?persona=<?php echo $personaID; ?>">Editar Persona</a> -->
 </div>

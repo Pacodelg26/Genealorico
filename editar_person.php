@@ -12,21 +12,23 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            font-size: 20px;
         }
         h1, h2 {
             color: #333;
         }
         .contenedor {
-            margin: 20px auto;
-            padding: 20px;
+            margin: 10px auto;
+            padding: 5px;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 800px;
+            max-width: 500px;
         }
         .img {
             width: 100%;
-            max-width: 300px;
+            max-width: 200px;
+            display: flex;
         }
         .desplegable, .desplegable2 {
             padding: 10px;
@@ -52,9 +54,12 @@
         }
         .labelp {
             display: block;
-            margin-bottom: 10px;
-           
-          
+            margin-bottom: 10px;  
+        }
+
+        .botong {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
         }
         select, input[type="text"] {
             width: calc(50% - 30px);
@@ -62,6 +67,7 @@
             margin-bottom: 10px;
             border-radius: 4px;
             border: 1px solid #ddd;
+            font-size: 20px;
             
             
         }
@@ -125,7 +131,7 @@ $persona = $result->fetch_assoc();
                 <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/ver arbol-02.png" alt="Icono 3"></a>
             </li>
             <li class="menu-item">
-                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Volver.png" alt="Icono 3"></a>
+                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/volver-02.png" alt="Icono 3"></a>
             </li>
         </ul>
         </nav>
@@ -133,32 +139,32 @@ $persona = $result->fetch_assoc();
 
 <div class="contenedor">
     <form action="upload_update.php" method="post" enctype="multipart/form-data">
-        ID: <input type="text"  name="PersonaID" value="<?php echo $persona['PersonaID']; ?>" required><br>
-        Nombre: <input type="text"  name="Nombre" value="<?php echo $persona['Nombre']; ?>" required><br>
-        Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $persona['Apellido_Paterno']; ?>" required><br>
-        Apellido Materno: <input type="text" name="Apellido_Materno" value="<?php echo $persona['Apellido_Materno']; ?>"><br>
+        <input type="text"  name="PersonaID" value="<?php echo $persona['PersonaID']; ?>" required><br> 
+        <label> Nombre:</label> <input type="text"  name="Nombre" value="<?php echo $persona['Nombre']; ?>" required><br>
+        <label>Apellido Paterno:</label> <input type="text" name="Apellido_Paterno" value="<?php echo $persona['Apellido_Paterno']; ?>" required><br>
+        <label>Apellido Materno:</label> <input type="text" name="Apellido_Materno" value="<?php echo $persona['Apellido_Materno']; ?>"><br>
         <?php
             if (empty($persona['Fecha_de_Nacimiento'])) {
                 $persona['Fecha_de_Nacimiento'] = "0999-01-01";
             }
         ?>   
-        Fecha de Nacimiento: <input type="date" value="<?php echo $persona['Fecha_de_Nacimiento']; ?>" name="Fecha_de_Nacimiento"><br>
-        Lugar de Nacimiento: <input type="text" name="Lugar_de_Nacimiento" value="<?php echo $persona['Lugar_de_Nacimiento']; ?>"><br>
+        <label>Fecha de Nacimiento:</label> <input type="date" value="<?php echo $persona['Fecha_de_Nacimiento']; ?>" name="Fecha_de_Nacimiento"><br>
+        <label>Lugar de Nacimiento:</label> <input type="text" name="Lugar_de_Nacimiento" value="<?php echo $persona['Lugar_de_Nacimiento']; ?>"><br>
            <?php
             if (empty($persona['Fecha_de_Defunción'])) {
                 $persona['Fecha_de_Defunción'] = "0999-01-01";
             }
         ?>       
-        Fecha de Defunción: <input type="date" value="<?php echo $persona['Fecha_de_Defunción']; ?>" name="Fecha_de_Defunción"><br>
-        Lugar de Defunción: <input type="text" name="Lugar_de_Defunción" value="<?php echo $persona['Lugar_de_Defunción']; ?>"><br>
+        <label>Fecha de Defunción:</label> <input type="date" value="<?php echo $persona['Fecha_de_Defunción']; ?>" name="Fecha_de_Defunción"><br>
+        <label>Lugar de Defunción:</label> <input type="text" name="Lugar_de_Defunción" value="<?php echo $persona['Lugar_de_Defunción']; ?>"><br>
          <?php       if (!empty($persona['Foto'])) {
             $persona['Foto'] = $persona['Foto'];
         }
         ?>
         Foto <input type="text" name="Foto" value="<?php echo $persona['Foto']; ?>"><br>
-        <div class="contenedor">
+        <!-- <div class="contenedor"> -->
                 <img id="foto" width="200px" src="<?php echo $persona['Foto']; ?>" >
-        </div>
+        <!-- </div> -->
         Cargar otra foto: <input type="file" name="Foto"><br> 
         Género (F ó M): <input type="text" name="Genero" value="<?php echo $persona['Genero']; ?>"><br>
         <?php
@@ -183,7 +189,7 @@ $persona = $result->fetch_assoc();
              }
    ?> 
    <br>
-                <label for="padre" class="labelp" >o Selecciona Padre:</label>    
+                <label for="padre" class="labelp" >ó Selecciona Padre:</label>    
                 <select name="padre" id="padre"> 
                 
              <option value="<?php echo $persona['PadreID']?>">Seleccionar</option> 
@@ -223,6 +229,7 @@ $persona = $result->fetch_assoc();
        while($row = $result->fetch_assoc()) {
        echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
    }
+       
 ?> 
 <!-- Edición del conyuge1    -->
     </select><br>       
@@ -258,8 +265,8 @@ $persona = $result->fetch_assoc();
                 $persona['Fecha_Boda_1'] = "0999-01-01";
             }
         ?>  
-        Fecha de 1er Matrimonio: <input type="date" value="<?php echo $persona['Fecha_Boda_1']; ?>" name="Fecha_Boda_1"><br>
-        Vive o vivió en: <input type="text" name="Habita_en" value="<?php echo $persona['Habita_en']; ?>">
+        <label>Fecha de 1er Matrimonio:</label> <input type="date" value="<?php echo $persona['Fecha_Boda_1']; ?>" name="Fecha_Boda_1"><br>
+        <label>Vive o vivió en:</label> <input type="text" name="Habita_en" value="<?php echo $persona['Habita_en']; ?>">
  <!-- Edición del conyuge2    -->
  </select><br>       
     <label for="conyuge2">Conyuge2:</label>
@@ -295,9 +302,9 @@ $persona = $result->fetch_assoc();
                 $persona['Fecha_Boda_2'] = "0999-01-01";
             }
         ?> 
-        Fecha de 2do Matrimonio: <input type="date" value="<?php echo $persona['Fecha_Boda_2']; ?>" name="Fecha_Boda_2"><br>
-     
-        <input type="submit" value="Actualizar Datos de la Persona">
+        <label>Fecha de 2do Matrimonio:</label> <input type="date" value="<?php echo $persona['Fecha_Boda_2']; ?>" name="Fecha_Boda_2"><br>
+     -----<br>
+        <input type="submit" class="botong" value="Actualizar Datos de la Persona">
     </form>
 </div>
 </body>
