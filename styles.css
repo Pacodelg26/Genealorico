@@ -139,6 +139,7 @@ img {
     align-items: normal;
     text-align: center;
     object-fit: cover;
+    border-radius: 15px;
 }
 .foto {
     display: block;

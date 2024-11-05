@@ -132,8 +132,9 @@
             font-family: arial, verdana, tahoma;
             font-size: 11px;
             display: inline-block; 
-            border-radius: 5px;
+            border-radius: 15px;
             transition: all 0.5s;
+            align-items: center;
         }
         .tree li a:hover, .tree li a:hover+ul li a {
             background: #c8e4f8; 
