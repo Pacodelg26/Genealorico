@@ -39,7 +39,7 @@ if ('serviceWorker' in navigator) {
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 600px;
+            max-width: 700px;
         }
         input[type="text"] {
             width: calc(100% - 20px);
@@ -51,7 +51,7 @@ if ('serviceWorker' in navigator) {
             
         }
         .lista-contenedor {
-            max-height: 300px; /* Aproximadamente 10 líneas */
+            max-height: 275px; /* Aproximadamente 10 líneas */
             overflow-y: auto;
             border: 1px solid #ddd;
             padding: 10px;
@@ -112,7 +112,7 @@ if ('serviceWorker' in navigator) {
 <div class="contenedor">
         <img class="img" src="Genealorico/fotos/Rico.png" />
 </div>  
-        <h1>Para empezar selecciona o <a href='crear_persona.php'>crea</a> una persona</h1>
+        <h1>Para empezar selecciona <br> o <a href='crear_persona.php'>crea</a> una persona</h1>
 <div class="contenedorlista">  
   
 

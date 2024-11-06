@@ -11,6 +11,7 @@ $fecha_defuncion = $_POST['Fecha_de_Defunción'];
 $lugar_defuncion = $_POST['Lugar_de_Defunción'];
 $foto= $_POST['Foto'];
 $genero = $_POST['Genero'];
+$habita_en = $_POST['Habita_en']
 $padre_id = $_POST['PadreID'];
 $madre_id = $_POST['MadreID'];
 $conyuge1 = $_POST['Conyuge1'];
@@ -51,69 +52,69 @@ if (!empty($foto)) {
 // Validar fechas de nac, def, boda1 y boda 2
 //0000
 if ( ($fecha_defuncion < $valida_fecha) AND ($fecha_nacimiento < $valida_fecha) AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)  ){
-$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
-VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
+$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Conyuge2)
+VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
 //0001    
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2, Fecha_Boda_2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno',  '$lugar_nacimiento',  '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1',  '$conyuge2', '$fecha_boda_2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Conyuge2, Fecha_Boda_2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno',  '$lugar_nacimiento',  '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1',  '$conyuge2', '$fecha_boda_2')";
 //0010
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento','$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento','$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2')";
 //0011
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2, Fecha_Boda_2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento','$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2, Fecha_Boda_2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento','$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
  //0100
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Conyuge2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
  //0101
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_Boda_2, Conyuge2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_2', '$conyuge2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_Boda_2, Conyuge2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_2', '$conyuge2')";
 //0110
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno,  Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$fecha_de_defuncion','$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno,  Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento', '$fecha_de_defuncion','$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2')";
  //0111
 }else if (($fecha_nacimiento < $valida_fecha) AND  ($fecha_defuncion | $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Fecha_de_Defunción,Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2, Fecha_Boda_2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento','$fecha_de_defuncion','$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Lugar_de_Nacimiento, Fecha_de_Defunción,Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2, Fecha_Boda_2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$lugar_nacimiento','$fecha_de_defuncion','$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
 //1000
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha) AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha) ) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Conyuge2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
 //1001
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_Boda_2, Conyuge2)
-VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_2', '$conyuge2')";
+$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_Boda_2, Conyuge2)
+VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_2', '$conyuge2')";
 //1010
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2)
-VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2')";
+$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2)
+VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2')";
 //1011
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2, Fecha_Boda_2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2, Fecha_Boda_2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
 //1100
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2)
-VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
+$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Conyuge2)
+VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2')";
 //1101
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Conyuge2, Fecha_Boda_2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2', '$fecha_boda_2')";
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Conyuge2, Fecha_Boda_2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$conyuge2', '$fecha_boda_2')";
 //1110
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
-$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2)
-VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2')";
+$sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_Boda_1, Conyuge2)
+VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2')";
 //1111
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
-    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, PadreID, MadreID, Conyuge1, Fecha_boda_1, Conyuge2, Fecha_Boda_2)
-    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
- }
+    $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_boda_1, Conyuge2, Fecha_Boda_2)
+    VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
+}
 
 
 ?>
@@ -149,11 +150,9 @@ if ($conn->query($sql) === TRUE) {
    echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
-$sql = "SELECT PersonaID FROM Personas WHERE Conyuge1 = '$conyuge1'" ;
-if (!empty($conyuge1)) {
+$sql = "SELECT PersonaID, Conyuge1 FROM Personas WHERE PersonaID = '$conyuge1'" ;
+if (empty($conyuge1)) {
     $sql = "UPDATE Personas SET Conyuge1 = '$personaID'  WHERE PersonaID = '$conyuge1'";
- }else if (!empty($conyuge2)) {
-    $sql = "UPDATE Personas SET Conyuge2 = '$personaID'  WHERE PersonaID = '$conyuge2'";
 }
 
 

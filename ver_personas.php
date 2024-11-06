@@ -6,11 +6,13 @@
     <title>Detalles de la Persona</title>
     <style>
         body {
+            width: 100%;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
+            margin: 0 auto;
             padding: 0;
             text-align: center;
+            font-size: 35px;
         }
         h1, h2 {
             color: #333;
@@ -21,7 +23,7 @@
             background: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 400px;
+            max-width: 700px;
         }
         .contenedorlista {
             margin: 20px auto;
@@ -29,7 +31,7 @@
             background: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 400px;
+            max-width: 700px;
             font: bold;
         }
         .img {
@@ -74,6 +76,7 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    font-size: 35px;
 }
 
 .dropdown-menu a:hover {
@@ -139,8 +142,10 @@
       
                 <div id="dropdown-menu" class="dropdown-menu" >
                     <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Hermano/a</a>
-                    <a href="#">Crear Padre/Madre</a>
-                    <a href="#">Crear Hijo/a</a>
+                    <a href="crear_padre.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>">Crear Padre</a>
+                    <a href="crear_madre.php?persona=<?php echo $personaID; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Madre</a>
+                    <a href="crear_hijo.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&conyuge1=<?php echo $row['Conyuge1']; ?>">Crear Hijo/a</a>
+                    <a href="crear_conyuge.php?persona=<?php echo $personaID; ?>">Crear Conyuge</a>
                 </div>
             </li>
             
@@ -151,33 +156,14 @@
         </ul>
         </nav>
      
-     <!-- <ul>
-            
-                <li><a href="index.php">Página de Inicio</a></li>   
-                <li><a href="create.php">Crear nuevas personas</a></li>
-                <li><a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a></li>
-                <li><a href="editar_persona.php?persona=<?php echo $personaID; ?>">Editar Persona</a></li>  
-            
-     </ul> -->
-        
-     <!-- <nav class="menu">
-        <ul class="menu-list">
 
-
-           <li class="menu-item">
-                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
-            </li>
-
-
-        </ul>
-    </nav> -->
        
     <script src="script.js">
     </script>
     
      <hr> 
             <div class="contenedor">
-                <img id="foto" width="200px" src="<?php echo "/", $foto; ?>"alt="Foto de la persona"  >
+                <img id="foto" width="300px" src="<?php echo "/", $foto; ?>"alt="Foto de la persona"  >
         </div>
         <div class="contenedorlista">
             <?php
@@ -191,6 +177,9 @@
             if ($row['Fecha_de_Defunción']) {
             echo "<br><label>Fecha de Defunción: " . $row['Fecha_de_Defunción'] . "</label>";
             }
+            if ($row['Habita_en']) {
+                echo "<br><label>Vive o vivió en " . $row['Habita_en'] . "</label>";
+                }
             ?>
         </div>
         <div class="contenedorlista">
@@ -202,7 +191,7 @@
                 $stmtPadre = $pdo->prepare($sqlPadre);
                 $stmtPadre->execute([$row['PadreID']]);
                 $padre = $stmtPadre->fetch();
-                echo "<a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a>";
+                echo "<a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a><br>";
 
             }
             if ($row['MadreID']) {

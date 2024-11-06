@@ -11,6 +11,7 @@
             margin: 0;
             padding: 20px;
             text-align: center;
+            font: bold;
         }
         h1, h2 {
             color: #333;
@@ -37,6 +38,7 @@
             max-width: 300px;
             margin: 20px auto;
         }
+
         /* a {
             text-decoration: none;
             color: #007BFF;
@@ -129,8 +131,9 @@
             padding: 5px 10px;
             text-decoration: none;
             color: #666;
-            font-family: arial, verdana, tahoma;
-            font-size: 11px;
+            font-family: arial, verdana, tahoma, bold;
+            font-size: 20px;
+            
             display: inline-block; 
             border-radius: 15px;
             transition: all 0.5s;
@@ -146,6 +149,40 @@
         .tree li a:hover+ul::before, 
         .tree li a:hover+ul ul::before {
             border-color:  #94a0b4;
+        }
+        
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 35px;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f1f1f1;
+        }
+        .img {
+            width: 50px;
+            height:50px;
         }
     </style>
 </head>
@@ -177,8 +214,16 @@
             <li class="menu-item">
                 <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
             </li>
-            <li class="menu-item">
-                <a href="crear_persona.php"><img src="Genealorico/fotos/añadir persona-02.png" title="Crear Persona" alt="Icono 2"></a>
+            <li class="menu-item" onclick="toggleMenu()">
+                
+                    <img src="Genealorico/fotos/añadir persona-02.png">
+                 <div id="dropdown-menu" class="dropdown-menu" >
+                    <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Hermano/a</a>
+                    <a href="crear_padre.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>">Crear Padre</a>
+                    <a href="crear_madre.php?persona=<?php echo $personaID; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Madre</a>
+                    <a href="crear_hijo.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&conyuge1=<?php echo $row['Conyuge1']; ?>">Crear Hijo/a</a>
+                    <a href="crear_conyuge.php?persona=<?php echo $personaID; ?>">Crear Conyuge</a>
+                </div>
             </li>
             <li class="menu-item">
                 <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/editar persona-02.png" title="editar esta persona" alt="Icono 3"></a>
@@ -188,7 +233,8 @@
             </li>
         </ul>
         </nav>
-
+     <script src="script.js">
+    </script>
      <hr>    
 
 
@@ -247,16 +293,16 @@
                 <li>
                     <div class="horizontal">
                         <?php if ($row['AbueloPaternoID']) { ?>
-                        <a href='ver_arbol.php?persona=<?php echo $row['AbueloPaternoID'] ?>'><img src="<?php echo $row['AbueloPaternoFoto']; ?>" alt="Abuelo Paterno" width='100' height='100'><br><?php echo " " . $row['AbueloPaternoNombre'] . " " . $row['AbueloPaternoAP'] . " "; ?></a>
+                        <a href='ver_arbol.php?persona=<?php echo $row['AbueloPaternoID'] ?>'><img src="<?php echo $row['AbueloPaternoFoto']; ?>" alt="Abuelo Paterno" width='160' height='160'><br><?php echo " " . $row['AbueloPaternoNombre'] . " " . $row['AbueloPaternoAP'] . " "; ?></a>
                         <?php } ?>
                         <?php if ($row['AbuelaPaternaID']) { ?>
-                        <a href='ver_arbol.php?persona=<?php echo $row['AbuelaPaternaID'] ?>'><img src="<?php echo $row['AbuelaPaternaFoto']; ?>" alt="Abuela Paterna" width='100' height='100'><br><?php echo " " . $row['AbuelaPaternaNombre'] . " " . $row['AbuelaPaternaAP'] . " "; ?></a>
+                        <a href='ver_arbol.php?persona=<?php echo $row['AbuelaPaternaID'] ?>'><img src="<?php echo $row['AbuelaPaternaFoto']; ?>" alt="Abuela Paterna" width='160' height='160'><br><?php echo " " . $row['AbuelaPaternaNombre'] . " " . $row['AbuelaPaternaAP'] . " "; ?></a>
                         <?php } ?>
                         <?php if ($row['AbueloMaternoID']) { ?>
-                        <a href='ver_arbol.php?persona=<?php echo $row['AbueloMaternoID'] ?>'><img src="<?php echo $row['AbueloMaternoFoto']; ?>" alt="Abuelo Materno" width='100' height='100'><br><?php echo " " . $row['AbueloMaternoNombre'] . " " . $row['AbueloMaternoAP'] . " "; ?></a>
+                        <a href='ver_arbol.php?persona=<?php echo $row['AbueloMaternoID'] ?>'><img src="<?php echo $row['AbueloMaternoFoto']; ?>" alt="Abuelo Materno" width='160' height='160'><br><?php echo " " . $row['AbueloMaternoNombre'] . " " . $row['AbueloMaternoAP'] . " "; ?></a>
                         <?php } ?>
                         <?php if ($row['AbuelaMaternaID']) { ?>
-                        <a href='ver_arbol.php?persona=<?php echo $row['AbuelaMaternaID'] ?>'><img src="<?php echo $row['AbuelaMaternaFoto']; ?>" alt="Abuela Materna" width='100' height='100'><br><?php echo " " . $row['AbuelaMaternaNombre'] . " " . $row['AbuelaMaternaAP'] . " "; ?></a>
+                        <a href='ver_arbol.php?persona=<?php echo $row['AbuelaMaternaID'] ?>'><img src="<?php echo $row['AbuelaMaternaFoto']; ?>" alt="Abuela Materna" width='160' height='160'><br><?php echo " " . $row['AbuelaMaternaNombre'] . " " . $row['AbuelaMaternaAP'] . " "; ?></a>
                         <?php } ?>
                     </div>
          
@@ -273,7 +319,7 @@
                         $stmtPadre = $pdo->prepare($sqlPadre);
                         $stmtPadre->execute([$row['PadreID']]);
                         $padre = $stmtPadre->fetch();
-                            echo "<a href='ver_arbol.php?persona=".$row['PadreID']."'><img src='/$padre[Foto]' alt='Padre' width='100' height='100'><br> " . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . "</a>";
+                            echo "<a href='ver_arbol.php?persona=".$row['PadreID']."'><img src='/$padre[Foto]' alt='Padre' width='160' height='160'><br> " . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . "</a>";
                         }
 
                     if ($row['MadreID']) { 
@@ -281,14 +327,14 @@
                         $stmtMadre = $pdo->prepare($sqlMadre);
                         $stmtMadre->execute([$row['MadreID']]);
                         $madre = $stmtMadre->fetch();
-                            echo "<a href='ver_arbol.php?persona=".$row['MadreID']."'><img src='/$madre[Foto]' alt='Madre' width='100' height='100'><br>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " </a>";
+                            echo "<a href='ver_arbol.php?persona=".$row['MadreID']."'><img src='/$madre[Foto]' alt='Madre' width='160' height='160'><br>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " </a>";
                         } 
                     ?>
                 </div>   
 <!-- Presentar a la persona -->
         <ul>
             <li>
-                <a class="centrar-persona" href="#"><img src="/<?php echo $foto; ?>" alt="Persona" width="100" height="100"><br><?php echo $row['PersonaNombre'] . " " . $row['PersonaApellidoPaterno'] . " " . $row['PersonaApellidoMaterno']; ?></a>
+                <a class="centrar-persona" href="#"><img src="/<?php echo $foto; ?>" alt="Persona" width="160" height="160"><br><?php echo $row['PersonaNombre'] . " " . $row['PersonaApellidoPaterno'] . " " . $row['PersonaApellidoMaterno']; ?></a>
       
                                           
                  <!-- Mostrar Hijos -->
@@ -298,7 +344,7 @@
                     $stmtHijos = $pdo->prepare($sqlHijos);
                     $stmtHijos->execute([$personaID, $personaID]);
                     while ($hijo = $stmtHijos->fetch()) {
-                        echo "<li><a href='ver_arbol.php?persona=".$hijo['PersonaID']."'><img src='/$hijo[Foto]' alt='Hijo' width='100' height='100'><br>" . $hijo['Nombre'] . " " . $hijo['Apellido_Paterno'] . " " . $hijo['Apellido_Materno'] . "</a></li>";
+                        echo "<li><a href='ver_arbol.php?persona=".$hijo['PersonaID']."'><img src='/$hijo[Foto]' alt='Hijo' width='160' height='160'><br>" . $hijo['Nombre'] . " " . $hijo['Apellido_Paterno'] . " " . $hijo['Apellido_Materno'] . "</a></li>";
                     }
                     ?>
                 </ul>
@@ -320,14 +366,14 @@
             $stmtConyuge1 = $pdo->prepare($sqlConyuge1);
             $stmtConyuge1->execute([$row['PersonaConyuge1']]);
             $conyuge1 = $stmtConyuge1->fetch();
-            echo "<li><a href='ver_arbol.php?persona=".$row['PersonaConyuge1']."'><img src='/$conyuge1[Foto]' alt='Conyuge' width='100' height='100'><br>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a></li>";
+            echo "<li><a href='ver_arbol.php?persona=".$row['PersonaConyuge1']."'><img src='/$conyuge1[Foto]' alt='Conyuge' width='160' height='160'><br>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a></li>";
             }
             if ($row['PersonaConyuge2']) { 
             $sqlConyuge2 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno, Foto FROM Personas WHERE PersonaID = ?";
             $stmtConyuge2 = $pdo->prepare($sqlConyuge2);
             $stmtConyuge2->execute([$row['PersonaConyuge2']]);
             $conyuge2 = $stmtConyuge2->fetch();
-            echo "<li><a href='ver_arbol.php?persona=".$row['PersonaConyuge2']."'><img src='/$conyuge2[Foto]' alt='Conyuge' width='100' height='100'><br>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a></li>";
+            echo "<li><a href='ver_arbol.php?persona=".$row['PersonaConyuge2']."'><img src='/$conyuge2[Foto]' alt='Conyuge' width='160' height='160'><br>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a></li>";
             }
         ?>
     </div>
@@ -348,7 +394,7 @@
             $stmtHermanos = $pdo->prepare($sqlHermanos);
             $stmtHermanos->execute([$row['PadreID'], $row['MadreID'], $personaID]);
             while ($hermano = $stmtHermanos->fetch()) {
-            echo "<li><a href='ver_arbol.php?persona=".$hermano['PersonaID']."'><img src='/$hermano[Foto]' alt='Hermano' width='100' height='100'><br>" . $hermano['Nombre'] . " " . $hermano['Apellido_Paterno'] . " " . $hermano['Apellido_Materno'] . "</a></li>";   
+            echo "<li><a href='ver_arbol.php?persona=".$hermano['PersonaID']."'><img src='/$hermano[Foto]' alt='Hermano' width='160' height='160'><br>" . $hermano['Nombre'] . " " . $hermano['Apellido_Paterno'] . " " . $hermano['Apellido_Materno'] . "</a></li>";   
             }
 ?>
 </div>
