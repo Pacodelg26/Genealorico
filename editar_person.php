@@ -23,7 +23,7 @@
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 500px;
+            max-width: 700px;
         }
         .img {
             width: 100%;
@@ -162,9 +162,9 @@ $persona = $result->fetch_assoc();
         }
         ?>
         Foto <input type="text" name="Foto" value="<?php echo $persona['Foto']; ?>"><br>
-        <!-- <div class="contenedor"> -->
+        <div class="contenedor"> 
                 <img id="foto" width="200px" src="<?php echo $persona['Foto']; ?>" >
-        <!-- </div> -->
+         </div>
         Cargar otra foto: <input type="file" name="Foto"><br> 
         Género (F ó M): <input type="text" name="Genero" value="<?php echo $persona['Genero']; ?>"><br>
         <?php
