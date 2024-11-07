@@ -10,13 +10,20 @@
 
  
         body {
+            width: 85%;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
+            margin: 0 auto;
+            padding: 0;
             text-align: center;
-       
+            font-size: 18px;
         } 
-
-
+label {
+    font-size: 30px;
+}
+            button {
+              font-size: 25px;  
+            }
 
         .contenedor {
             margin: 20px auto;
@@ -24,7 +31,7 @@
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 600px;
+            max-width: 700px;
         }
         input[type="text"] {
             width: calc(100% - 20px);
@@ -93,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $persona_id = $_GET['persona'];
 }
 ?>
-<h1>Visor de Árbol Familiar</h1>
+<h1>Borrar una Persona</h1>
     <hr>
       <nav class="menu">
         <ul class="menu-list">

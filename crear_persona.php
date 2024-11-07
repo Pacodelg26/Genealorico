@@ -11,10 +11,27 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            text-align: center;
+            font-size: 35px;
         }
         h1, h2 {
             color: #333;
+        }
+        input {
+            width: 295px;
+            height: 40px;
+            font-size: 30px;
+            margin: 5px;
+            border-radius: 4px;
+        }
+        input .imputsubmit {
+               width: 400px;
+            height: 50px;
+        }
+        select {
+            width: 400px;
+            height: 40px;
+            font-size: 30px;
+            margin: 5px;
         }
         .contenedor {
             margin: 20px auto;
@@ -22,7 +39,7 @@
             background: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 400px;
+            max-width: 800px;
         }
         .contenedorlista {
             margin: 20px auto;
@@ -30,7 +47,7 @@
             background: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 400px;
+            max-width: 800px;
         }
         .img {
             width: 100%;
@@ -52,6 +69,17 @@
             display: inline;
             margin-right: 10px;
         }
+    .custom-file-upload { 
+        font-size: 30px; /* Tamaño de la fuente */ 
+        margin: 3px;
+        color: #000; /* Color del texto */ 
+        background-color: #e6e6e6; /* Color de fondo */ 
+        padding: 10px 20px; /* Relleno */ 
+        height: 40px;
+        border-radius: 5px; /* Esquinas redondeadas */ 
+    } .custom-file-upload:hover { 
+        background-color: #bbb; /* Color de fondo en hover */ 
+    }
         @media screen and (max-width: 768px) {
             .contenedor {
                 width: 90%;
@@ -110,23 +138,18 @@ $pdo = $conexion->pdo;
         Lugar de Nacimiento: <input type="text" name="Lugar_de_Nacimiento"><br>
         Fecha de Defunción: <input type="date" value= "0999-01-01" name="Fecha_de_Defunción"><br>
         Lugar de Defunción: <input type="text" name="Lugar_de_Defunción"><br>
-        Foto: <input type="file" name="Foto"><br>
+        
+        Foto: 
+        <!-- <label for="file-upload" class="custom-file-upload">Selecciona una foto</label> -->
+        <input id="file-upload" class="custom-file-upload" type="file" name="Foto" /><br>
         Género: 
         <select name="Genero" required>
             <option value="M">Masculino</option>
             <option value="F">Femenino</option>
         </select><br>
-      
-   <?php
-             if ($padreID) {
-               $sqlpadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-               $stmtpadre = $pdo->prepare($sqlpadre);
-               $stmtpadre->execute([$padreID]);
-               $padre = $stmtpadre->fetch();
-               echo "" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "";
-             }
-   ?> 
-   <br>
+        Vive o vivió en: <input type="text" name="Habita_en"><br>
+
+
         
          <?php
              require 'conexion.php';
@@ -150,7 +173,7 @@ $pdo = $conexion->pdo;
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
             ?>
-        </select><br>
+        </select>
 
         </select><br>
         Madre: 
@@ -177,7 +200,7 @@ $pdo = $conexion->pdo;
             }
             ?>
         </select><br>
-        Fecha de 1er Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_1"><br>
+        1er Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_1"><br>
         Conyuge2: 
         <select name="Conyuge2">
             <?php
@@ -190,8 +213,8 @@ $pdo = $conexion->pdo;
             }
             ?>
         </select><br>
-        Fecha de 2do Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
-        <input type="submit" value="Crear">
+        2do Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
+        <input class="inputsubmit" type="submit"  value="Cargar a Genealorico" height="100px"  >
     </form>
 </div>
 </body>

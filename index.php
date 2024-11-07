@@ -28,7 +28,10 @@ if ('serviceWorker' in navigator) {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             text-align: center;
-       
+            width: 80%;
+            margin: 0 auto;
+            padding: 0;
+            font-size: 35px;
         } 
 
 
