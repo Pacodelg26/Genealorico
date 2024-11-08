@@ -141,14 +141,14 @@ $pdo = $conexion->pdo;
                $stmtpadre = $pdo->prepare($sqlpadre);
                $stmtpadre->execute([$padreID]);
                $padre = $stmtpadre->fetch();
-               //echo "" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "";
+               echo "" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "";
              }
              else if ($madreID) {
                 $sqlmadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
                 $stmtmadre = $pdo->prepare($sqlmadre);
                 $stmtmadre->execute([$madreID]);
                 $madre = $stmtmadre->fetch();
-
+                echo "" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "";
              }
    ?> 
    <br>

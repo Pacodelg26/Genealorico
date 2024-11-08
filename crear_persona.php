@@ -175,7 +175,7 @@ $pdo = $conexion->pdo;
             ?>
         </select>
 
-        </select><br>
+        <br>
         Madre: 
         <select name="MadreID">
             <?php

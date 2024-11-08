@@ -239,7 +239,7 @@ echo "1111";
 
 if ($conn->query($sql) === TRUE) {
     echo "Registro Actualizado exitosamente";
-    header("Location: ver_personas.php?persona=$personaID");
+   // header("Location: ver_personas.php?persona=$personaID");
 
 } else {
    echo "Error: " . $sql . "<br>" . $conn->error;

@@ -12,6 +12,7 @@
             padding: 20px;
             text-align: center;
             font: bold;
+            align-content: center;
         }
         h1, h2 {
             color: #333;
@@ -334,7 +335,7 @@
 <!-- Presentar a la persona -->
         <ul>
             <li>
-                <a class="centrar-persona" href="#"><img src="/<?php echo $foto; ?>" alt="Persona" width="160" height="160"><br><?php echo $row['PersonaNombre'] . " " . $row['PersonaApellidoPaterno'] . " " . $row['PersonaApellidoMaterno']; ?></a>
+                <a class="centrar-persona" href="#"><img src="/<?php echo $foto; ?>" alt="Persona" width="160" height="160"><br><?php echo  $row['PersonaNombre'] . " " . $row['PersonaApellidoPaterno'] . " " . $row['PersonaApellidoMaterno']; ?> </a>
       
                                           
                  <!-- Mostrar Hijos -->
