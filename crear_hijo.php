@@ -14,6 +14,11 @@
             text-align: center;
             font-size: 35px;
         }
+        .botong {
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+        }
 </style>
 <body>
 <h1>Crear Hijo en construcción</h1>

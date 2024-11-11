@@ -1,43 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
+    <title>Cargar Persona</title>
+</head>
+<style>
+
+ 
+        body {
+            width: 85%;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0 auto;
+            padding: 0;
+            text-align: center;
+            font-size: 18px;
+        } 
+label {
+    font-size: 30px;
+}
+            button {
+              font-size: 25px;  
+            }
+
+        .contenedor {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 700px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 30px;
+            
+        }
+
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .contenedor {
+                width: 90%;
+            }
+            .img {
+                max-width: 
+            }
+        }
+      
+       
+  </style>
+      <body>
+    <h1>Cargar Persona a Genealorico</h1>
+        <hr>
+          <nav class="menu">
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                </li>
+                <li class="menu-item">
+                    <a href="crear_persona.php"><img src="Genealorico/fotos/añadir persona-02.png" title="Crear Persona" alt="Icono 2"></a>
+                </li>
+                <li class="menu-item">
+                    <a href="ver_personas.php?persona=<?php echo $_POST['PersonaID']; ?>"><img src="Genealorico/fotos/volver-02.png" title="Volver" alt="Ver Persona"></a>
+                </li>
+            </ul>
+            </nav>
+    
+         <hr>   
+
 <?php
 include 'db.php';
 $personaID = $_POST['PersonaID'];
-echo "personaid $personaID <br>";
+?>
+<?php
+
 $nombre = $_POST['Nombre'];
-echo "Nombre $nombre ";
 $apellido_paterno = $_POST['Apellido_Paterno'];
-echo "<br>Apellido P $apellido_paterno ";
+
 $apellido_materno = $_POST['Apellido_Materno'];
-echo "<br>Apellido M $apellido_materno ";
+
 $valida_fecha = "0999/01/02";
 
 $fecha_nacimiento = $_POST['Fecha_de_Nacimiento'];
-echo "<br>Fecha N $fecha_nacimiento ";
+
 $lugar_nacimiento = $_POST['Lugar_de_Nacimiento'];
-echo "<br>Lugar N $lugar_nacimiento ";
+
 $fecha_defuncion = $_POST['Fecha_de_Defunción'];
-echo "<br>Fecha d $fecha_defuncion ";
+
 $lugar_defuncion = $_POST['Lugar_de_Defunción'];
-echo "<br>Lugar d $lugar_defuncion";
+
 $foto = $_POST['Foto'];
-echo "<br>Foto Anterior $foto";
+
 $fotonueva =$_FILES["Foto"]["name"];
-echo "<br>Foto Nueva $fotonueva";
+
 $genero = $_POST['Genero'];
-echo "<br>Genero $genero ";
+
 $padre_id = $_POST['padre'];
-echo "<br>Padreid $padre_id ";
+
 $madre_id = $_POST['madre'];
-echo "<br>Madreid $madre_id ";
+
 $conyuge1 = $_POST['Conyuge1'];
-echo "<br>Conyuge1 $conyuge1 ";
+
 $fecha_boda_1 = $_POST['Fecha_Boda_1'];
-echo "<br>Fecha Boda1 $fecha_boda_1 ";
+
 $viveen = $_POST['Habita_en'];
-echo "<br>Vive en $viveen ";
+
 $conyuge2 = $_POST['Conyuge2'];
-echo "<br>Conyuge2 $conyuge2 ";
+
 $fecha_boda_2 = $_POST['Fecha_Boda_2'];
-echo "<br>Fecha boda2 $fecha_boda_2 <br>";
+
 
 
 
@@ -116,34 +197,34 @@ if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $target_file)){
 
 }else{
     if (empty($_FILES["Foto"]["name"])){
-        echo "<br>No hay foto para actualizar";
+        //echo "No hay foto para actualizar<br>";
     }else {
-        echo "hubo un error al subir el archivo";
+        //echo "hubo un error al subir el archivo<br>";
     }
 }
 //Ver datos que se van a cargar
 
-echo "personaid $personaID <br>";
-echo "Nombre $nombre ";
-echo "<br>Apellido P $apellido_paterno ";
-echo "<br>Apellido M $apellido_materno ";
-echo "<br>Fecha N $fecha_nacimiento ";
-echo "<br>Lugar N $lugar_nacimiento ";
-echo "<br>Fecha d $fecha_defuncion ";
-echo "<br>Lugar d $lugar_defuncion";
-echo "<br>Foto a cargar $foto";
-echo "<br>Foto Nueva $fotonueva";
-echo "<br>Genero $genero ";
-echo "<br>Padreid $padre_id ";
-echo "<br>Madreid $madre_id ";
-echo "<br>Conyuge1 $conyuge1 ";
-echo "<br>Fecha Boda1 $fecha_boda_1 ";
-echo "<br>Vive en $viveen ";
-echo "<br>Conyuge2 $conyuge2 ";
-echo "<br>Fecha boda2 $fecha_boda_2 <br>";
+// echo "personaid $personaID <br>";
+// echo "Nombre $nombre ";
+// echo "<br>Apellido P $apellido_paterno ";
+// echo "<br>Apellido M $apellido_materno ";
+// echo "<br>Fecha N $fecha_nacimiento ";
+// echo "<br>Lugar N $lugar_nacimiento ";
+// echo "<br>Fecha d $fecha_defuncion ";
+// echo "<br>Lugar d $lugar_defuncion";
+// echo "<br>Foto a cargar $foto";
+// echo "<br>Foto Nueva $fotonueva";
+// echo "<br>Genero $genero ";
+// echo "<br>Padreid $padre_id ";
+// echo "<br>Madreid $madre_id ";
+// echo "<br>Conyuge1 $conyuge1 ";
+// echo "<br>Fecha Boda1 $fecha_boda_1 ";
+// echo "<br>Vive en $viveen ";
+// echo "<br>Conyuge2 $conyuge2 ";
+// echo "<br>Fecha boda2 $fecha_boda_2 <br>";
 
 
-
+echo "El esquema de carga es:";
 // Validar fechas de nac, def, boda1 y boda 2
 //0000
 if (($fecha_defuncion < $valida_fecha) AND ($fecha_nacimiento < $valida_fecha) AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
@@ -184,62 +265,41 @@ echo "1000";
 //1001
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', Habita_en = '$viveen', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
-echo "1001";
+echo " 1001";
 //1010    
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha) AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', Habita_en = '$viveen', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
-echo "1010";
+echo " 1010";
 //1011  
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion < $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', Habita_en = '$viveen', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
-echo "1011";
+echo " 1011";
 //1100   
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', Habita_en = '$viveen', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1',  Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
-echo "1100";
+echo " 1100";
 //1101
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', Habita_en = '$viveen', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1',  Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
-echo "1101";
+echo " 1101";
 //1110
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', Habita_en = '$viveen', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2'  WHERE PersonaID = '$personaID'";
-echo "1110";
+echo " 1110";
 //1111
 }else if (($fecha_nacimiento > $valida_fecha) AND  ($fecha_defuncion > $valida_fecha)AND ($fecha_boda_1 > $valida_fecha) AND ($fecha_boda_2 > $valida_fecha)) {
 $sql = "UPDATE Personas SET Nombre = '$nombre', Apellido_Paterno = '$apellido_paterno', Apellido_Materno = '$apellido_materno', Fecha_de_Nacimiento = '$fecha_nacimiento', Lugar_de_Nacimiento = '$lugar_nacimiento',Fecha_de_Defunción = '$fecha_defuncion', Lugar_de_Defunción = '$lugar_defuncion', Genero ='$genero', Habita_en = '$viveen', PadreID = '$padre_id', MadreID = '$madre_id', Foto = '$foto', Conyuge1 = '$conyuge1', Fecha_Boda_1 = '$fecha_boda_1', Conyuge2 = '$conyuge2' ,Fecha_Boda_2 = '$fecha_boda_2' WHERE PersonaID = '$personaID'";
-echo "1111";
+echo " 1111";
 }else {
-    echo "Registro No Actualizado ";
+    echo "<br>Registro No Actualizado ";
 }
 
-// Cargar las personas editadas en los conyuges
-
-//if (!empty($conyuge1)) 
-//    $sql = "UPDATE Personas SET Conyuge1 = '$personaID'  WHERE PersonaID = '$conyuge1'";
-// }else if (!empty($conyuge2)) {
-//    $sql = "UPDATE Personas SET Conyuge2 = '$personaID'  WHERE PersonaID = '$conyuge2'";
-//}
-
-?>
- <h2>Páginas del proyecto</h2>
-     
- <ul>
-        <li>
-            <a href="index.php">Página de Inicio</a>
-             --     
-            <a href="ver_personas.php?persona=<$php echo "$personaID"" >Crear nuevas personas</a>
-
-        </li>
- </ul>
- <hr>  
- <?php
 // Validar registro creado
 // echo "($conn->query($sql) ";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Registro Actualizado exitosamente";
-   // header("Location: ver_personas.php?persona=$personaID");
+    echo "<br>Registro Actualizado Correctamente";
+  
 
 } else {
    echo "Error: " . $sql . "<br>" . $conn->error;

@@ -61,6 +61,35 @@
         a:hover {
             text-decoration: underline;
         }
+        .botong {
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        select, input[type="text"] {
+            width: calc(50% - 30px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 30px;
+        } 
+        select, input[type="file"] {
+            width: calc(90% - 30px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 25px;
+        }    
+            select, input[type="date"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 20px;    
+            
+        }  
         ul {
             list-style: none;
             padding: 0;
@@ -68,6 +97,11 @@
         li {
             display: inline;
             margin-right: 10px;
+        }
+        form {
+            margin-bottom: 20px;
+            max-width: 700px;
+            text-align: initial;
         }
     .custom-file-upload { 
         font-size: 30px; /* Tamaño de la fuente */ 
@@ -138,10 +172,9 @@ $pdo = $conexion->pdo;
         Lugar de Nacimiento: <input type="text" name="Lugar_de_Nacimiento"><br>
         Fecha de Defunción: <input type="date" value= "0999-01-01" name="Fecha_de_Defunción"><br>
         Lugar de Defunción: <input type="text" name="Lugar_de_Defunción"><br>
-        
-        Foto: 
-        <!-- <label for="file-upload" class="custom-file-upload">Selecciona una foto</label> -->
-        <input id="file-upload" class="custom-file-upload" type="file" name="Foto" /><br>
+      
+        <label for="file-upload" >Carga una foto</label> 
+        <input id="file-upload" class="custom-file-upload" type="file" name="Foto" value="" /><br>
         Género: 
         <select name="Genero" required>
             <option value="M">Masculino</option>
@@ -213,8 +246,10 @@ $pdo = $conexion->pdo;
             }
             ?>
         </select><br>
-        2do Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
-        <input class="inputsubmit" type="submit"  value="Cargar a Genealorico" height="100px"  >
+        2do Matrimonio:
+        <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
+        <input  type="text" value= "CPER" name="Origen" hidden>
+        <input class="botong" type="submit"  value="Cargar a GenealoRico" height="100px"  >
     </form>
 </div>
 </body>

@@ -61,21 +61,7 @@
             font-weight: bold;
         }
 </style>
-<body>
-<h1>Crear Padre</h1>
-    <!-- Cabecera de la pagina -->
-    <hr>
- <nav class="menu">
-        <ul class="menu-list">
-            <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/home-02.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
-            </li>
-            <!-- <li class="menu-item">
-                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/volver-02.png" title="Volver" alt="Ver Persona"></a>
-            </li> -->
-        </ul>
-</nav>
-<hr>
+
 <?php
 // del fichero ver personas
      if (isset($_GET['persona'])) {
@@ -107,6 +93,21 @@ $result = $stmt->get_result();
 $persona = $result->fetch_assoc();
 // Ya tenemos el apellido paterno y la Madre que será el conyuge 1 en $persona[Apellido Paterno] y $persona[MadreID]
 ?>
+<body>
+<h1>Crear Padre</h1>
+    <!-- Cabecera de la pagina -->
+    <hr>
+ <nav class="menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="index.php"><img src="Genealorico/fotos/home-02.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+            </li>
+         <li class="menu-item">
+                <a href="ver_personas.php?persona=<?php echo $persona['PersonaID']; ?>"><img src="Genealorico/fotos/volver-02.png" title="Volver" alt="Ver Persona"></a>
+            </li> 
+        </ul>
+</nav>
+<hr>
 <!-- // empezamos el montaje del formulario -->
 <div class="contenedor">
     <form action="upload.php" method="post" enctype="multipart/form-data">
@@ -151,35 +152,32 @@ $persona = $result->fetch_assoc();
             ?>
         </select>
         <br>
+        <!-- Aqui cogemos la madre de la persona si la hay y la convertimos en el conyuge del padre -->
         Conyuge1: 
         <select name="Conyuge1">
             <?php
-            $madreID = $persona['MadreID'];
-            echo $madreID;
-            if ($madreID > 0){
-                $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
-                $stmt = $pdo->query($sql);
-                echo "<option value= '$madreID' selected>Seleccione una persona</option>"; // Opción por defecto la madre de la persona inicial
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
+            $stmt = $pdo->query($sql);
+            if ($persona['MadreID']) {
+                $sqlconyuge1 = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                $stmtconyuge1 = $pdo->prepare($sqlconyuge1);
+                $stmtconyuge1->execute([$persona['MadreID']]);
+                $conyuge1 = $stmtconyuge1->fetch();
+                echo "" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "";
+                echo "<option value='" . $conyuge1['PersonaID'] ."'selected>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</option>";
                 while($row = $stmt->fetch()) {
                     echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
                 }
-            }
-            else {
-            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
-            $stmt = $pdo->query($sql);
+            } else {
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
             while($row = $stmt->fetch()) {
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
-            }   
+        }
             ?>
-        Cargar este padre como padre de la persona
         </select><br>
-        <?php
-            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID='$madreID' ORDER BY Nombre";
-            $stmt = $pdo->query($sql);
 
-        ?>    
+
         1er Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_1"><br>
         Conyuge2: 
         <select name="Conyuge2">
@@ -194,7 +192,9 @@ $persona = $result->fetch_assoc();
             ?>
         </select><br>
         2do Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
-
+        <input type="text"  name="HijoID" value="<?php echo $persona['PersonaID']; ?>" hidden><br>
+        <input type="text"  name="Origen" value="CP" hidden><br>
+        
         <input class="botong" type="submit"  value="Cargar a GenealoRico" height="100px"  >
     </form>
 

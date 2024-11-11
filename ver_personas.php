@@ -142,9 +142,9 @@
       
                 <div id="dropdown-menu" class="dropdown-menu" >
                     <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Hermano/a</a>
-                    <a href="crear_padre.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>">Crear Padre</a>
-                    <a href="crear_madre.php?persona=<?php echo $personaID; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Madre</a>
-                    <a href="crear_hijo.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&conyuge1=<?php echo $row['Conyuge1']; ?>">Crear Hijo/a</a>
+                    <a href="crear_padre.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&CP=1;">Crear Padre</a>
+                    <a href="crear_madre.php?persona=<?php echo $personaID; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>&CM=1;">Crear Madre</a>
+                    <a href="crear_hijo.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>&conyuge1=<?php echo $row['Conyuge1']; ?>">Crear Hijo/a</a>
                     <a href="crear_conyuge.php?persona=<?php echo $personaID; ?>">Crear Conyuge</a>
                 </div>
             </li>
@@ -199,7 +199,7 @@
                 $stmtMadre = $pdo->prepare($sqlMadre);
                 $stmtMadre->execute([$row['MadreID']]);
                 $madre = $stmtMadre->fetch();
-                echo "<a href='ver_personas.php?persona=".$row['MadreID']."'>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</a>";
+                echo "<a href='ver_personas.php?persona=".$row['MadreID']."'>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</a><br>";
             }
             ?>
         
