@@ -74,6 +74,14 @@
             border: 1px solid #ddd;
             font-size: 30px;
         } 
+        input[type="submit"] {
+            width: calc(60% - 30px);
+          
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 30px;
+        } 
         select, input[type="file"] {
             width: calc(90% - 30px);
             padding: 8px;

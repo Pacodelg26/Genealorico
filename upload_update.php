@@ -81,42 +81,23 @@ label {
 <?php
 include 'db.php';
 $personaID = $_POST['PersonaID'];
-?>
-<?php
-
 $nombre = $_POST['Nombre'];
 $apellido_paterno = $_POST['Apellido_Paterno'];
-
 $apellido_materno = $_POST['Apellido_Materno'];
-
 $valida_fecha = "0999/01/02";
-
 $fecha_nacimiento = $_POST['Fecha_de_Nacimiento'];
-
 $lugar_nacimiento = $_POST['Lugar_de_Nacimiento'];
-
 $fecha_defuncion = $_POST['Fecha_de_Defunción'];
-
 $lugar_defuncion = $_POST['Lugar_de_Defunción'];
-
 $foto = $_POST['Foto'];
-
 $fotonueva =$_FILES["Foto"]["name"];
-
 $genero = $_POST['Genero'];
-
-$padre_id = $_POST['padre'];
-
-$madre_id = $_POST['madre'];
-
+$padre_id = $_POST['PadreID'];
+$madre_id = $_POST['MadreID'];
 $conyuge1 = $_POST['Conyuge1'];
-
 $fecha_boda_1 = $_POST['Fecha_Boda_1'];
-
 $viveen = $_POST['Habita_en'];
-
 $conyuge2 = $_POST['Conyuge2'];
-
 $fecha_boda_2 = $_POST['Fecha_Boda_2'];
 
 
@@ -137,7 +118,7 @@ $fecha_boda_2 = $_POST['Fecha_Boda_2'];
 //      $uploadOk = 0;
 //  }
 
-//  // Verificar el tamaño del archivo
+  // Verificar el tamaño del archivo
 // if ($fotonueva > 500000) {
 //      echo "Lo siento, tu archivo es demasiado grande.";
 //      $uploadOk = 0;
@@ -181,19 +162,15 @@ if (!empty($_FILES['Foto']['name'])) {
         $persona['Foto'] = 'Genealorico/fotos/mujer.jpg';
         $foto=$persona['Foto']; 
         echo "No hay foto nueva ni en la base de datos y es una Mujer ";
-        echo "$foto";
-    } else {
-        $persona['Foto'] = 'Genealorico/fotos/default.jpg'; // Opcional: un valor por defecto si el género no es M o F
-        $foto=$persona['Foto'];
-        echo "$foto";
-    }
+        echo "<br>$foto";
+    } 
 }
 // Carga de la foto
 
 $target_dir = "Genealorico/fotos/";
 $target_file = $target_dir . basename($_FILES["Foto"]["name"]);
 if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $target_file)){
- echo "el archivo ha sido subido exitosamente";
+ echo "<br>la foto ha sido subido exitosamente";
 
 }else{
     if (empty($_FILES["Foto"]["name"])){
@@ -215,8 +192,8 @@ if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $target_file)){
 // echo "<br>Foto a cargar $foto";
 // echo "<br>Foto Nueva $fotonueva";
 // echo "<br>Genero $genero ";
-// echo "<br>Padreid $padre_id ";
-// echo "<br>Madreid $madre_id ";
+ //echo "<br>Padreid $padre_id ";
+ //echo "<br>Madreid $madre_id ";
 // echo "<br>Conyuge1 $conyuge1 ";
 // echo "<br>Fecha Boda1 $fecha_boda_1 ";
 // echo "<br>Vive en $viveen ";
@@ -224,7 +201,7 @@ if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $target_file)){
 // echo "<br>Fecha boda2 $fecha_boda_2 <br>";
 
 
-echo "El esquema de carga es:";
+//echo "<br>El esquema de carga es:";
 // Validar fechas de nac, def, boda1 y boda 2
 //0000
 if (($fecha_defuncion < $valida_fecha) AND ($fecha_nacimiento < $valida_fecha) AND ($fecha_boda_1 < $valida_fecha) AND ($fecha_boda_2 < $valida_fecha)) {

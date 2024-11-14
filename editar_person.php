@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>GenealoRico - Visor-Editor</title>
+    <title>Editar Persona</title>
     <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
         <style>
         body {
@@ -184,7 +184,9 @@ $persona = $result->fetch_assoc();
          <?php       if (!empty($persona['Foto'])) {
             $persona['Foto'] = $persona['Foto'];
         }
+
         ?>
+        <label>Vive o Vivió en: <input type="text" name="Habita_en" value="<?php echo $persona['Habita_en']; ?>"></label>
         <label>
          Foto:
         </label>
@@ -195,32 +197,104 @@ $persona = $result->fetch_assoc();
         <label>Cargar otra foto: <input type="file" name="Foto"></label>
         <label>Género (F ó M): <input type="text" name="Genero" value="<?php echo $persona['Genero']; ?>"></label>
 
+        <?php
+             if ($persona['PadreID']) {
+               $sqlpadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+               $stmtpadre = $pdo->prepare($sqlpadre);
+               $stmtpadre->execute([$persona['PadreID']]);
+               $padre = $stmtpadre->fetch();
+               $padreID = $persona['PadreID'];
+               //echo "" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "";
+             }
+             if ($persona['MadreID']) {
+                $sqlmadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                $stmtmadre = $pdo->prepare($sqlmadre);
+                $stmtmadre->execute([$persona['MadreID']]);
+                $madre = $stmtmadre->fetch();
+                $madreID = $persona['MadreID'];
+                //echo "" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "";
+             }
+   ?> 
+   <br>
         
-    <!-- Edición del Padre    -->    
-        <label for="padre" class="labelp">Padre:
-               <select name="padre" id="padre"> 
-               <option value="<?php echo $persona['PadreID']?>">Seleccionar</option> 
-               <option value="0" >No se conoce</option> 
+       <!-- Edición del Padre    -->   
+        <label for="PadreID" class="labelp">Padre:
+        <select name="PadreID">
             <?php
+
             $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M' ORDER BY Nombre";
-            $result = $conn->query($sql);
-            while($row = $result->fetch_assoc()) {
-                echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
+            $stmt = $pdo->query($sql);
+            if ($persona['PadreID']) {
+                echo "<option value='$padreID'selected>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</option>";
+                while($row = $stmt->fetch()) {
+                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+                }
+            } else {
+            echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
+            while($row = $stmt->fetch()) {
+                echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
+        }
             ?>
+        </select><br>
+
+
+
+
+
+
+    
+            <?php
+            // $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M' ORDER BY Nombre";
+            // $result = $conn->query($sql);
+            // while($row = $result->fetch_assoc()) {
+            //     echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
+            // }
+            ?> 
    <!-- Edición de la Madre    -->
-    </select><br> 
-        <label for="madre"class="labelp">Madre:
-             <select name="madre" id="madre">   
+    </select>
+        <label for="MadreID"class="labelp">Madre:
+            <select name="MadreID">
+            <?php
+
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
+            $stmt = $pdo->query($sql);
+            if ($persona['MadreID']) {
+                echo "<option value='$madreID'selected>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</option>";
+                while($row = $stmt->fetch()) {
+                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+                }
+            } else {
+            echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
+            while($row = $stmt->fetch()) {
+                echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+            }
+        }
+            ?>
+        </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+         <!--     <select name="madre" id="madre">   
              <option value="<?php echo $persona['MadreID']?>">Seleccionar</option>
              <option value="0" >No se conoce</option> 
             <?php        
-            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
-            $result = $conn->query($sql);
-            while($row = $result->fetch_assoc()) {
-            echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
-            }      
-            ?> 
+            // $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
+            // $result = $conn->query($sql);
+            // while($row = $result->fetch_assoc()) {
+            // echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
+            // }      
+            ?>  -->
 
 <!-- Edición del conyuge1    -->
     </select><br>       

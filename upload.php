@@ -206,6 +206,7 @@ if ($conn->query($sql) === TRUE) {
     echo "Registro creado exitosamente";
     // obtener id del nuevo registro
     $persona_id = $conn->insert_id; echo "<br>Nuevo registro creado con éxito. El ID del registro es: " . $persona_id. " ";
+}
     ?>
     <body>
     <h1>Cargar Persona a Genealorico</h1>
@@ -261,7 +262,7 @@ if ($pagina_origen == "CP") {
         }
     }    
  
-} else if ($CM > "0") {
+} else if ($pagina_origen == "CM") {
     //Si en la carga de Madre venia un Padre como conyuge...
     if ($conyuge1 >"0"){ // es decir si el registro original tenia Padre y la hemos cargado aqui
         //actualizamos el padre con el nuevo registro como conyuge    
@@ -293,18 +294,28 @@ if ($pagina_origen == "CP") {
         echo "<br>Error al actualizar el registro de la madre del inclito: " . $conn->error; 
         }
     }    
+} else if ($pagina_origen == "CHER") {
+    //Si hay Padre hay que cargarlo como padre en el nuevo regist
+    if ($padre_id >"0"){ 
 
 
-
-   // header("Location: index.php");
-} 
+ }  
 }
+} else if ($pagina_origen == "CCYG") {
+   //cargar conyuge contrario
+    if ($padre_id >"0"){ 
+
+
+ }  
+}
+
  else {
    echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 
-
+// header("Location: index.php");
+ 
 
 $conn->close(); 
 ?>

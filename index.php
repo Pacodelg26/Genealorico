@@ -28,7 +28,7 @@ if ('serviceWorker' in navigator) {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             text-align: center;
-            width: 80%;
+            width: 90%;
             margin: 0 auto;
             padding: 0;
             font-size: 35px;
@@ -43,6 +43,7 @@ if ('serviceWorker' in navigator) {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             max-width: 700px;
+            gap: 10px;
         }
         input[type="text"] {
             width: calc(100% - 20px);
@@ -73,7 +74,7 @@ if ('serviceWorker' in navigator) {
 
         .img {
             width: 100%;
-            max-width: 300px;
+            max-width: 80px;
         }
         .desplegable, .desplegable2 {
             padding: 10px;
@@ -106,15 +107,59 @@ if ('serviceWorker' in navigator) {
   </style>
  
 <body>
-
-    <h1>GenealoRico Página Principal</h1>
-    <hr>
-      <div class="contenedor">
-        <h2>Pagina web de la familia Rico Ibañez y sus parientes</h2>
-</div>   
-<div class="contenedor">
+    <div class="contenedor">
         <img class="img" src="Genealorico/fotos/Rico.png" />
-</div>  
+        <h1>GenealoRico</h1>
+    </div>
+    <hr>
+    <div class="contenedor">
+        <h2>Pagina web de la familia Rico Ibañez y sus parientes</h2>
+    </div>   
+<div class="contenedor">
+
+<div class="contenedor-hijo">
+        <h2>Próximos Aniversarios</h2> 
+        <table> 
+            <thead> 
+                <tr> 
+                    <th>Nombre</th> 
+                 
+                    <th>Aniversario</th> 
+                </tr> 
+            </thead> 
+            <tbody> 
+            <?php
+                require 'conexion.php';
+                $conexion = new Conexion();
+                $pdo = $conexion->pdo;
+               // Consulta SQL 
+               $sql = "SELECT Nombre, Apellido_Paterno, Apellido_Materno, 
+               DATE_FORMAT(Fecha_de_Nacimiento, '%d-%m') 
+               AS Dia_Aniversario 
+               FROM Personas 
+               WHERE DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
+               ORDER BY DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') 
+               LIMIT 4";
+                $stmtcumpleaños = $pdo->query($sql);
+                // mostrar cumpleaños
+               
+                while ($row = $stmtcumpleaños->fetch()) {
+                    echo "<tr>
+                        <td>" .$row["Nombre"]." " .$row["Apellido_Paterno"]." " .$row["Apellido_Materno"]." </td>
+   
+                        <td>" .$row["Dia_Aniversario"]."</td>
+                        </tr>";
+                   
+                }
+           
+           
+            
+                ?>
+
+
+        </table>       
+</div>
+</div >   
         <h1>Para empezar selecciona <br> o <a href='crear_persona.php'>crea</a> una persona</h1>
 <div class="contenedorlista">  
   
@@ -145,14 +190,14 @@ if ('serviceWorker' in navigator) {
         <div class="lista-contenedor">
             <ul id="listaPersonas">
                 <?php
-                require 'conexion.php';
-                $conexion = new Conexion();
-                $pdo = $conexion->pdo;
+                // require 'conexion.php';
+                // $conexion = new Conexion();
+                // $pdo = $conexion->pdo;
                 $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
                 $stmt = $pdo->query($sql);
                 while ($row = $stmt->fetch()) {
                     echo "<li><span class='nombre'><a href='ver_personas.php?persona=".$row['PersonaID']."'> " . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] . "</a></span> </li>";
-                    //echo "<label>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></label>";
+                   
                 }
                 ?>
             </ul>

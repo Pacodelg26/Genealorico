@@ -112,8 +112,8 @@ $persona = $result->fetch_assoc();
 <div class="contenedor">
     <form action="upload.php" method="post" enctype="multipart/form-data">
         Nombre: <input type="text"  name="Nombre" required><br>
-        Apellido Paterno: <input type="text" name="Apellido_Paterno"  required><br>
-        Apellido Materno: <input type="text" name="Apellido_Materno" value="<?php echo $persona['Apellido_Materno']; ?>"> <br>
+        Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $persona['Apellido_Materno']; ?>" required><br>
+        Apellido Materno: <input type="text" name="Apellido_Materno" > <br>
         Fecha de Nacimiento: <input type="date" value= "0999-01-01" name="Fecha_de_Nacimiento"><br>
         Lugar de Nacimiento: <input type="text" name="Lugar_de_Nacimiento"><br>
         Fecha de Defunción: <input type="date" value= "0999-01-01" name="Fecha_de_Defunción"><br>

@@ -21,6 +21,7 @@ h1, h2 {
 
 }
 
+
 .menu {
     background: #fff;
     padding: 10px 0;
@@ -84,13 +85,14 @@ a {
     font-weight: bold;
 }
 table {
-    width: 30%;
+    width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    align-items: center;
 }
 
 table, th, td {
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
 }
 .link {
     text-size-adjust: 300%;   
@@ -125,6 +127,28 @@ li {
     justify-content: center;
   
 }
+.contenedor-hijo { 
+    flex: 1; /* Los hijos ocuparán el mismo ancho */ 
+    margin: 10px; /* Espacio entre los contenedores */ 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    background-color: #f0f0f0; 
+    text-align: center; /* Alinea el texto al centro */
+    font-size: 30px;
+
+}   
+.contenedor-hijo h2 { 
+    flex: 1; /* Los hijos ocuparán el mismo ancho */ 
+    margin: 10px; /* Espacio entre los contenedores */ 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    background-color: #f0f0f0; 
+    text-align: center; /* Alinea el texto al centro */
+    font-size: 35px;
+
+}  
 .contenedorlista {
     position:relative;
     width: 100%;

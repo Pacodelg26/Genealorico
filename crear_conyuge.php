@@ -53,10 +53,54 @@
             display: inline;
             margin-right: 10px;
         }
-        select {
+        .botong {
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+        } 
+               select {
             font-size:30px;
             width: 380px;
             height: 40px;
+            max-width: 400px;
+        }
+        select, input[type="text"] {
+            width: calc(50% - 30px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 30px;
+        } 
+        input[type="submit"] {
+            width: calc(60% - 30px);
+          
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 30px;
+        } 
+        select, input[type="file"] {
+            width: calc(90% - 30px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 25px;
+        }    
+            select, input[type="date"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 20px;    
+            width: calc(40% - 30px);
+        }  
+
+        form {
+            margin-bottom: 20px;
+            max-width: 700px;
+            text-align: initial;
         }
         input {
             height: 40px;
@@ -122,23 +166,23 @@ $pdo = $conexion->pdo;
             <option value="M">Masculino</option>
             <option value="F">Femenino</option>
         </select><br>
-      
-   <!-- <?php
-             if ($padreID) {
-               $sqlpadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-               $stmtpadre = $pdo->prepare($sqlpadre);
-               $stmtpadre->execute([$padreID]);
-               $padre = $stmtpadre->fetch();
+        Vive o Vivió en: <input type="text" name="Habita_en"><br>
+ <?php
+         //    if ($padreID) {
+         //       $sqlpadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+            //     $stmtpadre = $pdo->prepare($sqlpadre);
+            //     $stmtpadre->execute([$padreID]);
+            //     $padre = $stmtpadre->fetch();
                
-             }
-             else if ($madreID) {
-                $sqlmadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-                $stmtmadre = $pdo->prepare($sqlmadre);
-                $stmtmadre->execute([$madreID]);
-                $madre = $stmtmadre->fetch();
+            //   }
+            //   else if ($madreID) {
+            //      $sqlmadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+            //      $stmtmadre = $pdo->prepare($sqlmadre);
+            //      $stmtmadre->execute([$madreID]);
+            //      $madre = $stmtmadre->fetch();
 
-             }
-   ?>  -->
+            //   }
+   ?> 
    <br>
 
 
@@ -185,7 +229,7 @@ $pdo = $conexion->pdo;
         Conyuge1: 
         <select name="Conyuge1">
             <?php
-
+echo "<option value='$personaID'selected>" . $persona['Nombre'] . " " . $persona['Apellido_Paterno'] . " " . $persona['Apellido_Materno'] . "</option>";
             $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
             $stmt = $pdo->query($sql);
             echo "<option value='$personaID' selected>Seleccione una persona</option>"; // Opción por defecto
@@ -208,7 +252,8 @@ $pdo = $conexion->pdo;
             ?>
         </select><br>
         Fecha de 2do Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
-        <input type="submit" value="Crear">
+        <input type="text"  name="Origen" value="CCYG" hidden><br>
+        <input type="submit" class="botong" value="Cargar Conyuge">
     </form>
 </div>
 </body>

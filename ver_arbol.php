@@ -215,7 +215,7 @@
             <li class="menu-item">
                 <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
             </li>
-            <li class="menu-item" onclick="toggleMenu()">
+            <!-- <li class="menu-item" onclick="toggleMenu()">
                 
                     <img src="Genealorico/fotos/añadir persona-02.png">
                  <div id="dropdown-menu" class="dropdown-menu" >
@@ -225,7 +225,7 @@
                     <a href="crear_hijo.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&conyuge1=<?php echo $row['Conyuge1']; ?>">Crear Hijo/a</a>
                     <a href="crear_conyuge.php?persona=<?php echo $personaID; ?>">Crear Conyuge</a>
                 </div>
-            </li>
+            </li> -->
             <li class="menu-item">
                 <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/editar persona-02.png" title="editar esta persona" alt="Icono 3"></a>
             </li>

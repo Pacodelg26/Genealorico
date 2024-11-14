@@ -22,6 +22,7 @@
             font-size:30px;
             width: 380px;
             height: 40px;
+            max-width: 400px;
         }
         form {
             margin-bottom: 20px;
@@ -82,6 +83,14 @@
             border: 1px solid #ddd;
             font-size: 30px;
         } 
+        input[type="submit"] {
+            width: calc(60% - 30px);
+          
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 30px;
+        } 
         select, input[type="file"] {
             width: calc(90% - 30px);
             padding: 8px;
@@ -96,8 +105,9 @@
             border-radius: 4px;
             border: 1px solid #ddd;
             font-size: 20px;    
-            
+            width: calc(40% - 30px);
         }  
+      
         @media screen and (max-width: 768px) {
             .contenedor {
                 width: 90%;
@@ -168,7 +178,7 @@ $pdo = $conexion->pdo;
             <option value="M">Masculino</option>
             <option value="F">Femenino</option>
         </select><br>
-      
+        Vive o Vivió en: <input type="text" name="Habita_en"><br>
    <?php
              if ($padreID) {
                $sqlpadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
