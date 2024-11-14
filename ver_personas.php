@@ -215,9 +215,17 @@
 
             // Mostrar Hermanos
             echo "<h2>Hermanos</h2>";
-            $sqlHermanos = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE (PadreID = ? OR MadreID = ?) AND PersonaID != ? AND (PadreID != 0 AND MadreID !=0)";
+            $sqlHermanos = "SELECT P2.PersonaID, P2.Nombre, P2.Apellido_Paterno, P2.Apellido_Materno
+            FROM Personas P1
+            JOIN Personas P2 ON (
+                (P1.PadreID = P2.PadreID AND P1.PadreID > 0)
+                OR 
+                (P1.MadreID = P2.MadreID AND P1.MadreID > 0)
+            )
+            WHERE P1.PersonaID = ?
+              AND P1.PersonaID <> P2.PersonaID";
             $stmtHermanos = $pdo->prepare($sqlHermanos);
-            $stmtHermanos->execute([$row['PadreID'], $row['MadreID'], $personaID]);
+            $stmtHermanos->execute([$personaID]);
             while ($hermano = $stmtHermanos->fetch()) {
                 echo "<p> <a href='ver_personas.php?persona=".$hermano['PersonaID']."'>" . $hermano['Nombre'] . " " . $hermano['Apellido_Paterno'] . " " . $hermano['Apellido_Materno'] . "</a></p>";
             }

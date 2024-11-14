@@ -82,16 +82,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $respuesta_correcta = "Rico";
 
     if ($respuesta_seguridad === $respuesta_correcta) {
+        $sqlUpdate = "UPDATE Personas SET PadreID = NULL WHERE PadreID = ?"; 
+        $stmtUpdate = $conn->prepare($sqlUpdate); 
+        $stmtUpdate->bind_param("i", $persona_id); 
+        $stmtUpdate->execute(); 
+        
+        $sqlUpdate2 = "UPDATE Personas SET MadreID = NULL WHERE MadreID = ?"; 
+        $stmtUpdate2 = $conn->prepare($sqlUpdate2); 
+        $stmtUpdate2->bind_param("i", $persona_id); 
+        $stmtUpdate2->execute();
+
+        $sqlUpdate3 = "UPDATE Personas SET Conyuge1 = NULL WHERE Conyuge1 = ?"; 
+        $stmtUpdate3 = $conn->prepare($sqlUpdate3); 
+        $stmtUpdate3->bind_param("i", $persona_id); 
+        $stmtUpdate3->execute();
+
+        $sqlUpdate4 = "UPDATE Personas SET Conyuge2 = NULL WHERE Conyuge2 = ?"; 
+        $stmtUpdate4 = $conn->prepare($sqlUpdate4); 
+        $stmtUpdate4->bind_param("i", $persona_id); 
+        $stmtUpdate4->execute();
+
+
         $sql = "DELETE FROM Personas WHERE PersonaID = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $persona_id);
+        $stmt->execute();
 
-        if ($stmt->execute()) {
-            echo "Registro $persona_id borrado exitosamente.";
-        } else {
-            echo "Error al borrar el registro: " . $stmt->error;
-        }
-
+         if ($stmt->affected_rows > 0) { 
+            echo "Persona eliminada exitosamente y referencias actualizadas."; 
+        } else { echo "No se encontró la persona con ID: $persona_id.";
+        }   
         $stmt->close();
     } else {
         echo "Respuesta de seguridad incorrecta.";
@@ -118,9 +138,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="contenedor">
 <form method="POST" action="borrar.php">
     <input type="hidden" name="persona_id" value="<?php echo $persona_id; ?>">
-    <label> Vas a Borrar un registro de la base de datos </label><br>
-    <label> Si no estas seguro sal de esta pantalla </label><br>
-    <label> y si lo estás contesta a esta pregunta: </label><br>
+    <label> Vas a "Borrar para siempre" un registro </label><br>
+    <label>    de la base de datos </label><br>
+    <label> Si no estas seguro, sal de esta pantalla </label><br>
+    <label> y si lo estás, contesta a esta pregunta: </label><br>
     <label for="respuesta_seguridad">¿Cual es el segundo apellido de Paco?</label><br>
     <input type="text" id="respuesta_seguridad" name="respuesta_seguridad" required>
     <button type="submit">Borrar Persona</button>

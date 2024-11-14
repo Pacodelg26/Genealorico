@@ -300,12 +300,16 @@ if ($pagina_origen == "CP") {
 
 
  }  
-}
 } else if ($pagina_origen == "CCYG") {
    //cargar conyuge contrario
-    if ($padre_id >"0"){ 
-
-
+    if ($conyuge1>"0"){ 
+        $updateconyugesql = "UPDATE Personas SET Conyuge1 = $persona_id WHERE PersonaID = $conyuge1";
+        if ($conn->query($updateconyugesql) === TRUE) { 
+            echo "Registro de conyuge actualizado con éxito."; 
+            } 
+        else { 
+        echo "<br>Error al actualizar el registro de conyuge del inclito: " . $conn->error; 
+        }
  }  
 }
 

@@ -115,50 +115,7 @@ if ('serviceWorker' in navigator) {
     <div class="contenedor">
         <h2>Pagina web de la familia Rico Ibañez y sus parientes</h2>
     </div>   
-<div class="contenedor">
 
-<div class="contenedor-hijo">
-        <h2>Próximos Aniversarios</h2> 
-        <table> 
-            <thead> 
-                <tr> 
-                    <th>Nombre</th> 
-                 
-                    <th>Aniversario</th> 
-                </tr> 
-            </thead> 
-            <tbody> 
-            <?php
-                require 'conexion.php';
-                $conexion = new Conexion();
-                $pdo = $conexion->pdo;
-               // Consulta SQL 
-               $sql = "SELECT Nombre, Apellido_Paterno, Apellido_Materno, 
-               DATE_FORMAT(Fecha_de_Nacimiento, '%d-%m') 
-               AS Dia_Aniversario 
-               FROM Personas 
-               WHERE DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
-               ORDER BY DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') 
-               LIMIT 4";
-                $stmtcumpleaños = $pdo->query($sql);
-                // mostrar cumpleaños
-               
-                while ($row = $stmtcumpleaños->fetch()) {
-                    echo "<tr>
-                        <td>" .$row["Nombre"]." " .$row["Apellido_Paterno"]." " .$row["Apellido_Materno"]." </td>
-   
-                        <td>" .$row["Dia_Aniversario"]."</td>
-                        </tr>";
-                   
-                }
-           
-           
-            
-                ?>
-
-
-        </table>       
-</div>
 </div >   
         <h1>Para empezar selecciona <br> o <a href='crear_persona.php'>crea</a> una persona</h1>
 <div class="contenedorlista">  
@@ -190,9 +147,10 @@ if ('serviceWorker' in navigator) {
         <div class="lista-contenedor">
             <ul id="listaPersonas">
                 <?php
-                // require 'conexion.php';
-                // $conexion = new Conexion();
-                // $pdo = $conexion->pdo;
+                require 'conexion.php';
+                $conexion = new Conexion();
+                $pdo = $conexion->pdo;
+              
                 $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
                 $stmt = $pdo->query($sql);
                 while ($row = $stmt->fetch()) {
@@ -203,6 +161,57 @@ if ('serviceWorker' in navigator) {
             </ul>
         </div>
     </div>
+
+    <div class="contenedor">
+
+<div class="contenedor-hijo">
+        <h2>Próximos Aniversarios</h2> 
+        <table> 
+            <thead> 
+                <tr> 
+                    <th>Nombre</th> 
+                 
+                    <th>Aniversario</th> 
+                </tr> 
+            </thead> 
+            <tbody> 
+            <?php
+ 
+               // Consulta SQL para lista de proximos aniversarios
+          
+            $sql = " SELECT Nombre, Apellido_Paterno, Apellido_Materno, 
+            DATE_FORMAT(Fecha_de_Nacimiento, '%d-%m') 
+            AS Dia_Mes_Aniversario, TIMESTAMPDIFF(YEAR, Fecha_de_Nacimiento, CURDATE()) + 1 
+            AS Edad_Proxima 
+            FROM Personas 
+            WHERE DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
+                OR DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') < DATE_FORMAT(NOW(), '%m-%d') 
+            ORDER BY 
+                CASE 
+                    WHEN DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
+                        THEN DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') 
+                    ELSE '9999-12-31' END ASC,
+            DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') LIMIT 5; ";
+
+                 $stmtcumpleaños = $pdo->query($sql);
+                 // mostrar cumpleaños
+               
+                 while ($row = $stmtcumpleaños->fetch()) {
+                     echo "<tr>
+                         <td>" .$row["Nombre"]." " .$row["Apellido_Paterno"]." " .$row["Apellido_Materno"]." </td>
+   
+                         <td>" .$row["Dia_Mes_Aniversario"]."</td>
+                         </tr>";
+                   
+                 }
+           
+           
+            
+                ?>
+
+
+        </table>       
+</div>
 </body>
 
 
@@ -240,7 +249,7 @@ if ('serviceWorker' in navigator) {
 </div>       
 </body>
 <script>   
-    const CACHE_NAME = 'mi-pwa-cache-v1';
+const CACHE_NAME = 'mi-pwa-cache-v1';
 const urlsToCache = [
   '/',
   '/index.php',

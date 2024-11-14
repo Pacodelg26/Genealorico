@@ -123,13 +123,9 @@
 // Recuperar datos pasados por URL si existen
 if (isset($_GET['persona'])) {
 $personaID = isset($_GET['persona']) ? $_GET['persona'] : '';
-
 $padreID = isset($_GET['padre']) ? $_GET['padre'] : '';
-
 $madreID = isset($_GET['madre']) ? $_GET['madre'] : '';
-
 $apellido_paterno = isset($_GET['apellido_paterno']) ? $_GET['apellido_paterno'] : '';
-
 $apellido_materno = isset($_GET['apellido_materno']) ? $_GET['apellido_materno'] : '';
 
 require 'conexion.php';

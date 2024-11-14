@@ -122,7 +122,7 @@
 // Recuperar datos pasados por URL si existen
 if (isset($_GET['persona'])) {
 $personaID = isset($_GET['persona']) ? $_GET['persona'] : '';
-
+echo "$personaID";
 
 require 'conexion.php';
 $conexion = new Conexion();
@@ -192,17 +192,12 @@ $pdo = $conexion->pdo;
 
             $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M' ORDER BY Nombre";
             $stmt = $pdo->query($sql);
-            if ($padreID) {
-                echo "<option value='$padreID'selected>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</option>";
-                while($row = $stmt->fetch()) {
-                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
-                }
-            } else {
+
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
             while($row = $stmt->fetch()) {
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
-        }
+        
             ?>
         </select><br>
 
@@ -213,29 +208,41 @@ $pdo = $conexion->pdo;
                 
             $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
             $stmt = $pdo->query($sql);
-            if ($madreID) {
-                echo "<option value='$madreID'selected>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</option>";
-                while($row = $stmt->fetch()) {
-                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
-                }
-            } else {
             echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
             while($row = $stmt->fetch()) {
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
-        }
+        
             ?>
         </select><br>
+        <?php
+        if ($personaID) {
+                $sqlconyuge = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                $stmtconyuge = $pdo->prepare($sqlconyuge);
+                $stmtconyuge->execute([$personaID]);
+                $conyuge1 = $stmtconyuge->fetch();
+               // echo "" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "";
+             }
+?>
         Conyuge1: 
         <select name="Conyuge1">
             <?php
-echo "<option value='$personaID'selected>" . $persona['Nombre'] . " " . $persona['Apellido_Paterno'] . " " . $persona['Apellido_Materno'] . "</option>";
+   //         echo "<option value='$personaID'selected>" . $persona['Nombre'] . " " . $persona['Apellido_Paterno'] . " " . $persona['Apellido_Materno'] . "</option>";
             $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
             $stmt = $pdo->query($sql);
-            echo "<option value='$personaID' selected>Seleccione una persona</option>"; // Opción por defecto
+            if ($personaID) {
+                echo"$personaID";
+            echo "<option value='$personaID' selected>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</option>";
             while($row = $stmt->fetch()) {
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
+        } else {
+           
+            echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
+            while($row = $stmt->fetch()) {
+                echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+        }
+    }
             ?>
         </select><br>
         Fecha de 1er Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_1"><br>
@@ -256,5 +263,11 @@ echo "<option value='$personaID'selected>" . $persona['Nombre'] . " " . $persona
         <input type="submit" class="botong" value="Cargar Conyuge">
     </form>
 </div>
+
+
+
+
+
+
 </body>
 </html>
