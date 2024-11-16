@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
 </head>
 <style>
-
- 
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -16,11 +14,8 @@ body {
     margin: 0 auto;
     padding: 0;
     font-size: 35px;
-} 
-
-
-
-.contenedor {
+}     
+  .contenedor {
     margin: 20px auto;
     padding: 20px;
     background: #fff;
@@ -28,7 +23,7 @@ body {
     border-radius: 8px;
     max-width: 700px;
     gap: 10px;
-}
+}  
 input[type="text"] {
     width: calc(50% - 20px);
     padding: 10px;
@@ -55,59 +50,11 @@ input[type="submit"] {
             border: 1px solid #ddd;
             font-size: 30px;
         } 
-.lista-contenedor {
-    max-height: 275px; /* Aproximadamente 10 líneas */
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-    
-}
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.img {
+        .img {
     width: 100%;
     max-width: 80px;
 }
-.desplegable, .desplegable2 {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-.desplegable2 {2
-    background-color: #007BFF;
-    color: #fff;
-    cursor: pointer;
-}
-.desplegable2:hover {
-    background-color: #0056b3;
-}
-form {
-    margin-bottom: 20px;
-}
-
-@media screen and (max-width: 768px) {
-    .contenedor {
-        width: 90%;
-    }
-    .img {
-        max-width: 
-    }
-}
-
-
 </style>
-
-
 <body>
 <div class="contenedor">
         <img class="img" src="Genealorico/fotos/Rico.png" />
@@ -116,25 +63,29 @@ form {
     <hr>
     <div class="contenedor">
         <h2>Pagina web de la familia Rico Ibañez y sus parientes <br>
-        Para empezar registraté o <a href='login.php'>haz login</a></h2>
+        
     </div>   
-  
-Registro
 
-<div class="contenedor">
-<form action="registro_procesar.php" method="POST">
-    <label for="nombre_usuario">Nombre de Usuario:</label>
-    <input type="text" id="nombre_usuario" name="nombre_usuario" required>
-    <br>
-    <label for="contrasena">Contraseña:</label>
-    <input type="password" id="contrasena" name="contrasena" required>
-    <br>
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email" required>
-    <br>
-    <input type="submit" value="Registrarse">
-</form>
-</div>  
 
-</body>
-</html>
+<?php
+
+
+
+include 'db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre_usuario = $conn->real_escape_string($_POST['nombre_usuario']);
+    $contrasena = password_hash($_POST['contrasena'], PASSWORD_DEFAULT);
+    $email = $conn->real_escape_string($_POST['email']);
+    $sql = "INSERT INTO Usuarios (NombreUsuario, Contrasena, Email) VALUES ('$nombre_usuario', '$contrasena', '$email')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Registro exitoso. <a href='login.php'>Iniciar Sesión</a>";
+    } else {
+    
+        echo "Error: <br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+?>

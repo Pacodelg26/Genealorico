@@ -131,7 +131,8 @@
             </li>
  
             <li class="menu-item">
-                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/ver arbol-02.png" title= "Ver en Arbol" alt="Icono 3"></a>
+         <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/ver arbol-02.png" title= "Ver en Arbol" alt="Icono 3"></a>
+            
             </li>
             <li class="menu-item">
                 <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/editar persona-02.png" title="editar esta persona" alt="Icono 3"></a>

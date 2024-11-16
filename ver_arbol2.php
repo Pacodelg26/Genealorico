@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
     <title>Visor de Árbol Familiar</title>
     <style>
-        body {
+body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
@@ -71,6 +71,11 @@
         .tree {
             display: flex;
             flex-direction: column;
+            align-items: center;
+        }
+        .treeh {
+            display: flex;
+            flex-direction: row;
             align-items: center;
         }
         .tree ul {
@@ -187,10 +192,9 @@
         }
     </style>
 </head>
-<body>
-
-
-    <?php
+<body> 
+  
+<?php
     // Recibir persona de la URL y seleccionar su foto si no la hay en función del género
     if (isset($_GET['persona'])) {
         $personaID = $_GET['persona'];
@@ -206,8 +210,9 @@
         if ($row) {
             $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
         }
-    ?>
- <!-- Encabezado de la Página -->
+    ?>   
+    
+     <!-- Encabezado de la Página -->
 <h1>Visor de Árbol Familiar</h1>
     <hr>
       <nav class="menu">
@@ -238,128 +243,104 @@
     </script>
      <hr>    
 
-
-
+     <?php 
+    $sqlabuelos = "SELECT 
+    P.PersonaID, P.Nombre AS PersonaNombre, P.Foto AS PersonaFoto, P.Apellido_Paterno AS PersonaApellidoPaterno, P.Apellido_Materno AS PersonaApellidoMaterno, 
+    P.Conyuge1 AS PersonaConyuge1, P.Conyuge2 AS PersonaConyuge2,
+    Padre.PersonaID AS PadreID, Padre.Nombre AS PadreNombre, Padre.Foto AS PadreFoto, 
+    Madre.PersonaID AS MadreID, Madre.Nombre AS MadreNombre, Madre.Foto AS MadreFoto, 
+    AbueloP.PersonaID AS AbueloPaternoID, AbueloP.Nombre AS AbueloPaternoNombre, AbueloP.Foto AS AbueloPaternoFoto, AbueloP.Apellido_Paterno AS AbueloPaternoAP,
+    AbuelaP.PersonaID AS AbuelaPaternaID, AbuelaP.Nombre AS AbuelaPaternaNombre, AbuelaP.Foto AS AbuelaPaternaFoto, AbuelaP.Apellido_Paterno AS AbuelaPaternaAP,
+    AbueloM.PersonaID AS AbueloMaternoID, AbueloM.Nombre AS AbueloMaternoNombre, AbueloM.Foto AS AbueloMaternoFoto, AbueloM.Apellido_Paterno AS AbueloMaternoAP,
+    AbuelaM.PersonaID AS AbuelaMaternaID, AbuelaM.Nombre AS AbuelaMaternaNombre, AbuelaM.Foto AS AbuelaMaternaFoto, AbuelaM.Apellido_Paterno AS AbuelaMaternaAP
+FROM 
+    Personas P
+LEFT JOIN 
+    Personas Padre ON P.PadreID = Padre.PersonaID
+LEFT JOIN 
+    Personas Madre ON P.MadreID = Madre.PersonaID
+LEFT JOIN 
+    Personas AbueloP ON Padre.PadreID = AbueloP.PersonaID
+LEFT JOIN 
+    Personas AbuelaP ON Padre.MadreID = AbuelaP.PersonaID
+LEFT JOIN 
+    Personas AbueloM ON Madre.PadreID = AbueloM.PersonaID
+LEFT JOIN 
+    Personas AbuelaM ON Madre.MadreID = AbuelaM.PersonaID
+WHERE 
+    P.PersonaID = ?";
   
+  $stmtabuelos = $pdo->prepare($sqlabuelos);
+  $stmtabuelos->execute([$personaID]);
+  $row = $stmtabuelos->fetch();
 
-                    <?php 
- 
-
- if (isset($_GET['persona'])) {
-     $personaID = $_GET['persona'];
-     
-     $sql = "SELECT 
-                 P.PersonaID, P.Nombre AS PersonaNombre, P.Foto AS PersonaFoto, P.Apellido_Paterno AS PersonaApellidoPaterno, P.Apellido_Materno AS PersonaApellidoMaterno, 
-                 P.Conyuge1 AS PersonaConyuge1, P.Conyuge2 AS PersonaConyuge2,
-                 Padre.PersonaID AS PadreID, Padre.Nombre AS PadreNombre, Padre.Foto AS PadreFoto, 
-                 Madre.PersonaID AS MadreID, Madre.Nombre AS MadreNombre, Madre.Foto AS MadreFoto, 
-                 AbueloP.PersonaID AS AbueloPaternoID, AbueloP.Nombre AS AbueloPaternoNombre, AbueloP.Foto AS AbueloPaternoFoto, AbueloP.Apellido_Paterno AS AbueloPaternoAP,
-                 AbuelaP.PersonaID AS AbuelaPaternaID, AbuelaP.Nombre AS AbuelaPaternaNombre, AbuelaP.Foto AS AbuelaPaternaFoto, AbuelaP.Apellido_Paterno AS AbuelaPaternaAP,
-                 AbueloM.PersonaID AS AbueloMaternoID, AbueloM.Nombre AS AbueloMaternoNombre, AbueloM.Foto AS AbueloMaternoFoto, AbueloM.Apellido_Paterno AS AbueloMaternoAP,
-                 AbuelaM.PersonaID AS AbuelaMaternaID, AbuelaM.Nombre AS AbuelaMaternaNombre, AbuelaM.Foto AS AbuelaMaternaFoto, AbuelaM.Apellido_Paterno AS AbuelaMaternaAP
-             FROM 
-                 Personas P
-             LEFT JOIN 
-                 Personas Padre ON P.PadreID = Padre.PersonaID
-             LEFT JOIN 
-                 Personas Madre ON P.MadreID = Madre.PersonaID
-             LEFT JOIN 
-                 Personas AbueloP ON Padre.PadreID = AbueloP.PersonaID
-             LEFT JOIN 
-                 Personas AbuelaP ON Padre.MadreID = AbuelaP.PersonaID
-             LEFT JOIN 
-                 Personas AbueloM ON Madre.PadreID = AbueloM.PersonaID
-             LEFT JOIN 
-                 Personas AbuelaM ON Madre.MadreID = AbuelaM.PersonaID
-             WHERE 
-                 P.PersonaID = ?";
- require 'db.php';           
- $stmt = $conn->prepare($sql);
- $stmt->bind_param("i", $personaID);
- $stmt->execute();
- $result = $stmt->get_result();
- $row = $result->fetch_assoc();
-
- if ($row) {
-?>
-
+  ?>
   <!-- Abuelos -->     
 <div class="tree">
-<ul>
-     <li>
-        <div class="horizontal">
+    <ul>
+        <li>
+            <div class="horizontal">
+          
+                <ul>
+                    <li>
+                      <div class="horizontabuelos">
+                          <?php if ($row['AbueloPaternoID']) { ?>
+                          <a href='ver_arbol.php?persona=<?php echo $row['AbueloPaternoID'] ?>'><img src="<?php echo $row['AbueloPaternoFoto']; ?>" alt="Abuelo Paterno" width='160' height='160'><br><?php echo " " . $row['AbueloPaternoNombre'] . " " . $row['AbueloPaternoAP'] . " "; ?></a>
+                          <?php } ?>
+                          <?php if ($row['AbuelaPaternaID']) { ?>
+                          <a href='ver_arbol.php?persona=<?php echo $row['AbuelaPaternaID'] ?>'><img src="<?php echo $row['AbuelaPaternaFoto']; ?>" alt="Abuela Paterna" width='160' height='160'><br><?php echo " " . $row['AbuelaPaternaNombre'] . " " . $row['AbuelaPaternaAP'] . " "; ?></a>
+                          <?php } ?>
+                          <span style="padding-right: 50px;"></span> 
+                          <?php if ($row['AbueloMaternoID']) { ?>
+                          <a href='ver_arbol.php?persona=<?php echo $row['AbueloMaternoID'] ?>'><img src="<?php echo $row['AbueloMaternoFoto']; ?>" alt="Abuelo Materno" width='160' height='160'><br><?php echo " " . $row['AbueloMaternoNombre'] . " " . $row['AbueloMaternoAP'] . " "; ?></a>
+                          <?php } ?>
+                          <?php if ($row['AbuelaMaternaID']) { ?>
+                          <a href='ver_arbol.php?persona=<?php echo $row['AbuelaMaternaID'] ?>'><img src="<?php echo $row['AbuelaMaternaFoto']; ?>" alt="Abuela Materna" width='160' height='160'><br><?php echo " " . $row['AbuelaMaternaNombre'] . " " . $row['AbuelaMaternaAP'] . " "; ?></a>
+                          <?php } ?>
+                      </div>
+                    </li>
+                </ul>
+            </div>   
+</div>
 
-   
-             <ul>
-                <li>
-                    <div class="horizontal">
-                        <?php if ($row['AbueloPaternoID']) { ?>
-                        <a href='ver_arbol.php?persona=<?php echo $row['AbueloPaternoID'] ?>'><img src="<?php echo $row['AbueloPaternoFoto']; ?>" alt="Abuelo Paterno" width='160' height='160'><br><?php echo " " . $row['AbueloPaternoNombre'] . " " . $row['AbueloPaternoAP'] . " "; ?></a>
-                        <?php } ?>
-                        <?php if ($row['AbuelaPaternaID']) { ?>
-                        <a href='ver_arbol.php?persona=<?php echo $row['AbuelaPaternaID'] ?>'><img src="<?php echo $row['AbuelaPaternaFoto']; ?>" alt="Abuela Paterna" width='160' height='160'><br><?php echo " " . $row['AbuelaPaternaNombre'] . " " . $row['AbuelaPaternaAP'] . " "; ?></a>
-                        <?php } ?>
-                        <?php if ($row['AbueloMaternoID']) { ?>
-                        <a href='ver_arbol.php?persona=<?php echo $row['AbueloMaternoID'] ?>'><img src="<?php echo $row['AbueloMaternoFoto']; ?>" alt="Abuelo Materno" width='160' height='160'><br><?php echo " " . $row['AbueloMaternoNombre'] . " " . $row['AbueloMaternoAP'] . " "; ?></a>
-                        <?php } ?>
-                        <?php if ($row['AbuelaMaternaID']) { ?>
-                        <a href='ver_arbol.php?persona=<?php echo $row['AbuelaMaternaID'] ?>'><img src="<?php echo $row['AbuelaMaternaFoto']; ?>" alt="Abuela Materna" width='160' height='160'><br><?php echo " " . $row['AbuelaMaternaNombre'] . " " . $row['AbuelaMaternaAP'] . " "; ?></a>
-                        <?php } ?>
-                    </div>
-         
-
-        </div>   
-
- <!-- Presentar a los padres -->
-        <ul>
-            <li>
-                <div class="horizontal">
-                    <?php 
-                    if ($row['PadreID']) { 
-                        $sqlPadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno, Foto FROM Personas WHERE PersonaID = ?";
-                        $stmtPadre = $pdo->prepare($sqlPadre);
-                        $stmtPadre->execute([$row['PadreID']]);
-                        $padre = $stmtPadre->fetch();
-                            echo "<a href='ver_arbol.php?persona=".$row['PadreID']."'><img src='/$padre[Foto]' alt='Padre' width='160' height='160'><br> " . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . "</a>";
-                        }
-
-                    if ($row['MadreID']) { 
-                        $sqlMadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno, Foto FROM Personas WHERE PersonaID = ?";
-                        $stmtMadre = $pdo->prepare($sqlMadre);
-                        $stmtMadre->execute([$row['MadreID']]);
-                        $madre = $stmtMadre->fetch();
-                            echo "<a href='ver_arbol.php?persona=".$row['MadreID']."'><img src='/$madre[Foto]' alt='Madre' width='160' height='160'><br>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " </a>";
-                        } 
-                    ?>
-                </div>   
-<!-- Presentar a la persona -->
-        <ul>
-            <li>
-                <a class="centrar-persona" href="#"><img src="/<?php echo $foto; ?>" alt="Persona" width="160" height="160"><br><?php echo  $row['PersonaNombre'] . " " . $row['PersonaApellidoPaterno'] . " " . $row['PersonaApellidoMaterno']; ?> </a>
-      
-                                          
-                 <!-- Mostrar Hijos -->
-                 <ul> 
-                    <?php
-                    $sqlHijos = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno, Foto FROM Personas WHERE PadreID = ? OR MadreID = ?";
-                    $stmtHijos = $pdo->prepare($sqlHijos);
-                    $stmtHijos->execute([$personaID, $personaID]);
-                    while ($hijo = $stmtHijos->fetch()) {
-                        echo "<li><a href='ver_arbol.php?persona=".$hijo['PersonaID']."'><img src='/$hijo[Foto]' alt='Hijo' width='160' height='160'><br>" . $hijo['Nombre'] . " " . $hijo['Apellido_Paterno'] . " " . $hijo['Apellido_Materno'] . "</a></li>";
+  <!-- Presentar a los padres -->
+  <div class="tree">  
+    <ul>
+        <li>
+            <div class="horizontal">
+                <?php 
+                if ($row['PadreID']) { 
+                    $sqlPadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno, Foto FROM Personas WHERE PersonaID = ?";
+                    $stmtPadre = $pdo->prepare($sqlPadre);
+                    $stmtPadre->execute([$row['PadreID']]);
+                    $padre = $stmtPadre->fetch();
+                        echo "<a href='ver_arbol.php?persona=".$row['PadreID']."'><img src='/$padre[Foto]' alt='Padre' width='160' height='160'><br> " . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . "</a>";
                     }
                     ?>
-                </ul>
-            </li>
-        </ul>
+                    <span style="padding-right: 80px;"></span> 
+                    <?php
+                if ($row['MadreID']) { 
+                    $sqlMadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno, Foto FROM Personas WHERE PersonaID = ?";
+                    $stmtMadre = $pdo->prepare($sqlMadre);
+                    $stmtMadre->execute([$row['MadreID']]);
+                    $madre = $stmtMadre->fetch();
+                        echo "<a href='ver_arbol.php?persona=".$row['MadreID']."'><img src='/$madre[Foto]' alt='Madre' width='160' height='160'><br>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " </a>";
+                    } 
+                ?>
+            </div>
+        </li>
+    </ul>
+</div>               
+         
+ <!-- Presentar a la persona -->
+ <div class="tree">  
+ <ul>
+    <li>
+            <div class="horizontal">    
              
-  
-            <!-- </div> -->
-
-
-      <!-- Mostrar Conyuges -->
-       Conyuges
-   <div class="tree">
-    <ul> 
+                <a class="centrar-persona" href="#"><img src="/<?php echo $foto; ?>" alt="Persona" width="160" height="160"><br><?php echo  $row['PersonaNombre'] . " " . $row['PersonaApellidoPaterno'] . " " . $row['PersonaApellidoMaterno']; ?> </a>    
+         
+                       <span style="padding-right: 100px;"></span> 
         <?php        
         
             if ($row['PersonaConyuge1']) {
@@ -367,6 +348,9 @@
             $stmtConyuge1 = $pdo->prepare($sqlConyuge1);
             $stmtConyuge1->execute([$row['PersonaConyuge1']]);
             $conyuge1 = $stmtConyuge1->fetch();
+            ?>
+            <span style="padding-right: 80px;"></span> 
+            <?php
             echo "<li><a href='ver_arbol.php?persona=".$row['PersonaConyuge1']."'><img src='/$conyuge1[Foto]' alt='Conyuge' width='160' height='160'><br>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a></li>";
             }
             if ($row['PersonaConyuge2']) { 
@@ -377,37 +361,4 @@
             echo "<li><a href='ver_arbol.php?persona=".$row['PersonaConyuge2']."'><img src='/$conyuge2[Foto]' alt='Conyuge' width='160' height='160'><br>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a></li>";
             }
         ?>
-    </div>
-    </ul> 
-
-  <!-- Fin Mostrar Conyuges -->
-   
-    <!--  Mostrar Hermanos --> 
-    Hermanos
-    <div class="tree">
-    <ul>
-        
-          <div class="horizontal">  
-             <?php
-
-         
-            $sqlHermanos = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno, Foto FROM Personas WHERE (PadreID = ? OR MadreID = ?) AND PersonaID != ? AND (PadreID != 0 AND MadreID !=0)";
-            $stmtHermanos = $pdo->prepare($sqlHermanos);
-            $stmtHermanos->execute([$row['PadreID'], $row['MadreID'], $personaID]);
-            while ($hermano = $stmtHermanos->fetch()) {
-            echo "<li><a href='ver_arbol.php?persona=".$hermano['PersonaID']."'><img src='/$hermano[Foto]' alt='Hermano' width='160' height='160'><br>" . $hermano['Nombre'] . " " . $hermano['Apellido_Paterno'] . " " . $hermano['Apellido_Materno'] . "</a></li>";   
-            }
-?>
-</div>
-       
-        </ul>
-    <?php                                                    
-        } else {
-            echo "No se encontraron datos.";
-        }
-    } else {
-        echo "No se ha seleccionado ninguna persona.";
-    }
-    ?>
-</body>
-</html>
+    </div>     
