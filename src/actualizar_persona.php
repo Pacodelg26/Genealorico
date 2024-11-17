@@ -29,7 +29,7 @@ $foto = $_POST['Foto'];
 
 // Cargar la nueva foto al servidor
 
- $target_dir = "Genealorico/fotos/";
+ $target_dir = "public/images/";
  $target_file = $target_dir . basename($_FILES["foto"]["name"]);
  $uploadOk = 1;
  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

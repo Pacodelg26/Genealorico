@@ -110,7 +110,7 @@ if ('serviceWorker' in navigator) {
         <h2>Pagina web de la familia Rico Ibañez y sus parientes</h2>;
 </div>   
 <div class="contenedor">
-        <img class="img" src="Genealorico/fotos/Rico.png" />
+        <img class="img" src="public/images/Rico.png" />
 </div>  
         <h1>Para empezar selecciona una persona</h1>
 <div class="contenedorlista">  

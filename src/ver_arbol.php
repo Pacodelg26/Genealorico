@@ -165,7 +165,7 @@
         $row = $stmt->fetch();
     }
         if ($row) {
-            $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
+            $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'public/images/hombre.jpg' : 'public/images/mujer.jpg');
         }
     ?>
  <!-- Encabezado de la Página -->
@@ -174,16 +174,16 @@
       <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/Home.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                <a href="index.php"><img src="public/images/Home.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
             </li>
             <li class="menu-item">
-                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
+                <a href="crear_persona.php"><img src="public/images/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
             </li>
             <li class="menu-item">
-                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" title="editar esta persona" alt="Icono 3"></a>
+                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="public/images/Editar Persona.png" title="editar esta persona" alt="Icono 3"></a>
             </li>
             <li class="menu-item">
-                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Buscar Persona.png" title="ver persona" alt="Ver Persona"></a>
+                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="public/images/Buscar Persona.png" title="ver persona" alt="Ver Persona"></a>
             </li>
         </ul>
         </nav>

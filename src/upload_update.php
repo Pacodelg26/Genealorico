@@ -86,30 +86,30 @@ echo "<br>Fecha boda2 $fecha_boda_2 <br>";
 
 if (!empty($_FILES['Foto']['name'])) {
     // Si se ha subido una nueva foto se sustituye
-    $foto= 'Genealorico/fotos/' . $_FILES['Foto']['name']; 
+    $foto= 'public/images/' . $_FILES['Foto']['name']; 
     echo "hay foto nueva ";
     echo "$foto";
 } else if ((empty($foto)) AND (empty($fotonueva))) {
     // Si no hay foto y se basa en el género
     if ($genero == 'M') {
-        $persona['Foto'] = 'Genealorico/fotos/hombre.jpg';
+        $persona['Foto'] = 'public/images/hombre.jpg';
         $foto=$persona['Foto'];
         echo "No hay foto nueva ni en la base de datos y es un hombre";
         echo "<br>foto actual $foto";
     } elseif ($genero == 'F') {
-        $persona['Foto'] = 'Genealorico/fotos/mujer.jpg';
+        $persona['Foto'] = 'public/images/mujer.jpg';
         $foto=$persona['Foto']; 
         echo "No hay foto nueva ni en la base de datos y es una Mujer ";
         echo "$foto";
     } else {
-        $persona['Foto'] = 'Genealorico/fotos/default.jpg'; // Opcional: un valor por defecto si el género no es M o F
+        $persona['Foto'] = 'public/images/default.jpg'; // Opcional: un valor por defecto si el género no es M o F
         $foto=$persona['Foto'];
         echo "$foto";
     }
 }
 // Carga de la foto
 
-$target_dir = "Genealorico/fotos/";
+$target_dir = "public/images/";
 $target_file = $target_dir . basename($_FILES["Foto"]["name"]);
 if (move_uploaded_file($_FILES["Foto"]["tmp_name"], $target_file)){
  echo "el archivo ha sido subido exitosamente";

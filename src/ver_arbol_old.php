@@ -113,22 +113,22 @@
         $row = $stmt->fetch();
       
     if ($row) {
-        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
+        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'public/images/hombre.jpg' : 'public/images/mujer.jpg');
     ?>
 
     <!-- Cabecera de la pagina -->
     <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                <a href="index.php"><img src="public/images/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
                 
             </li>
             <li class="menu-item">
-                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 3"></a>
+                <a href="crear_persona.php"><img src="public/images/Crear Persona.png" alt="Icono 3"></a>
             </li>
 
             <li class="menu-item">
-                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" alt="Icono 3"></a>
+                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="public/images/Editar Persona.png" alt="Icono 3"></a>
             </li>
         </ul>
         </nav>

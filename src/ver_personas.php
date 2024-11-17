@@ -114,24 +114,24 @@
         $row = $stmt->fetch();
       
         if ($row) {
-        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
+        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'public/images/hombre.jpg' : 'public/images/mujer.jpg');
     ?>
 <h1>Visor de Personas </h1>
     <hr>
       <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/Home.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>   
+                <a href="index.php"><img src="public/images/Home.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>   
             </li>
  
             <li class="menu-item">
-                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" title= "Ver en Arbol" alt="Icono 3"></a>
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="public/images/Ver Arbol.png" title= "Ver en Arbol" alt="Icono 3"></a>
             </li>
             <li class="menu-item">
-                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" title="editar esta persona" alt="Icono 3"></a>
+                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="public/images/Editar Persona.png" title="editar esta persona" alt="Icono 3"></a>
             </li>
                 <li class="menu-item">
-                <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/papelera.jpg" title="Borrar Persona" alt="Borrar"><div class="hover-text">Borrar</div></a>   
+                <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="public/images/papelera.jpg" title="Borrar Persona" alt="Borrar"><div class="hover-text">Borrar</div></a>   
             </li>
         </ul>
         </nav>
@@ -159,11 +159,11 @@
                 </div>
             </li>
            <li class="menu-item">
-                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
+                <a href="crear_persona.php"><img src="public/images/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
             </li>
             <li class="menu-item">
             <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">
-            <img src="Genealorico/fotos/crear hermanos.png" title="Crear hermano/a" alt="Agregar Hermano">
+            <img src="public/images/crear hermanos.png" title="Crear hermano/a" alt="Agregar Hermano">
             </a>
             </li>
 

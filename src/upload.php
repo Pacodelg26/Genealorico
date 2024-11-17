@@ -19,30 +19,30 @@ $conyuge2 = $_POST['Conyuge2'];
 $fecha_boda_2 = $_POST['Fecha_Boda_2'];
 // Carga de la foto
 
-$target_dir = "Genealorico/fotos/";
+$target_dir = "public/images/";
 $target_file = $target_dir . basename($_FILES["Foto"]["name"]);
 move_uploaded_file($_FILES["Foto"]["tmp_name"], $target_file);
 
 if (!empty($foto)) {
     // Si se ha subido una nueva foto
-    $persona['Foto'] = 'Genealorico/fotos/' . $_FILES['Foto']['name']; 
+    $persona['Foto'] = 'public/images/' . $_FILES['Foto']['name']; 
     $foto=$persona['Foto'];
     echo "hay foto nueva ";
     echo "$foto";
 } else if ((empty($foto)) AND (empty($fotonueva))) {
     // Si no hay foto y se basa en el género
     if ($genero == 'M') {
-        $persona['Foto'] = 'Genealorico/fotos/hombre.jpg';
+        $persona['Foto'] = 'public/images/hombre.jpg';
         $foto=$persona['Foto'];
         echo "No hay foto nueva ni en la base de datos y es un hombre";
         echo "<br>foto actual $foto";
     } elseif ($genero == 'F') {
-        $persona['Foto'] = 'Genealorico/fotos/mujer.jpg';
+        $persona['Foto'] = 'public/images/mujer.jpg';
         $foto=$persona['Foto']; 
         echo "No hay foto nueva ni en la base de datos y es una Mujer ";
         echo "$foto";
     } else {
-        $persona['Foto'] = 'Genealorico/fotos/default.jpg'; // Opcional: un valor por defecto si el género no es M o F
+        $persona['Foto'] = 'public/images/default.jpg'; // Opcional: un valor por defecto si el género no es M o F
         $foto=$persona['Foto'];
         echo "$foto";
     }
@@ -122,17 +122,17 @@ VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento'
       <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                <a href="index.php"><img src="public/images/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
                 
             </li>
             <li class="menu-item">
-                <a href="crear_persona.php"><img src="Genealorico/fotos/Crear Persona.png" alt="Icono 2"></a>
+                <a href="crear_persona.php"><img src="public/images/Crear Persona.png" alt="Icono 2"></a>
             </li>
             <li class="menu-item">
-                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Ver Arbol.png" alt="Icono 3"></a>
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="public/images/Ver Arbol.png" alt="Icono 3"></a>
             </li>
             <li class="menu-item">
-                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/Editar Persona.png" alt="Icono 3"></a>
+                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="public/images/Editar Persona.png" alt="Icono 3"></a>
             </li>
         </ul>
         </nav>
