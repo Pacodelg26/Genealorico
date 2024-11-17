@@ -1,0 +1,32 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: php-fpm
+    volumes:
+      - ./src:/var/www/html
+      - ./.env:/var/www/.env
+      - ./public:/var/www/public
+    networks:
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-server
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./src:/var/www/html
+        - ./.env:/var/www/.env
+      - ./public:/var/www/public
+    ports:
+      - '8080:80'
+    networks:
+      - backend
+    depends_on:
+      - php
+    restart: always
+
+networks:
+  backend:
+    driver: bridge
