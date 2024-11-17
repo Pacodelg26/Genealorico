@@ -7,7 +7,6 @@ services:
     volumes:
       - ./src:/var/www/html
       - ./.env:/var/www/.env
-      - ./public:/var/www/public
     networks:
       - backend
 
@@ -17,7 +16,6 @@ services:
     volumes:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./src:/var/www/html
-        - ./.env:/var/www/.env
       - ./public:/var/www/public
     ports:
       - '8080:80'
@@ -27,6 +25,25 @@ services:
       - php
     restart: always
 
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+    ports:
+      - "3306:3306"
+    restart: always
+
 networks:
   backend:
     driver: bridge
+
+volumes:
+  mysql_data:
