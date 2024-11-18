@@ -106,24 +106,24 @@ if (!empty($foto)) {
     // Si se ha subido una nueva foto
     $persona['Foto'] = 'Genealorico/fotos/' . $_FILES['Foto']['name']; 
     $foto=$persona['Foto'];
-    echo "<br>hay foto cargada ";
-    echo "$foto";
+    //echo "<br>hay foto cargada ";
+    //echo "$foto";
 } else if ((empty($foto)) AND (empty($fotonueva))) {
     // Si no hay foto y se basa en el género
     if ($genero == 'M') {
         $persona['Foto'] = 'Genealorico/fotos/hombre.jpg';
         $foto=$persona['Foto'];
-        echo "No hay foto nueva ni en la base de datos y es un hombre";
-        echo "<br>foto actual $foto";
+        //echo "No hay foto nueva ni en la base de datos y es un hombre";
+        //echo "<br>foto actual $foto";
     } elseif ($genero == 'F') {
         $persona['Foto'] = 'Genealorico/fotos/mujer.jpg';
         $foto=$persona['Foto']; 
-        echo "No hay foto nueva ni en la base de datos y es una Mujer ";
-        echo "$foto";
+        //echo "No hay foto nueva ni en la base de datos y es una Mujer ";
+        //echo "$foto";
     } else {
         $persona['Foto'] = 'Genealorico/fotos/default.jpg'; // Opcional: un valor por defecto si el género no es M o F
         $foto=$persona['Foto'];
-        echo "$foto";
+        //echo "$foto";
     }
 }
 
@@ -193,40 +193,54 @@ VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento'
     $sql = "INSERT INTO Personas (Nombre, Apellido_Paterno, Apellido_Materno, Fecha_de_Nacimiento, Lugar_de_Nacimiento, Fecha_de_Defunción, Lugar_de_Defunción, Foto, Genero, Habita_en, PadreID, MadreID, Conyuge1, Fecha_boda_1, Conyuge2, Fecha_Boda_2)
     VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_nacimiento', '$lugar_nacimiento', '$fecha_defuncion', '$lugar_defuncion', '$foto', '$genero', '$habita_en', '$padre_id', '$madre_id', '$conyuge1', '$fecha_boda_1', '$conyuge2', '$fecha_boda_2')";
 }
-
-
 ?>
-  
-      
- <?php
-//  // cargar los conyuges mutuos
+<body>
+<h1>Cargar Persona a Genealorico</h1>
+    <hr>
+      <nav class="menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+            </li>
+            <li class="menu-item">
+                <a href="crear_persona.php"><img src="Genealorico/fotos/añadir persona-02.png" title="Crear Persona" alt="Icono 2"></a>
+            </li>
+
+        </ul>
+        </nav>
+
+     <hr>   
+<?php
+
+
 
 // Validar registro creado
 if ($conn->query($sql) === TRUE) {
-    echo "Registro creado exitosamente";
-    // obtener id del nuevo registro
-    $persona_id = $conn->insert_id; echo "<br>Nuevo registro creado con éxito. El ID del registro es: " . $persona_id. " ";
-}
+     $persona_id = $conn->insert_id; echo "<br>Nuevo registro creado con éxito. El ID del registro es: " . $persona_id. " ";
     ?>
-    <body>
-    <h1>Cargar Persona a Genealorico</h1>
-        <hr>
-          <nav class="menu">
-            <ul class="menu-list">
-                <li class="menu-item">
-                    <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
-                </li>
-                <li class="menu-item">
-                    <a href="crear_persona.php"><img src="Genealorico/fotos/añadir persona-02.png" title="Crear Persona" alt="Icono 2"></a>
-                </li>
-                <li class="menu-item">
-                    <a href="ver_personas.php?persona=<?php echo $persona_id; ?>"><img src="Genealorico/fotos/volver-02.png" title="Volver" alt="Ver Persona"></a>
-                </li>
-            </ul>
-            </nav>
-    
-         <hr>     
+    <body onload="delayAction()"> <h1>Actualizando</h1> <p id="message"></p>
+    <?php
+} else {
+   echo "Error: " . $sql . "<br>" . $conn->error;
+}
+?>
+<script> function delayAction() { 
+    setTimeout(function() {
+         // Mostrar un mensaje 
+         document.getElementById('message').innerText = 'Registro finalizado'; 
+         // Redirigir a la página PHP después de un intervalo 
+         setTimeout(function() { window.location.href = 'ver_personas.php?persona=<?php echo $persona_id ?>'; }, 3000); 
+         // Retraso de 5 segundos 
+         }, 3000); 
+         // Retraso inicial de 5 segundos 
+         } 
+</script>
+
 <?php
+
+   
+
+
 
 // Si venimos de crear Padre o  Crear Madre actualizamos los hijos con los nuevos registros
 if ($pagina_origen == "CP") {
@@ -313,12 +327,10 @@ if ($pagina_origen == "CP") {
  }  
 }
 
- else {
-   echo "Error: " . $sql . "<br>" . $conn->error;
-}
 
 
-// header("Location: index.php");
+
+
  
 
 $conn->close(); 

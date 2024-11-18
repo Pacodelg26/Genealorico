@@ -51,46 +51,40 @@
             display: inline;
             margin-right: 10px;
         }
-/* styles.css */
 
-.menu-icon {
-    font-size: 30px;
-    cursor: pointer;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    display: inline-block;
-}
+        .menu-icon {
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            display: inline-block;
+        }
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
 
-.dropdown-menu a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-size: 35px;
-}
+        .dropdown-menu a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 35px;
+        }
 
-.dropdown-menu a:hover {
-    background-color: #f1f1f1;
-}
-.img {
-    width: 50px;
-    height:50px;
-}
-
-
-
-
-
+        .dropdown-menu a:hover {
+            background-color: #f1f1f1;
+        }
+        .img {
+            width: 50px;
+            height:50px;
+        }
         @media screen and (max-width: 768px) {
             .contenedor {
                 width: 90%;
@@ -99,79 +93,76 @@
                 max-width: 100%;
             }
         }
- 
- 
-
-   </style> 
-   </head>
+    </style> 
+</head>    
+<script src="script.js">
+</script>
 <body>
 
     <?php
+
+    // Recibimos persona de otras paginas
     if (isset($_GET['persona'])) {
         $personaID = $_GET['persona'];
         require 'conexion.php';
         $conexion = new Conexion();
         $pdo = $conexion->pdo;
-
+    // Sacamos todos los campos de la base de datos para esa persona al array $row
         
         $sql = "SELECT * FROM Personas WHERE PersonaID = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$personaID]);
         $row = $stmt->fetch();
-      
-        if ($row) {
-        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
-    ?>
+?>
+<!-- Titulo y menú de Iconos -->
 <h1>Visor de Personas </h1>
-    <hr>
-      <nav class="menu">
+<hr>
+    <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
                 <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>   
             </li>
  
             <li class="menu-item">
-         <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/ver arbol-02.png" title= "Ver en Arbol" alt="Icono 3"></a>
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/ver arbol-02.png" title= "Ver en Arbol" alt="Icono 3"></a>
             
             </li>
             <li class="menu-item">
                 <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/editar persona-02.png" title="editar esta persona" alt="Icono 3"></a>
-            <li class="menu-item" onclick="toggleMenu()">
-                
+            <li class="menu-item" onclick="toggleMenu()">   
                     <img src="Genealorico/fotos/añadir persona-02.png">
-               <!-- &#9776;  Este es el icono de menú en forma de tres líneas horizontales -->
-      
-                <div id="dropdown-menu" class="dropdown-menu" >
-                    <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Hermano/a</a>
-                    <a href="crear_padre.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&CP=1;">Crear Padre</a>
-                    <a href="crear_madre.php?persona=<?php echo $personaID; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>&CM=1;">Crear Madre</a>
-                    <!-- <a href="crear_hijo.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>&conyuge1=<?php echo $row['Conyuge1']; ?>">Crear Hijo/a</a> -->
-                    <a href="crear_conyuge.php?persona=<?php echo $personaID; ?>">Crear Conyuge</a>
-                </div>
+                        <div id="dropdown-menu" class="dropdown-menu" >
+                            <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Hermano/a</a>
+                            <a href="crear_padre.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&CP=1;">Crear Padre</a>
+                            <a href="crear_madre.php?persona=<?php echo $personaID; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>&CM=1;">Crear Madre</a>
+                            <!-- <a href="crear_hijo.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>&conyuge1=<?php echo $row['Conyuge1']; ?>">Crear Hijo/a</a> -->
+                            <a href="crear_conyuge.php?persona=<?php echo $personaID; ?>">Crear Conyuge</a>
+                        </div>
             </li>
-            
-            
             <li class="menu-item">
                 <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/eliminar-02.png" title="Borrar Persona" alt="Borrar"><div class="hover-text">Borrar</div></a>   
             </li>
         </ul>
-        </nav>
-     
+    </nav>
 
-       
-    <script src="script.js">
-    </script>
+<?php
+
+// si no hay foto asignamos una en función de su género 
+    if ($row) {
+        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
+
+?>
     
-     <hr> 
-            <div class="contenedor">
-                <img id="foto" width="300px" src="<?php echo "/", $foto; ?>"alt="Foto de la persona"  >
-        </div>
-        <div class="contenedorlista">
-            <?php
-            // echo "<p>Foto: " . $row['Foto'] . "</p>";
+<!--// Presentamos a la persona-->
+<hr> 
+    <div class="contenedor">
+        <img id="foto" width="300px" src="<?php echo "/", $foto; ?>"alt="Foto de la persona"  >
+    </div>
+    <div class="contenedorlista">
+        <?php
+           
             echo "<label>Nombre: " . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] ."</label>";
-            // echo "<p>Apellido Paterno: " . $row['Apellido_Paterno'] . "</p>";
-            // echo "<p>Apellido Materno: " . $row['Apellido_Materno'] . "</p>";
+ 
             if ($row['Fecha_de_Nacimiento']) {
             echo "<br><label>Fecha de Nacimiento: " . $row['Fecha_de_Nacimiento'] . "</label>";
             }
@@ -180,10 +171,10 @@
             }
             if ($row['Habita_en']) {
                 echo "<br><label>Vive o vivió en " . $row['Habita_en'] . "</label>";
-                }
-            ?>
-        </div>
-        <div class="contenedorlista">
+            }
+        ?>
+    </div>
+    <div class="contenedorlista">
         <?php    
             // Mostrar Padres
             echo "<h2>Padres</h2>";
@@ -202,10 +193,10 @@
                 $madre = $stmtMadre->fetch();
                 echo "<a href='ver_personas.php?persona=".$row['MadreID']."'>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</a><br>";
             }
-            ?>
+        ?>
         
-        <?php
-            // Mostrar Hijos
+    <?php
+// Mostrar Hijos
             echo "<h2>Hijos</h2>";
             $sqlHijos = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PadreID = ? OR MadreID = ?";
             $stmtHijos = $pdo->prepare($sqlHijos);
@@ -214,7 +205,7 @@
                 echo "<p> <a href='ver_personas.php?persona=".$hijo['PersonaID']."'>" . $hijo['Nombre'] . " " . $hijo['Apellido_Paterno'] . " " . $hijo['Apellido_Materno'] . "</a></p>";
             }
 
-            // Mostrar Hermanos
+// Mostrar Hermanos
             echo "<h2>Hermanos</h2>";
             $sqlHermanos = "SELECT P2.PersonaID, P2.Nombre, P2.Apellido_Paterno, P2.Apellido_Materno
             FROM Personas P1
@@ -231,7 +222,7 @@
                 echo "<p> <a href='ver_personas.php?persona=".$hermano['PersonaID']."'>" . $hermano['Nombre'] . " " . $hermano['Apellido_Paterno'] . " " . $hermano['Apellido_Materno'] . "</a></p>";
             }
 
-            // Mostrar Conyuges
+// Mostrar Conyuges
             echo "<h2>Conyuges</h2>";
             if ($row['Conyuge1']) {
                 $sqlConyuge1 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
@@ -247,17 +238,15 @@
                 $conyuge2 = $stmtConyuge2->fetch();
                 echo "<a href='ver_personas.php?persona=".$row['Conyuge1']."'>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a>";
             }
-        } else {
-            echo "No se encontraron datos.";
-        }
-    } else {
-        echo "No se ha seleccionado ninguna persona.";
-    }
+            } else {
+                echo "No se encontraron datos.";
+            }
+    }        
+            
     ?>
     </div>
-    <!-- <div class="contenedor">
-    <a class="link" href="editar_person.php?persona=<?php echo $personaID; ?>">Editar Persona</a> -->
-</div>
+
+
 </body>
 
 </html>

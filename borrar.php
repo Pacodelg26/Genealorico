@@ -59,8 +59,33 @@ label {
       
        
   </style>
+ <script> function delayAction() { 
+    setTimeout(function() {
+         // Mostrar un mensaje 
+         document.getElementById('message').innerText = 'Persona Borrada'; 
+         // Redirigir a la página PHP después de un intervalo 
+         setTimeout(function() { window.location.href = 'index.php'; }, 3000); 
+         // Retraso de 5 segundos 
+         }, 3000); 
+         // Retraso inicial de 5 segundos 
+         } 
+</script> 
 <body>
+<h1>Borrar una Persona</h1>
+    <hr>
+      <nav class="menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+            </li>
+            <li class="menu-item">
+                <a href="crear_persona.php"><img src="Genealorico/fotos/añadir persona-02.png" title="Crear Persona" alt="Icono 2"></a>
+            </li>
 
+        </ul>
+        </nav>
+
+     <hr>    
 <?php
 // Conexión a la base de datos
 $servername = "localhost";
@@ -109,7 +134,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
 
          if ($stmt->affected_rows > 0) { 
-            echo "Persona eliminada exitosamente y referencias actualizadas."; 
+            
+            ?>
+            <body onload="delayAction()"> <h1>Borrando</h1> <p id="message"></p>
+            <?php
         } else { echo "No se encontró la persona con ID: $persona_id.";
         }   
         $stmt->close();
@@ -120,21 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $persona_id = $_GET['persona'];
 }
 ?>
-<h1>Borrar una Persona</h1>
-    <hr>
-      <nav class="menu">
-        <ul class="menu-list">
-            <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
-            </li>
-            <li class="menu-item">
-                <a href="crear_persona.php"><img src="Genealorico/fotos/añadir persona-02.png" title="Crear Persona" alt="Icono 2"></a>
-            </li>
 
-        </ul>
-        </nav>
-
-     <hr>    
 <div class="contenedor">
 <form method="POST" action="borrar.php">
     <input type="hidden" name="persona_id" value="<?php echo $persona_id; ?>">

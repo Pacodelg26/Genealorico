@@ -272,15 +272,34 @@ echo " 1111";
 }
 
 // Validar registro creado
-// echo "($conn->query($sql) ";
+
 
 if ($conn->query($sql) === TRUE) {
-    echo "<br>Registro Actualizado Correctamente";
-  
-
+    ?>
+    <body onload="delayAction()"> <h1>Actualizando</h1> <p id="message"></p>
+    <?php
 } else {
    echo "Error: " . $sql . "<br>" . $conn->error;
 }
+?>
+<script> function delayAction() { 
+    setTimeout(function() {
+         // Mostrar un mensaje 
+         document.getElementById('message').innerText = 'Registro actualizado'; 
+         // Redirigir a la página PHP después de un intervalo 
+         setTimeout(function() { window.location.href = 'ver_personas.php?persona=<?php echo $personaID ?>'; }, 3000); 
+         // Retraso de 5 segundos 
+         }, 3000); 
+         // Retraso inicial de 5 segundos 
+         } 
+</script>
+
+<?php
+
+
+
+
+
 
 $conn->close(); 
 
