@@ -18,9 +18,9 @@
             text-align: center;
             font-size: 18px;
         } 
-label {
-    font-size: 30px;
-}
+        label {
+            font-size: 30px;
+        }
             button {
               font-size: 25px;  
             }
