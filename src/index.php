@@ -2,6 +2,7 @@
 require 'load-env.php';
 ?>
 
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,28 +12,16 @@ require 'load-env.php';
     <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
 </head>
 
-<script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    console.log('Service Worker registrado con éxito:', registration);
-                }).catch(error => {
-                    console.log('Registro del Service Worker fallido:', error);
-                });
-        });
-    }
-</script>
-
 <style>
     body {
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
         text-align: center;
-
+        width: 90%;
+        margin: 0 auto;
+        padding: 0;
+        font-size: 35px;
     }
-
-
 
     .contenedor {
         margin: 20px auto;
@@ -40,7 +29,8 @@ require 'load-env.php';
         background: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
-        max-width: 600px;
+        max-width: 700px;
+        gap: 10px;
     }
 
     input[type="text"] {
@@ -50,17 +40,15 @@ require 'load-env.php';
         border-radius: 4px;
         border: 1px solid #ddd;
         font-size: 30px;
-
     }
 
     .lista-contenedor {
-        max-height: 300px;
+        max-height: 275px;
         /* Aproximadamente 10 líneas */
         overflow-y: auto;
         border: 1px solid #ddd;
         padding: 10px;
         border-radius: 4px;
-
     }
 
     ul {
@@ -76,7 +64,7 @@ require 'load-env.php';
 
     .img {
         width: 100%;
-        max-width: 300px;
+        max-width: 80px;
     }
 
     .desplegable,
@@ -110,16 +98,18 @@ require 'load-env.php';
 </style>
 
 <body>
-
-    <h1>GenealoRico Página Principal</h1>
-    <hr>
-    <div class="contenedor">
-        <h2>Pagina web de la familia Rico Ibañez y sus parientes</h2>
-    </div>
     <div class="contenedor">
         <img class="img" src="public/images/Rico.png" />
+        <h1>GenealoRico</h1>
     </div>
-    <h1>Para empezar selecciona una persona</h1>
+    <hr>
+    <div class="contenedor">
+        <h2>Pagina web de la familia Rico Ibañez y sus parientes <br>
+            Para empezar selecciona o <a href='crear_persona.php'>crea</a> una persona</h2>
+    </div>
+
+    </div>
+
     <div class="contenedorlista">
 
 
@@ -138,86 +128,81 @@ require 'load-env.php';
                 });
             }
         </script>
-        </head>
 
-        <body>
+        <!-- </head>
+<body>  -->
 
-            <div class="contenedor">
+        <div class="contenedor">
+            <input type="text" id="buscarInput" onkeyup="buscarPersonas()" placeholder="Buscar por nombre o apellido...">
+        </div>
+        <div class="contenedor">
+            <div class="lista-contenedor">
+                <ul id="listaPersonas">
+                    <?php
+                    require 'conexion.php';
+                    $conexion = new Conexion();
+                    $pdo = $conexion->pdo;
 
-                <input type="text" id="buscarInput" onkeyup="buscarPersonas()" placeholder="Buscar por nombre o apellido...">
+                    $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
+                    $stmt = $pdo->query($sql);
+                    while ($row = $stmt->fetch()) {
+                        echo "<li><span class='nombre'><a href='ver_personas.php?persona=" . $row['PersonaID'] . "'> " . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] . "</a></span> </li>";
+                    }
+                    ?>
+                </ul>
             </div>
-            <div class="contenedor">
-                <div class="lista-contenedor">
-                    <ul id="listaPersonas">
+        </div>
+
+        <div class="contenedor">
+            <div class="contenedor-hijo">
+                <h2>Próximos Aniversarios</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+
+                            <th>Aniversario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php
-                        require 'conexion.php';
-                        $conexion = new Conexion();
-                        $pdo = $conexion->pdo;
-                        $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
-                        $stmt = $pdo->query($sql);
-                        while ($row = $stmt->fetch()) {
-                            echo "<li><span class='nombre'><a href='ver_personas.php?persona=" . $row['PersonaID'] . "'> " . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] . "</a></span> </li>";
-                            //echo "<label>Padre: <a href='ver_personas.php?persona=".$row['PadreID']."'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></label>";
+                        // Consulta SQL para lista de proximos aniversarios 
+                        $sql = " SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno, 
+            DATE_FORMAT(Fecha_de_Nacimiento, '%d-%m') 
+            AS Dia_Mes_Aniversario, TIMESTAMPDIFF(YEAR, Fecha_de_Nacimiento, CURDATE()) + 1 
+            AS Edad_Proxima 
+            FROM Personas 
+            WHERE DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
+                OR DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') < DATE_FORMAT(NOW(), '%m-%d') 
+            ORDER BY 
+                CASE 
+                    WHEN DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') >= DATE_FORMAT(NOW(), '%m-%d') 
+                        THEN DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') 
+                    ELSE '9999-12-31' END ASC,
+            DATE_FORMAT(Fecha_de_Nacimiento, '%m-%d') LIMIT 5; ";
+
+                        $stmtcumpleaños = $pdo->query($sql);
+                        // mostrar cumpleaños
+
+                        while ($row = $stmtcumpleaños->fetch()) {
+                            echo "<tr>
+                     
+                         <td><a href='ver_personas.php?persona=" . $row['PersonaID'] . "'> " . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] . "</a></td>
+   
+                         <td>" . $row["Dia_Mes_Aniversario"] . "</td>
+                         </tr>";
                         }
                         ?>
-                    </ul>
-                </div>
+
+
+                </table>
             </div>
-        </body>
+        </div>
 
-        <!-- <form action="ver_personas.php" method="GET">
-            <label for="persona"></label>
-            <select class="desplegable" name="persona" id="persona">
-                <option value="">Seleccionar</option>
-                <?php
-                require 'conexion.php';
-                $conexion = new Conexion();
-                $pdo = $conexion->pdo;
-                $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre";
-                $stmt = $pdo->query($sql);
-                while ($row = $stmt->fetch()) {
-                    echo "<option value='" . $row["PersonaID"] . "'>" . $row["Nombre"] . " " . $row["Apellido_Paterno"] . " " . $row["Apellido_Materno"] . "</option>";
-                }
-                ?>
-            </select>
-            <input class="desplegable" type="submit" value="Ver Persona">
-            
-        </form>
-        
-        <button class="desplegable" onclick="location.href='crear_persona.php'">Crear Personas</button> -->
-    </div>
+        <a href=https://pacodelgnas.synology.me:5001/vs/sharing/IG8l4ZmF> Ver videos familiares</a><br>
+        <a href=https://www.myheritage.es/site-family-tree-814452191/delgado-ricomallo-bajon>Ver Arbol my heritage</a>
 </body>
-</div>
-</body>
-<script>
-    const CACHE_NAME = 'mi-pwa-cache-v1';
-    const urlsToCache = [
-        '/',
-        '/index.php',
-        '/styles.css',
-
-    ];
-
-    self.addEventListener('install', event => {
-        event.waitUntil(
-            caches.open(CACHE_NAME)
-            .then(cache => {
-                return cache.addAll(urlsToCache);
-            })
-        );
-    });
-
-    self.addEventListener('fetch', event => {
-        event.respondWith(
-            caches.match(event.request)
-            .then(response => {
-                if (response) {
-                    return response; // La respuesta está en la caché
-                }
-                return fetch(event.request); // La respuesta no está en la caché
-            })
-        );
-    });
-</script>
+<br>
+<h1>
 
 </html>

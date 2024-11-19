@@ -120,17 +120,17 @@
     <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>   
+                <a href="index.php"><img src="public/images/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>   
             </li>
  
             <li class="menu-item">
-                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/ver arbol-02.png" title= "Ver en Arbol" alt="Icono 3"></a>
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="public/images/ver arbol-02.png" title= "Ver en Arbol" alt="Icono 3"></a>
             
             </li>
             <li class="menu-item">
-                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/editar persona-02.png" title="editar esta persona" alt="Icono 3"></a>
+                <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="public/images/editar persona-02.png" title="editar esta persona" alt="Icono 3"></a>
             <li class="menu-item" onclick="toggleMenu()">   
-                    <img src="Genealorico/fotos/añadir persona-02.png">
+                    <img src="public/images/añadir persona-02.png">
                         <div id="dropdown-menu" class="dropdown-menu" >
                             <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Hermano/a</a>
                             <a href="crear_padre.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&CP=1;">Crear Padre</a>
@@ -140,7 +140,7 @@
                         </div>
             </li>
             <li class="menu-item">
-                <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/eliminar-02.png" title="Borrar Persona" alt="Borrar"><div class="hover-text">Borrar</div></a>   
+                <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="public/images/eliminar-02.png" title="Borrar Persona" alt="Borrar"><div class="hover-text">Borrar</div></a>   
             </li>
         </ul>
     </nav>
@@ -149,7 +149,7 @@
 
 // si no hay foto asignamos una en función de su género 
     if ($row) {
-        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'Genealorico/fotos/hombre.jpg' : 'Genealorico/fotos/mujer.jpg');
+        $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'public/images/hombre.jpg' : 'public/images/mujer.jpg');
 
 ?>
     

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
-    <title>Detalles de la Persona</title>
+    <title>Crear Madre</title>
     <style>
         body {
             width: 100%;
@@ -91,19 +91,19 @@ $stmt->bind_param("i", $personaID);
 $stmt->execute();
 $result = $stmt->get_result();
 $persona = $result->fetch_assoc();
-// Ya tenemos el apellido paterno y la Madre que será el conyuge 1 en $persona[Apellido Paterno] y $persona[MadreID]
+// Ya tenemos el apellido materno y el Padre que será el conyuge 1 en $persona[Apellido Materno] y $persona[MadreID]
 ?>
 <body>
-<h1>Crear Padre</h1>
+<h1>Crear Madre</h1>
     <!-- Cabecera de la pagina -->
     <hr>
  <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="Genealorico/fotos/home-02.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                <a href="index.php"><img src="public/images/home-02.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
             </li>
          <li class="menu-item">
-                <a href="ver_personas.php?persona=<?php echo $persona['PersonaID']; ?>"><img src="Genealorico/fotos/volver-02.png" title="Volver" alt="Ver Persona"></a>
+                <a href="ver_personas.php?persona=<?php echo $persona['PersonaID']; ?>"><img src="public/images/volver-02.png" title="Volver" alt="Ver Persona"></a>
             </li> 
         </ul>
 </nav>
@@ -112,7 +112,7 @@ $persona = $result->fetch_assoc();
 <div class="contenedor">
     <form action="upload.php" method="post" enctype="multipart/form-data">
         Nombre: <input type="text"  name="Nombre" required><br>
-        Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $persona['Apellido_Paterno']; ?>" required><br>
+        Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $persona['Apellido_Materno']; ?>" required><br>
         Apellido Materno: <input type="text" name="Apellido_Materno" > <br>
         Fecha de Nacimiento: <input type="date" value= "0999-01-01" name="Fecha_de_Nacimiento"><br>
         Lugar de Nacimiento: <input type="text" name="Lugar_de_Nacimiento"><br>
@@ -123,8 +123,9 @@ $persona = $result->fetch_assoc();
         <input id="file-upload" class="custom-file-upload" type="file" name="Foto" /><br>
         Género: 
         <select name="Genero" required>
-            <option value="M">Masculino</option>
             <option value="F">Femenino</option>
+            <option value="M">Masculino</option>
+            
         </select><br>
         Vive o vivió en: <input type="text" name="Habita_en"><br>
         Padre: 
@@ -152,16 +153,16 @@ $persona = $result->fetch_assoc();
             ?>
         </select>
         <br>
-        <!-- Aqui cogemos la madre de la persona si la hay y la convertimos en el conyuge del padre -->
+        <!-- Aqui cogemos el padre de la persona si la hay y la convertimos en el conyuge de la madre -->
         Conyuge1: 
         <select name="Conyuge1">
             <?php
-            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M' ORDER BY Nombre";
             $stmt = $pdo->query($sql);
-            if ($persona['MadreID']) {
+            if ($persona['PadreID']) {
                 $sqlconyuge1 = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
                 $stmtconyuge1 = $pdo->prepare($sqlconyuge1);
-                $stmtconyuge1->execute([$persona['MadreID']]);
+                $stmtconyuge1->execute([$persona['PadreID']]);
                 $conyuge1 = $stmtconyuge1->fetch();
                 echo "" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "";
                 echo "<option value='" . $conyuge1['PersonaID'] ."'selected>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</option>";
@@ -192,9 +193,10 @@ $persona = $result->fetch_assoc();
             ?>
         </select><br>
         2do Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
-        <input type="text"  name="HijoID" value="<?php echo $persona['PersonaID']; ?>" hidden><br>
-        <input type="text"  name="Origen" value="CP" hidden><br>
         
+        <input type="text"  name="HijoID" value="<?php echo $persona['PersonaID']; ?>" hidden><br>
+        <input type="text"  name="Origen" value="CM" hidden><br>
+   
         <input class="botong" type="submit"  value="Cargar a GenealoRico" height="100px"  >
     </form>
 

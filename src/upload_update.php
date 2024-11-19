@@ -52,9 +52,6 @@ label {
             .contenedor {
                 width: 90%;
             }
-            .img {
-                max-width: 
-            }
         }
       
        
@@ -65,13 +62,13 @@ label {
           <nav class="menu">
             <ul class="menu-list">
                 <li class="menu-item">
-                    <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                    <a href="index.php"><img src="public/images/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
                 </li>
                 <li class="menu-item">
-                    <a href="crear_persona.php"><img src="Genealorico/fotos/añadir persona-02.png" title="Crear Persona" alt="Icono 2"></a>
+                    <a href="crear_persona.php"><img src="public/images/añadir persona-02.png" title="Crear Persona" alt="Icono 2"></a>
                 </li>
                 <li class="menu-item">
-                    <a href="ver_personas.php?persona=<?php echo $_POST['PersonaID']; ?>"><img src="Genealorico/fotos/volver-02.png" title="Volver" alt="Ver Persona"></a>
+                    <a href="ver_personas.php?persona=<?php echo $_POST['PersonaID']; ?>"><img src="public/images/volver-02.png" title="Volver" alt="Ver Persona"></a>
                 </li>
             </ul>
             </nav>
