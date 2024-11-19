@@ -7,11 +7,13 @@
     <title>Detalles de la Persona</title>
     <style>
         body {
+            width: 100%;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
+            margin: 0 auto;
             padding: 0;
             text-align: center;
+            font-size: 35px;
         }
 
         h1,
@@ -25,7 +27,7 @@
             background: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 400px;
+            max-width: 700px;
         }
 
         .contenedorlista {
@@ -34,7 +36,7 @@
             background: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 400px;
+            max-width: 700px;
             font: bold;
         }
 
@@ -57,8 +59,6 @@
             display: inline;
             margin-right: 10px;
         }
-
-        /* styles.css */
 
         .menu-icon {
             font-size: 30px;
@@ -83,16 +83,17 @@
             padding: 12px 16px;
             text-decoration: none;
             display: block;
+            font-size: 35px;
         }
 
         .dropdown-menu a:hover {
             background-color: #f1f1f1;
         }
 
-
-
-
-
+        .img {
+            width: 50px;
+            height: 50px;
+        }
 
         @media screen and (max-width: 768px) {
             .contenedor {
@@ -105,126 +106,113 @@
         }
     </style>
 </head>
+<script src="script.js">
+</script>
 
 <body>
 
     <?php
-    require './conexion.php';
     require './clean-photo-url.php';
-
-
-
+    // Recibimos persona de otras paginas
     if (isset($_GET['persona'])) {
         $personaID = $_GET['persona'];
+        require 'conexion.php';
         $conexion = new Conexion();
         $pdo = $conexion->pdo;
-
+        // Sacamos todos los campos de la base de datos para esa persona al array $row
 
         $sql = "SELECT * FROM Personas WHERE PersonaID = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$personaID]);
         $row = $stmt->fetch();
-
-        if ($row) {
-            $foto = $row['Foto'] ? cleanPhotoUrl($row['Foto'], $pdo, $row['PersonaID']) : ($row['Genero'] == 'M' ? 'public/images/hombre.jpg' : 'public/images/mujer.jpg');
     ?>
-            <h1>Visor de Personas </h1>
+        <!-- Titulo y menú de Iconos -->
+        <h1>Visor de Personas </h1>
+        <hr>
+        <nav class="menu">
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="index.php"><img src="public/images/home-02.png" title="Pagina Principal" alt="Icono 1">
+                        <div class="hover-text">Ir a Inicio</div>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="public/images/ver arbol-02.png" title="Ver en Arbol" alt="Icono 3"></a>
+
+                </li>
+                <li class="menu-item">
+                    <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="public/images/editar persona-02.png" title="editar esta persona" alt="Icono 3"></a>
+                <li class="menu-item" onclick="toggleMenu()">
+                    <img src="public/images/añadir persona-02.png">
+                    <div id="dropdown-menu" class="dropdown-menu">
+                        <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Hermano/a</a>
+                        <a href="crear_padre.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&CP=1;">Crear Padre</a>
+                        <a href="crear_madre.php?persona=<?php echo $personaID; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>&CM=1;">Crear Madre</a>
+                        <!-- <a href="crear_hijo.php?persona=<?php echo $personaID; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>&conyuge1=<?php echo $row['Conyuge1']; ?>">Crear Hijo/a</a> -->
+                        <a href="crear_conyuge.php?persona=<?php echo $personaID; ?>">Crear Conyuge</a>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="public/images/eliminar-02.png" title="Borrar Persona" alt="Borrar">
+                        <div class="hover-text">Borrar</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <?php
+
+        // si no hay foto asignamos una en función de su género 
+        if ($row) {
+            $foto = $row['Foto'] ? $row['Foto'] : ($row['Genero'] == 'M' ? 'public/images/hombre.jpg' : 'public/images/mujer.jpg');
+
+        ?>
+
+            <!--// Presentamos a la persona-->
             <hr>
-            <nav class="menu">
-                <ul class="menu-list">
-                    <li class="menu-item">
-                        <a href="index.php"><img src="public/images/Home.png" title="Pagina Principal" alt="Icono 1">
-                            <div class="hover-text">Ir a Inicio</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-item">
-                        <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="public/images/Ver Arbol.png" title="Ver en Arbol" alt="Icono 3"></a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="editar_person.php?persona=<?php echo $personaID; ?>"><img src="public/images/Editar Persona.png" title="editar esta persona" alt="Icono 3"></a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="borrar.php?persona=<?php echo $personaID; ?>"><img src="public/images/papelera.jpg" title="Borrar Persona" alt="Borrar">
-                            <div class="hover-text">Borrar</div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-
-            <!-- <ul>
-            
-                <li><a href="index.php">Página de Inicio</a></li>   
-                <li><a href="create.php">Crear nuevas personas</a></li>
-                <li><a href="ver_arbol.php?persona=<?php echo $personaID; ?>">Ver Arbol</a></li>
-                <li><a href="editar_persona.php?persona=<?php echo $personaID; ?>">Editar Persona</a></li>  
-            
-     </ul> -->
-            <hr>
-            <nav class="menu">
-                <ul class="menu-list">
-
-                    <li class="menu-item">
-                        <div class="menu-icon" onclick="toggleMenu()">
-                            &#9776; <!-- Este es el icono de menú en forma de tres líneas horizontales -->
-                        </div>
-                        <div id="dropdown-menu" class="dropdown-menu">
-                            <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">Crear Hermano/a</a>
-                            <a href="#">Crear Padre/Madre</a>
-                            <a href="#">Crear Hijo/a</a>
-                        </div>
-                    </li>
-                    <li class="menu-item">
-                        <a href="crear_persona.php"><img src="public/images/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="crear_hermano.php?persona=<?php echo $personaID; ?>&padre=<?php echo $row['PadreID']; ?>&madre=<?php echo $row['MadreID']; ?>&apellido_paterno=<?php echo $row['Apellido_Paterno']; ?>&apellido_materno=<?php echo $row['Apellido_Materno']; ?>">
-                            <img src="public/images/crear hermanos.png" title="Crear hermano/a" alt="Agregar Hermano">
-                        </a>
-                    </li>
-
-                </ul>
-            </nav>
-
-            <script src="script.js">
-            </script>
-
-            <hr>
-            <div class="contenedor">
-                <img id="foto" width="200px" src="<?php echo "/public/images/", $foto; ?>" alt="Foto de la persona">
+            <div class="contenedorlista">
+                <img id="foto" width="300px" src="<?php echo "/public/images/", $foto; ?>" alt="Foto de la persona">
+                <!--  <a href=visor_de_videos.php>Ver videos</a><br>
+       <a href=https://192.168.1.137:444/videos/Boda%20Alba.mp4>Boda</a> -->
             </div>
             <div class="contenedorlista">
                 <?php
-                // echo "<p>Foto: " . $row['Foto'] . "</p>";
+
                 echo "<label>Nombre: " . $row['Nombre'] . " " . $row['Apellido_Paterno'] . " " . $row['Apellido_Materno'] . "</label>";
-                // echo "<p>Apellido Paterno: " . $row['Apellido_Paterno'] . "</p>";
-                // echo "<p>Apellido Materno: " . $row['Apellido_Materno'] . "</p>";
+
                 if ($row['Fecha_de_Nacimiento']) {
                     echo "<br><label>Fecha de Nacimiento: " . $row['Fecha_de_Nacimiento'] . "</label>";
                 }
                 if ($row['Fecha_de_Defunción']) {
                     echo "<br><label>Fecha de Defunción: " . $row['Fecha_de_Defunción'] . "</label>";
                 }
+                if ($row['Habita_en']) {
+                    echo "<br><label>Vive o vivió en " . $row['Habita_en'] . "</label>";
+                }
                 ?>
             </div>
-    <?php
-            // Mostrar Padres
-            echo "<h2>Padres</h2>";
-            if ($row['PadreID']) {
-                $sqlPadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-                $stmtPadre = $pdo->prepare($sqlPadre);
-                $stmtPadre->execute([$row['PadreID']]);
-                $padre = $stmtPadre->fetch();
-                echo "<label>Padre: <a href='ver_personas.php?persona=" . $row['PadreID'] . "'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a></label>";
-            }
-            if ($row['MadreID']) {
-                $sqlMadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-                $stmtMadre = $pdo->prepare($sqlMadre);
-                $stmtMadre->execute([$row['MadreID']]);
-                $madre = $stmtMadre->fetch();
-                echo "<p>Madre: <a href='ver_personas.php?persona=" . $row['MadreID'] . "'>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</a></p>";
-            }
+            <div class="contenedorlista">
+                <?php
+                // Mostrar Padres
+                echo "<h2>Padres</h2>";
+                if ($row['PadreID']) {
+                    $sqlPadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                    $stmtPadre = $pdo->prepare($sqlPadre);
+                    $stmtPadre->execute([$row['PadreID']]);
+                    $padre = $stmtPadre->fetch();
+                    echo "<a href='ver_personas.php?persona=" . $row['PadreID'] . "'>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</a><br>";
+                }
+                if ($row['MadreID']) {
+                    $sqlMadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                    $stmtMadre = $pdo->prepare($sqlMadre);
+                    $stmtMadre->execute([$row['MadreID']]);
+                    $madre = $stmtMadre->fetch();
+                    echo "<a href='ver_personas.php?persona=" . $row['MadreID'] . "'>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</a><br>";
+                }
+                ?>
 
+        <?php
             // Mostrar Hijos
             echo "<h2>Hijos</h2>";
             $sqlHijos = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PadreID = ? OR MadreID = ?";
@@ -236,9 +224,17 @@
 
             // Mostrar Hermanos
             echo "<h2>Hermanos</h2>";
-            $sqlHermanos = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE (PadreID = ? OR MadreID = ?) AND PersonaID != ? AND (PadreID != 0 AND MadreID !=0)";
+            $sqlHermanos = "SELECT P2.PersonaID, P2.Nombre, P2.Apellido_Paterno, P2.Apellido_Materno
+            FROM Personas P1
+            JOIN Personas P2 ON (
+                (P1.PadreID = P2.PadreID AND P1.PadreID > 0)
+                OR 
+                (P1.MadreID = P2.MadreID AND P1.MadreID > 0)
+            )
+            WHERE P1.PersonaID = ?
+              AND P1.PersonaID <> P2.PersonaID";
             $stmtHermanos = $pdo->prepare($sqlHermanos);
-            $stmtHermanos->execute([$row['PadreID'], $row['MadreID'], $personaID]);
+            $stmtHermanos->execute([$personaID]);
             while ($hermano = $stmtHermanos->fetch()) {
                 echo "<p> <a href='ver_personas.php?persona=" . $hermano['PersonaID'] . "'>" . $hermano['Nombre'] . " " . $hermano['Apellido_Paterno'] . " " . $hermano['Apellido_Materno'] . "</a></p>";
             }
@@ -250,25 +246,24 @@
                 $stmtConyuge1 = $pdo->prepare($sqlConyuge1);
                 $stmtConyuge1->execute([$row['Conyuge1']]);
                 $conyuge1 = $stmtConyuge1->fetch();
-                echo "<p>Conyuge 1: <a href='ver_personas.php?persona=" . $row['Conyuge1'] . "'>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a></p>";
+                echo "<a href='ver_personas.php?persona=" . $row['Conyuge1'] . "'>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</a>";
             }
             if ($row['Conyuge2']) {
                 $sqlConyuge2 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
                 $stmtConyuge2 = $pdo->prepare($sqlConyuge2);
                 $stmtConyuge2->execute([$row['Conyuge2']]);
                 $conyuge2 = $stmtConyuge2->fetch();
-                echo "<p>Conyuge 2: <a href='ver_personas.php?persona=" . $row['Conyuge1'] . "'>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a></p>";
+                echo "<a href='ver_personas.php?persona=" . $row['Conyuge1'] . "'>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</a>";
             }
         } else {
             echo "No se encontraron datos.";
         }
-    } else {
-        echo "No se ha seleccionado ninguna persona.";
     }
-    ?>
-    <!-- <div class="contenedor">
-    <a class="link" href="editar_person.php?persona=<?php echo $personaID; ?>">Editar Persona</a> -->
-    </div>
+
+        ?>
+            </div>
+
+
 </body>
 
 </html>
