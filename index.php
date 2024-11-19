@@ -184,8 +184,8 @@
     </div>
 </div>
 
+<a href=https://pacodelgnas.synology.me:5001/vs/sharing/IG8l4ZmF> Ver videos familiares</a><br>
 <a href=https://www.myheritage.es/site-family-tree-814452191/delgado-ricomallo-bajon>Ver Arbol my heritage</a>
-
 </body>
 <br><h1>
 </html>

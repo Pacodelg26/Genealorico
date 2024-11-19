@@ -155,8 +155,10 @@
     
 <!--// Presentamos a la persona-->
 <hr> 
-    <div class="contenedor">
+    <div class="contenedorlista">
         <img id="foto" width="300px" src="<?php echo "/", $foto; ?>"alt="Foto de la persona"  >
+       <!--  <a href=visor_de_videos.php>Ver videos</a><br>
+       <a href=https://192.168.1.137:444/videos/Boda%20Alba.mp4>Boda</a> -->
     </div>
     <div class="contenedorlista">
         <?php
