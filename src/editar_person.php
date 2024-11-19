@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>GenealoRico - Visor-Editor</title>
+    <title>Editar Persona</title>
     <link rel="stylesheet" href="styles.css?v=<?php echo time(); ?>">
         <style>
         body {
@@ -12,13 +12,14 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            font-size: 20px;
         }
         h1, h2 {
             color: #333;
         }
         .contenedor {
-            margin: 20px auto;
-            padding: 20px;
+            margin: 10px auto;
+            padding: 5px;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -26,7 +27,8 @@
         }
         .img {
             width: 100%;
-            max-width: 300px;
+            max-width: 200px;
+            display: flex;
         }
         .desplegable, .desplegable2 {
             padding: 10px;
@@ -44,17 +46,28 @@
         }
         form {
             margin-bottom: 20px;
+            max-width: 700px;
+            text-align: initial;
         }
         label {
             display: block;
             margin-bottom: 10px;
             font-weight: bold;
+             font-size: 30px;
+
         }
         .labelp {
             display: block;
-            margin-bottom: 10px;
-           
-          
+            margin-bottom: 10px;  
+            font-size: 30px;
+            font-weight: bold;
+             text-align: initial;
+        }
+
+        .botong {
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
         }
         select, input[type="text"] {
             width: calc(50% - 30px);
@@ -62,8 +75,27 @@
             margin-bottom: 10px;
             border-radius: 4px;
             border: 1px solid #ddd;
+            font-size: 35px;
+        }    
+        select, input[type="file"] {
+            width: calc(90% - 30px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 25px;
+        }    
+            select, input[type="date"] {
+           
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 20px;    
             
-            
+        }
+        select {
+            max-width: 400px;
         }
 
         @media screen and (max-width: 668px) {
@@ -102,8 +134,6 @@
      die("Conexión fallida: " . $conn->connect_error);
  }
 
-// Obtener el PersonaID de la URL
-//$personaID = $_GET['persona'];
 
 // Consulta para obtener los datos de la persona
 $sql = "SELECT * FROM Personas WHERE PersonaID = ?";
@@ -119,13 +149,13 @@ $persona = $result->fetch_assoc();
  <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="public/images/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>                
+                <a href="index.php"><img src="Genealorico/fotos/home-02.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>                
             </li>
             <li class="menu-item">
-                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="public/images/Ver Arbol.png" alt="Icono 3"></a>
+                <a href="ver_arbol.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/ver arbol-02.png" alt="Icono 3"></a>
             </li>
             <li class="menu-item">
-                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="public/images/Volver.png" alt="Icono 3"></a>
+                <a href="ver_personas.php?persona=<?php echo $personaID; ?>"><img src="Genealorico/fotos/volver-02.png" alt="Icono 3"></a>
             </li>
         </ul>
         </nav>
@@ -133,171 +163,186 @@ $persona = $result->fetch_assoc();
 
 <div class="contenedor">
     <form action="upload_update.php" method="post" enctype="multipart/form-data">
-        ID: <input type="text"  name="PersonaID" value="<?php echo $persona['PersonaID']; ?>" required><br>
-        Nombre: <input type="text"  name="Nombre" value="<?php echo $persona['Nombre']; ?>" required><br>
-        Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $persona['Apellido_Paterno']; ?>" required><br>
-        Apellido Materno: <input type="text" name="Apellido_Materno" value="<?php echo $persona['Apellido_Materno']; ?>"><br>
+        <input type="text"  name="PersonaID" value="<?php echo $persona['PersonaID']; ?>" required hidden ><br> 
+        <label> Nombre: <input type="text"  name="Nombre" value="<?php echo $persona['Nombre']; ?>" required></label>
+        <label>Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $persona['Apellido_Paterno']; ?>" required></label>
+        <label>Apellido Materno: <input type="text" name="Apellido_Materno" value="<?php echo $persona['Apellido_Materno']; ?>"></label>
         <?php
             if (empty($persona['Fecha_de_Nacimiento'])) {
                 $persona['Fecha_de_Nacimiento'] = "0999-01-01";
             }
         ?>   
-        Fecha de Nacimiento: <input type="date" value="<?php echo $persona['Fecha_de_Nacimiento']; ?>" name="Fecha_de_Nacimiento"><br>
-        Lugar de Nacimiento: <input type="text" name="Lugar_de_Nacimiento" value="<?php echo $persona['Lugar_de_Nacimiento']; ?>"><br>
+        <label>Fecha de Nacimiento: <input type="date" value="<?php echo $persona['Fecha_de_Nacimiento']; ?>" name="Fecha_de_Nacimiento"></label>
+        <label>Lugar de Nacimiento: <input type="text" name="Lugar_de_Nacimiento" value="<?php echo $persona['Lugar_de_Nacimiento']; ?>"></label>
            <?php
             if (empty($persona['Fecha_de_Defunción'])) {
                 $persona['Fecha_de_Defunción'] = "0999-01-01";
             }
         ?>       
-        Fecha de Defunción: <input type="date" value="<?php echo $persona['Fecha_de_Defunción']; ?>" name="Fecha_de_Defunción"><br>
-        Lugar de Defunción: <input type="text" name="Lugar_de_Defunción" value="<?php echo $persona['Lugar_de_Defunción']; ?>"><br>
+        <label>Fecha de Defunción: <input type="date" value="<?php echo $persona['Fecha_de_Defunción']; ?>" name="Fecha_de_Defunción"></label>
+        <label>Lugar de Defunción: <input type="text" name="Lugar_de_Defunción" value="<?php echo $persona['Lugar_de_Defunción']; ?>"></label>
          <?php       if (!empty($persona['Foto'])) {
             $persona['Foto'] = $persona['Foto'];
         }
+
         ?>
-        Foto <input type="text" name="Foto" value="<?php echo $persona['Foto']; ?>"><br>
-        <div class="contenedor">
+        <label>Vive o Vivió en: <input type="text" name="Habita_en" value="<?php echo $persona['Habita_en']; ?>"></label>
+        <label>
+         Foto:
+        </label>
+         <input type="text" name="Foto" value="<?php echo $persona['Foto']; ?>"><br> 
+        <div class="contenedor"> 
                 <img id="foto" width="200px" src="<?php echo $persona['Foto']; ?>" >
         </div>
-        Cargar otra foto: <input type="file" name="Foto"><br> 
-        Género (F ó M): <input type="text" name="Genero" value="<?php echo $persona['Genero']; ?>"><br>
+        <label>Cargar otra nueva foto: <input type="file" name="Foto"></label>
+        <label>Género (F ó M): <input type="text" name="Genero" value="<?php echo $persona['Genero']; ?>"></label>
+
         <?php
-       
-
-
-?>
-
-
-
-        
-    <!-- Edición del Padre    -->    
-        <p for="padre" class="labelp">Padre:</p>
-   
-   <?php
              if ($persona['PadreID']) {
                $sqlpadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
                $stmtpadre = $pdo->prepare($sqlpadre);
                $stmtpadre->execute([$persona['PadreID']]);
                $padre = $stmtpadre->fetch();
-               echo "" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "";
+               $padreID = $persona['PadreID'];
+               //echo "" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "";
              }
-   ?> 
-   <br>
-                <label for="padre" class="labelp" >o Selecciona Padre:</label>    
-                <select name="padre" id="padre"> 
-                
-             <option value="<?php echo $persona['PadreID']?>">Seleccionar</option> 
-               <option value="0" >No se conoce</option> 
-   <?php
-   
-            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M' ORDER BY Nombre";
-            $result = $conn->query($sql);
-            while($row = $result->fetch_assoc()) {
-                echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
+             if ($persona['MadreID']) {
+                $sqlmadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                $stmtmadre = $pdo->prepare($sqlmadre);
+                $stmtmadre->execute([$persona['MadreID']]);
+                $madre = $stmtmadre->fetch();
+                $madreID = $persona['MadreID'];
+                //echo "" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "";
+             }
+             if ($persona['Conyuge1']) {
+                $sqlconyuge1 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                $stmtconyuge1 = $pdo->prepare($sqlconyuge1);
+                $stmtconyuge1->execute([$persona['Conyuge1']]);
+                $conyuge1 = $stmtconyuge1->fetch();
+                $conyuge1ID = $persona['Conyuge1'];
+
             }
-   
-   ?>
-   <!-- Edición de la Madre    -->
-    </select><br> 
-        <label for="madre">Madre:</label>
-   
-   <?php
-       if ($persona['MadreID']) {
-           $sqlmadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-           $stmtmadre = $pdo->prepare($sqlmadre);
-           $stmtmadre->execute([$persona['MadreID']]);
-           $madre = $stmtmadre->fetch();
-           echo "" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "";
-       }
+            if ($persona['Conyuge2']) {
+                echo "pepe";
+                $sqlconyuge2 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
+                $stmtconyuge2 = $pdo->prepare($sqlconyuge2);
+                $stmtconyuge2->execute([$persona['Conyuge2']]);
+                $conyuge2 = $stmtconyuge2->fetch();
+                $conyuge2ID = $persona['Conyuge2'];
+                echo "$conyuge2ID";
+                echo "" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "";
+              }
 
-   ?>
+        ?> 
    <br>
-            <label for="madre">o Selecciona Madre:</label>    
-             <select name="madre" id="madre">  
-                
-             <option value="<?php echo $persona['MadreID']?>">Seleccionar</option>
-            <option value="0" >No se conoce</option> 
-<?php        
-       $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
-       $result = $conn->query($sql);
-       while($row = $result->fetch_assoc()) {
-       echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
-   }
-?> 
-<!-- Edición del conyuge1    -->
-    </select><br>       
-    <label for="conyuge1">Conyuge1:</label>
+        
+       <!-- Edición del Padre    -->   
+<label for="PadreID" class="labelp">Padre:
+    <select name="PadreID">
+        <?php
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='M' ORDER BY Nombre";
+            $stmt = $pdo->query($sql);
+            if ($persona['PadreID']) {
+                echo "<option value='$padreID'selected>" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "</option>";
+                while($row = $stmt->fetch()) {
+                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+                }
+            } else {
+            echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
+            while($row = $stmt->fetch()) {
+                echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+            }
+        }
+            ?>
+
+    </select><br>
+</label>
+
+   <!-- Edición de la Madre    -->
    
-   <?php
-       if ($persona['Conyuge1']) {
-           $sqlConyuge1 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-           $stmtConyuge1 = $pdo->prepare($sqlConyuge1);
-           $stmtConyuge1->execute([$persona['Conyuge1']]);
-           $Conyuge1 = $stmtConyuge1->fetch();
-           echo "" . $Conyuge1['Nombre'] . " " . $Conyuge1['Apellido_Paterno'] . " " . $Conyuge1['Apellido_Materno'] . "";
-       }
+<label for="MadreID"class="labelp">Madre: 
+    <select name="MadreID">
+        <?php
+            $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE Genero='F' ORDER BY Nombre";
+            $stmt = $pdo->query($sql);
+            if ($persona['MadreID']) {
+                echo "<option value='$madreID'selected>" . $madre['Nombre'] . " " . $madre['Apellido_Paterno'] . " " . $madre['Apellido_Materno'] . "</option>";
+                while($row = $stmt->fetch()) {
+                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+                }
+            } else {
+            echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
+            while($row = $stmt->fetch()) {
+                echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+            }
+            }
+        ?> 
+    </select>
+</label>
+ 
 
-   ?>
-<br>
-            <label for="Conyuge1">o Selecciona de la lista:</label>    
-   <select name="Conyuge1" id="Conyuge1"> 
-    
-   <option value="<?php echo $persona['Conyuge1']?>">Seleccionar</option> 
-   <option value="0" >No se conoce</option>  
-<?php        
-       $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre ";
-       $result = $conn->query($sql);
-       while($row = $result->fetch_assoc()) {
-       echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
-   }
-?>    
 
-        </select><br>
+<!-- Edición del conyuge1    -->
+      
+<label for="Conyuge1" class="labelp">Conyuge1:       
+    <select name="Conyuge1" id="Conyuge1"> 
+        <?php
+            $sqlc1 = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas  ORDER BY Nombre";
+            $stmtc1 = $pdo->query($sqlc1);
+            if ($conyuge1ID) {    
+                echo "<option value='$conyuge1ID'selected>" . $conyuge1['Nombre'] . " " . $conyuge1['Apellido_Paterno'] . " " . $conyuge1['Apellido_Materno'] . "</option>";
+                while($row = $stmtc1->fetch()) {
+                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+                }
+            } else {
+                echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
+                while($row = $stmtc1->fetch()) {
+                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+                }
+            }    
+          
+        ?> 
+     </select>       
+ </label>
+
         <?php
             if (empty($persona['Fecha_Boda_1'])) {
                 $persona['Fecha_Boda_1'] = "0999-01-01";
             }
         ?>  
-        Fecha de 1er Matrimonio: <input type="date" value="<?php echo $persona['Fecha_Boda_1']; ?>" name="Fecha_Boda_1"><br>
-        Vive o vivió en: <input type="text" name="Habita_en" value="<?php echo $persona['Habita_en']; ?>">
+        <label>Fecha de 1er Matrimonio:</label> <input type="date" value="<?php echo $persona['Fecha_Boda_1']; ?>" name="Fecha_Boda_1"><br>
+        <label>Lugar de residencia principal:</label> <input type="text" name="Habita_en" value="<?php echo $persona['Habita_en']; ?>">
  <!-- Edición del conyuge2    -->
- </select><br>       
-    <label for="conyuge2">Conyuge2:</label>
-   
-   <?php
-       if ($persona['Conyuge2']) {
-           $sqlConyuge2 = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-           $stmtConyuge2 = $pdo->prepare($sqlConyuge2);
-           $stmtConyuge2->execute([$persona['Conyuge2']]);
-           $Conyuge2 = $stmtConyuge2->fetch();
-           echo "" . $Conyuge2['Nombre'] . " " . $Conyuge2['Apellido_Paterno'] . " " . $Conyuge2['Apellido_Materno'] . "";
-       }
-
-   ?>
-<br>
-            <label for="Conyuge2">o Selecciona de la lista:</label>    
-            <select name="Conyuge2" id="Conyuge2">
-            <option value="<?php echo $persona['Conyuge2']?>">Seleccionar</option>
-            <option value="0" >No se conoce</option>    
-<?php        
        
-    $sql = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas ORDER BY Nombre ";
-       $result = $conn->query($sql);
-       while($row = $result->fetch_assoc()) {
-       echo "<option value='".$row["PersonaID"]."'>".$row["Nombre"]." ".$row["Apellido_Paterno"]." ".$row["Apellido_Materno"]."</option>";
-    
-}
-?>    
-
- </select><br>
+<label for="Conyuge2" class="labelp">Conyuge2:       
+    <select name="Conyuge2" id="Conyuge2"> 
+        <?php
+            $sqlc2 = "SELECT PersonaID, Nombre, Apellido_Paterno, Apellido_Materno FROM Personas  ORDER BY Nombre";
+            $stmtc2 = $pdo->query($sqlc2);
+            if ($persona['Conyuge2']) {    
+                echo "<option value='$conyuge2ID'selected>" . $conyuge2['Nombre'] . " " . $conyuge2['Apellido_Paterno'] . " " . $conyuge2['Apellido_Materno'] . "</option>";
+                while($row = $stmtc2->fetch()) {
+                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+                }
+            } else {
+                echo "<option value='0' selected>Seleccione una persona</option>"; // Opción por defecto
+                while($row = $stmtc2->fetch()) {
+                    echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
+                }
+            }    
+          
+        ?>       
+    </select>
+</label>
         <?php
             if (empty($persona['Fecha_Boda_2'])) {
                 $persona['Fecha_Boda_2'] = "0999-01-01";
             }
         ?> 
-        Fecha de 2do Matrimonio: <input type="date" value="<?php echo $persona['Fecha_Boda_2']; ?>" name="Fecha_Boda_2"><br>
-     
-        <input type="submit" value="Actualizar Datos de la Persona">
+        <label>Fecha de 2do Matrimonio: <input type="date" value="<?php echo $persona['Fecha_Boda_2']; ?>" name="Fecha_Boda_2"><br>
+
+       
+        <input type="submit" class="botong" value="Actualizar Datos de la Persona">
     </form>
 </div>
 </body>

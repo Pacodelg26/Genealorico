@@ -11,10 +11,27 @@
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            text-align: center;
+            font-size: 35px;
         }
         h1, h2 {
             color: #333;
+        }
+        input {
+            width: 295px;
+            height: 40px;
+            font-size: 30px;
+            margin: 5px;
+            border-radius: 4px;
+        }
+        input .imputsubmit {
+               width: 400px;
+            height: 50px;
+        }
+        select {
+            width: 400px;
+            height: 40px;
+            font-size: 30px;
+            margin: 5px;
         }
         .contenedor {
             margin: 20px auto;
@@ -22,7 +39,7 @@
             background: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 400px;
+            max-width: 800px;
         }
         .contenedorlista {
             margin: 20px auto;
@@ -30,7 +47,7 @@
             background: #fff;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 400px;
+            max-width: 800px;
         }
         .img {
             width: 100%;
@@ -44,6 +61,43 @@
         a:hover {
             text-decoration: underline;
         }
+        .botong {
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        select, input[type="text"] {
+            width: calc(50% - 30px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 30px;
+        } 
+        input[type="submit"] {
+            width: calc(60% - 30px);
+          
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 30px;
+        } 
+        select, input[type="file"] {
+            width: calc(90% - 30px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 25px;
+        }    
+            select, input[type="date"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 20px;    
+            
+        }  
         ul {
             list-style: none;
             padding: 0;
@@ -52,6 +106,22 @@
             display: inline;
             margin-right: 10px;
         }
+        form {
+            margin-bottom: 20px;
+            max-width: 700px;
+            text-align: initial;
+        }
+    .custom-file-upload { 
+        font-size: 30px; /* Tamaño de la fuente */ 
+        margin: 3px;
+        color: #000; /* Color del texto */ 
+        background-color: #e6e6e6; /* Color de fondo */ 
+        padding: 10px 20px; /* Relleno */ 
+        height: 40px;
+        border-radius: 5px; /* Esquinas redondeadas */ 
+    } .custom-file-upload:hover { 
+        background-color: #bbb; /* Color de fondo en hover */ 
+    }
         @media screen and (max-width: 768px) {
             .contenedor {
                 width: 90%;
@@ -65,23 +135,23 @@
 <?php
 
 // Recuperar datos pasados por URL si existen
-if (isset($_GET['persona'])) {
-$persona = isset($_GET['persona']) ? $_GET['persona'] : '';
-echo "$persona";
-$padreID = isset($_GET['padre']) ? $_GET['padre'] : '';
-echo "$padreID";
-$madreID = isset($_GET['madre']) ? $_GET['madre'] : '';
-$apellido_paterno = isset($_GET['apellido_paterno']) ? $_GET['apellido_paterno'] : '';
-$apellido_materno = isset($_GET['apellido_materno']) ? $_GET['apellido_materno'] : '';
-require 'conexion.php';
-$conexion = new Conexion();
-$pdo = $conexion->pdo;
-}else {
-    $apellido_paterno = "";
-    $apellido_materno = "";
-    $padreID ="";
-    $madreID ="";
-}
+// if (isset($_GET['persona'])) {
+// $persona = isset($_GET['persona']) ? $_GET['persona'] : '';
+// echo "$persona";
+// $padreID = isset($_GET['padre']) ? $_GET['padre'] : '';
+// echo "$padreID";
+// $madreID = isset($_GET['madre']) ? $_GET['madre'] : '';
+// $apellido_paterno = isset($_GET['apellido_paterno']) ? $_GET['apellido_paterno'] : '';
+// $apellido_materno = isset($_GET['apellido_materno']) ? $_GET['apellido_materno'] : '';
+// require 'conexion.php';
+// $conexion = new Conexion();
+// $pdo = $conexion->pdo;
+// }else {
+//     $apellido_paterno = "";
+//     $apellido_materno = "";
+//     $padreID ="";
+//     $madreID ="";
+// }
 
 
 
@@ -93,7 +163,7 @@ $pdo = $conexion->pdo;
  <nav class="menu">
         <ul class="menu-list">
             <li class="menu-item">
-                <a href="index.php"><img src="public/images/Home.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+                <a href="index.php"><img src="Genealorico/fotos/home-02.png" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
             </li>
       </ul>
 </nav>
@@ -104,29 +174,23 @@ $pdo = $conexion->pdo;
 
     <form action="upload.php" method="post" enctype="multipart/form-data">
         Nombre: <input type="text"  name="Nombre" required><br>
-        Apellido Paterno: <input type="text" name="Apellido_Paterno" value="<?php echo $apellido_paterno; ?>" required><br>
-        Apellido Materno: <input type="text" name="Apellido_Materno" value="<?php echo $apellido_materno; ?>" > <br>
+        Apellido Paterno: <input type="text" name="Apellido_Paterno"  required><br>
+        Apellido Materno: <input type="text" name="Apellido_Materno"  > <br>
         Fecha de Nacimiento: <input type="date" value= "0999-01-01" name="Fecha_de_Nacimiento"><br>
         Lugar de Nacimiento: <input type="text" name="Lugar_de_Nacimiento"><br>
         Fecha de Defunción: <input type="date" value= "0999-01-01" name="Fecha_de_Defunción"><br>
         Lugar de Defunción: <input type="text" name="Lugar_de_Defunción"><br>
-        Foto: <input type="file" name="Foto"><br>
+      
+        <label for="file-upload" >Carga una foto</label> 
+        <input id="file-upload" class="custom-file-upload" type="file" name="Foto" value="" /><br>
         Género: 
         <select name="Genero" required>
             <option value="M">Masculino</option>
             <option value="F">Femenino</option>
         </select><br>
-      
-   <?php
-             if ($padreID) {
-               $sqlpadre = "SELECT Nombre, Apellido_Paterno, Apellido_Materno FROM Personas WHERE PersonaID = ?";
-               $stmtpadre = $pdo->prepare($sqlpadre);
-               $stmtpadre->execute([$padreID]);
-               $padre = $stmtpadre->fetch();
-               echo "" . $padre['Nombre'] . " " . $padre['Apellido_Paterno'] . " " . $padre['Apellido_Materno'] . "";
-             }
-   ?> 
-   <br>
+        Vive o vivió en: <input type="text" name="Habita_en"><br>
+
+
         
          <?php
              require 'conexion.php';
@@ -150,9 +214,9 @@ $pdo = $conexion->pdo;
                 echo "<option value='".$row['PersonaID']."'>".$row['Nombre']." ".$row['Apellido_Paterno']." ".$row['Apellido_Materno']."</option>";
             }
             ?>
-        </select><br>
+        </select>
 
-        </select><br>
+        <br>
         Madre: 
         <select name="MadreID">
             <?php
@@ -177,7 +241,7 @@ $pdo = $conexion->pdo;
             }
             ?>
         </select><br>
-        Fecha de 1er Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_1"><br>
+        1er Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_1"><br>
         Conyuge2: 
         <select name="Conyuge2">
             <?php
@@ -190,8 +254,10 @@ $pdo = $conexion->pdo;
             }
             ?>
         </select><br>
-        Fecha de 2do Matrimonio: <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
-        <input type="submit" value="Crear">
+        2do Matrimonio:
+        <input type="date" value= "0999-01-01" name="Fecha_Boda_2"><br>
+        <input  type="text" value= "CPER" name="Origen" hidden>
+        <input class="botong" type="submit"  value="Cargar a GenealoRico" height="100px"  >
     </form>
 </div>
 </body>

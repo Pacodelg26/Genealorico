@@ -1,18 +1,26 @@
 /* styles.css */
 body {
+    
     font-family: Arial, sans-serif;
-    margin: 25px;
+    margin: 0 auto;
     align-items: center;
     align-content: center;
     align-self: center;
+    background-color: #f4f4f4;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    font-size: 35px;
 }
 
 h1, h2 {
     color: #333;
     text-align: center;
     text-size-adjust: auto;
+    font-size: 3rem;
 
 }
+
 
 .menu {
     background: #fff;
@@ -32,10 +40,14 @@ h1, h2 {
     margin: 0 25px;
   
 }
-
+.menu-item img {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.3s ease;   
+}
 .menu-item a img {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     transition: transform 0.3s ease;
 }
 
@@ -55,7 +67,7 @@ p {
     text-size-adjust: 150%;   
 }
 a {
-    font-size: 30px;
+    font-size: 45px;
     text-align: center;
     text-size-adjust: 100%; 
     display: inline-block;
@@ -70,15 +82,17 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-weight: bold;
 }
 table {
-    width: 30%;
+    width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    align-items: center;
 }
 
 table, th, td {
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
 }
 .link {
     text-size-adjust: 300%;   
@@ -113,6 +127,28 @@ li {
     justify-content: center;
   
 }
+.contenedor-hijo { 
+    flex: 1; /* Los hijos ocuparán el mismo ancho */ 
+    margin: 10px; /* Espacio entre los contenedores */ 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    background-color: #f0f0f0; 
+    text-align: center; /* Alinea el texto al centro */
+    font-size: 30px;
+
+}   
+.contenedor-hijo h2 { 
+    flex: 1; /* Los hijos ocuparán el mismo ancho */ 
+    margin: 10px; /* Espacio entre los contenedores */ 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    background-color: #f0f0f0; 
+    text-align: center; /* Alinea el texto al centro */
+    font-size: 35px;
+
+}  
 .contenedorlista {
     position:relative;
     width: 100%;
@@ -135,6 +171,7 @@ img {
     align-items: normal;
     text-align: center;
     object-fit: cover;
+    border-radius: 15px;
 }
 .foto {
     display: block;

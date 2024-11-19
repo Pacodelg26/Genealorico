@@ -10,13 +10,20 @@
 
  
         body {
+            width: 85%;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
+            margin: 0 auto;
+            padding: 0;
             text-align: center;
-       
+            font-size: 18px;
         } 
-
-
+        label {
+            font-size: 30px;
+        }
+            button {
+              font-size: 25px;  
+            }
 
         .contenedor {
             margin: 20px auto;
@@ -24,7 +31,7 @@
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            max-width: 600px;
+            max-width: 700px;
         }
         input[type="text"] {
             width: calc(100% - 20px);
@@ -52,8 +59,33 @@
       
        
   </style>
+ <script> function delayAction() { 
+    setTimeout(function() {
+         // Mostrar un mensaje 
+         document.getElementById('message').innerText = 'Persona Borrada'; 
+         // Redirigir a la página PHP después de un intervalo 
+         setTimeout(function() { window.location.href = 'index.php'; }, 3000); 
+         // Retraso de 5 segundos 
+         }, 3000); 
+         // Retraso inicial de 5 segundos 
+         } 
+</script> 
 <body>
+<h1>Borrar una Persona</h1>
+    <hr>
+      <nav class="menu">
+        <ul class="menu-list">
+            <li class="menu-item">
+                <a href="index.php"><img src="Genealorico/fotos/home-02.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
+            </li>
+            <li class="menu-item">
+                <a href="crear_persona.php"><img src="Genealorico/fotos/añadir persona-02.png" title="Crear Persona" alt="Icono 2"></a>
+            </li>
 
+        </ul>
+        </nav>
+
+     <hr>    
 <?php
 // Conexión a la base de datos
 $servername = "localhost";
@@ -75,16 +107,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $respuesta_correcta = "Rico";
 
     if ($respuesta_seguridad === $respuesta_correcta) {
+        $sqlUpdate = "UPDATE Personas SET PadreID = NULL WHERE PadreID = ?"; 
+        $stmtUpdate = $conn->prepare($sqlUpdate); 
+        $stmtUpdate->bind_param("i", $persona_id); 
+        $stmtUpdate->execute(); 
+        
+        $sqlUpdate2 = "UPDATE Personas SET MadreID = NULL WHERE MadreID = ?"; 
+        $stmtUpdate2 = $conn->prepare($sqlUpdate2); 
+        $stmtUpdate2->bind_param("i", $persona_id); 
+        $stmtUpdate2->execute();
+
+        $sqlUpdate3 = "UPDATE Personas SET Conyuge1 = NULL WHERE Conyuge1 = ?"; 
+        $stmtUpdate3 = $conn->prepare($sqlUpdate3); 
+        $stmtUpdate3->bind_param("i", $persona_id); 
+        $stmtUpdate3->execute();
+
+        $sqlUpdate4 = "UPDATE Personas SET Conyuge2 = NULL WHERE Conyuge2 = ?"; 
+        $stmtUpdate4 = $conn->prepare($sqlUpdate4); 
+        $stmtUpdate4->bind_param("i", $persona_id); 
+        $stmtUpdate4->execute();
+
+
         $sql = "DELETE FROM Personas WHERE PersonaID = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $persona_id);
+        $stmt->execute();
 
-        if ($stmt->execute()) {
-            echo "Registro $persona_id borrado exitosamente.";
-        } else {
-            echo "Error al borrar el registro: " . $stmt->error;
-        }
-
+         if ($stmt->affected_rows > 0) { 
+            
+            ?>
+            <body onload="delayAction()"> <h1>Borrando</h1> <p id="message"></p>
+            <?php
+        } else { echo "No se encontró la persona con ID: $persona_id.";
+        }   
         $stmt->close();
     } else {
         echo "Respuesta de seguridad incorrecta.";
@@ -93,27 +148,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $persona_id = $_GET['persona'];
 }
 ?>
-<h1>Visor de Árbol Familiar</h1>
-    <hr>
-      <nav class="menu">
-        <ul class="menu-list">
-            <li class="menu-item">
-                <a href="index.php"><img src="public/images/Home.png" title="Pagina Principal" alt="Icono 1"><div class="hover-text">Ir a Inicio</div></a>
-            </li>
-            <li class="menu-item">
-                <a href="crear_persona.php"><img src="public/images/Crear Persona.png" title="Crear Persona" alt="Icono 2"></a>
-            </li>
 
-        </ul>
-        </nav>
-
-     <hr>    
 <div class="contenedor">
 <form method="POST" action="borrar.php">
     <input type="hidden" name="persona_id" value="<?php echo $persona_id; ?>">
-    <label> Vas a Borrar un registro de la base de datos </label><br>
-    <label> Si no estas seguro sal de esta pantalla </label><br>
-    <label> y si lo estás contesta a esta pregunta: </label><br>
+    <label> Vas a "Borrar para siempre" un registro </label><br>
+    <label>    de la base de datos </label><br>
+    <label> Si no estas seguro, sal de esta pantalla </label><br>
+    <label> y si lo estás, contesta a esta pregunta: </label><br>
     <label for="respuesta_seguridad">¿Cual es el segundo apellido de Paco?</label><br>
     <input type="text" id="respuesta_seguridad" name="respuesta_seguridad" required>
     <button type="submit">Borrar Persona</button>
